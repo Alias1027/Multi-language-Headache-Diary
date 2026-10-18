@@ -1,4 +1,5 @@
 import {viewReminders,saveReminders,runReminders} from './reminders.mjs';
+import {deploymentFromEnv,requestBoundary,sessionCookie} from './deployment.mjs';
 import {APP_VERSION} from '../public/release.mjs';
 import http from 'node:http';
 import {extractionProviderFromEnv} from './ai-providers.mjs';
@@ -16,21 +17,21 @@ import {prepareVoice,handleVoice,voiceProviderFromEnv,MAX_AUDIO_BYTES,checkVoice
 import {prepareCare,careContext,ensureDemoPair,viewCare,saveCare,loadCare} from './care.mjs';
 import {buildCareSummary} from './care-report.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
-export function createApp({directory=process.env.HD_DATA_DIR||path.join(root,'../data'),port=Number(process.env.PORT||8765),schedule=true,reminderSchedule=schedule,asrProvider=voiceProviderFromEnv(),extractionProvider=extractionProviderFromEnv()}={}) {
+export function createApp({directory=process.env.HD_DATA_DIR||path.join(root,'../data'),port=Number(process.env.PORT||8765),schedule=true,reminderSchedule=schedule,asrProvider=voiceProviderFromEnv(),extractionProvider=extractionProviderFromEnv(),deployment=deploymentFromEnv()}={}) {
   const store=new Store(directory), attempts=new Map();
   prepareVoice(store);prepareCare(store);
   const server=http.createServer(async(req,res)=>{
-    const host=req.headers.host,actualPort=server.address()?.port||port;
-    const origins=[`http://127.0.0.1:${actualPort}`,`http://localhost:${actualPort}`];
+    const actualPort=server.address()?.port||port;
     function json(status,body){res.writeHead(status,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});res.end(JSON.stringify(body));}
     res.setHeader('X-Content-Type-Options','nosniff');res.setHeader('Referrer-Policy','no-referrer');res.setHeader('X-Frame-Options','DENY');
     res.setHeader('Content-Security-Policy',"default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'");
     res.setHeader('Permissions-Policy','camera=(), microphone=(self), geolocation=()');
-    if(!origins.includes('http://'+host))return json(403,{error:'invalid_host'});
-    if(req.headers.origin&&!origins.includes(req.headers.origin))return json(403,{error:'invalid_origin'});
-    const url=new URL(req.url,'http://'+host),route=url.pathname;
+    const boundary=requestBoundary(req,actualPort,deployment);
+    if(boundary.error)return json(403,{error:boundary.error});
+    if(deployment.mode==='https-proxy')res.setHeader('Strict-Transport-Security','max-age=86400');
+    const url=new URL(req.url,boundary.origin),route=url.pathname;
     try{
-      if(route==='/api/health')return json(200,{ok:true,version:APP_VERSION,mode:'local-experimental'});
+      if(route==='/api/health')return json(200,{ok:true,version:APP_VERSION,mode:deployment.mode==='https-proxy'?'https-proxy-experimental':'local-experimental'});
       if(!route.startsWith('/api/')){
         if(req.method!=='GET'&&req.method!=='HEAD')return json(405,{error:'method_not_allowed'});
         const safe=decodeURIComponent(route==='/'?'/index.html':route);const file=path.resolve(root,'public','.'+safe);
@@ -47,9 +48,9 @@ export function createApp({directory=process.env.HD_DATA_DIR||path.join(root,'..
         if(Number(req.headers['content-length'])>limit)return json(413,{error:'body_too_large'});
         const chunks=[];let size=0;for await(const chunk of req){size+=chunk.length;if(size>limit)return json(413,{error:'body_too_large'});chunks.push(chunk);}if(isAudio)body=Buffer.concat(chunks);else try{body=JSON.parse(Buffer.concat(chunks).toString('utf8')||'{}');}catch{return json(400,{error:'invalid_json'});}
       }
-      function setSession(id){const s=store.session(id);res.setHeader('Set-Cookie',`hd_session=${s.token}; HttpOnly; SameSite=Strict; Path=/; Max-Age=43200`);return s;}
+      function setSession(id){const s=store.session(id);res.setHeader('Set-Cookie',sessionCookie(s.token,deployment));return s;}
       if(['/api/register','/api/login','/api/demo'].includes(route)&&req.method==='POST'){
-        const ip=req.socket.remoteAddress,entry=attempts.get(ip)||{n:0,reset:Date.now()+60000};if(entry.reset<Date.now()){entry.n=0;entry.reset=Date.now()+60000;}entry.n++;attempts.set(ip,entry);if(entry.n>20)return json(429,{error:'try_later'});
+        const ip=boundary.clientAddress,entry=attempts.get(ip)||{n:0,reset:Date.now()+60000};if(entry.reset<Date.now()){entry.n=0;entry.reset=Date.now()+60000;}entry.n++;attempts.set(ip,entry);if(entry.n>20)return json(429,{error:'try_later'});
         if(route==='/api/demo'){const id=store.createUser('synthetic-'+randomUUID()+'@example.invalid',randomUUID(),syntheticVault(),true);setSession(id);store.audit(id,'synthetic_demo_started');return json(200,{ok:true});}
         const email=String(body.email||'').trim().toLowerCase(),password=String(body.password||'');
         if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)||email.length>254||password.length<10||password.length>128)return json(400,{error:'invalid_credentials_format'});
@@ -74,7 +75,7 @@ export function createApp({directory=process.env.HD_DATA_DIR||path.join(root,'..
       if(route==='/api/reminders'&&req.method==='POST')return json(200,saveReminders(store,user,body));
       if(route==='/api/reminders/test'&&req.method==='POST'){if(!user.profile.reminders)throw new Error('invalid_reminder_settings');runReminders(store,user,{test:true});return json(200,viewReminders(user));}
       if(route==='/api/state'&&req.method==='GET')return json(200,{user:{id:actor.id,email:actor.profile.email,verified:actor.profile.verified,role:context.role,patientId:user.id},csrf:session.csrf,integrations:{externalAI:!!asrProvider.external||!!extractionProvider.external},vault:v,audit:store.audits(user.id)});
-      if(route==='/api/logout'&&req.method==='POST'){store.logout(token);res.setHeader('Set-Cookie','hd_session=; HttpOnly; SameSite=Strict; Path=/; Max-Age=0');return json(200,{ok:true});}
+      if(route==='/api/logout'&&req.method==='POST'){store.logout(token);res.setHeader('Set-Cookie',sessionCookie('',deployment,0));return json(200,{ok:true});}
       if(route==='/api/mailbox'&&req.method==='GET')return json(200,{mode:'mock',verification:user.profile.verified?null:user.profile.verification,expires:user.profile.verificationExpires,notifications:v.notifications});
       if(route==='/api/verify'&&req.method==='POST'){
         user.profile.verificationAttempts++;
@@ -133,5 +134,5 @@ export function createApp({directory=process.env.HD_DATA_DIR||path.join(root,'..
   timer?.unref();
   return {server,store,listen:()=>new Promise(resolve=>server.listen(port,'127.0.0.1',()=>resolve(server.address().port))),close:()=>new Promise(resolve=>{if(timer)clearInterval(timer);server.close(()=>{store.close();resolve();});})};
 }
-if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href){const app=createApp();app.listen().then(port=>console.log(`Headache Diary Lab ${APP_VERSION}\nLocal: http://127.0.0.1:${port}\nExperimental local service. Press Ctrl+C to stop.`));for(const sig of ['SIGINT','SIGTERM'])process.on(sig,async()=>{await app.close();process.exit(0);});}
+if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href){const deployment=deploymentFromEnv(),app=createApp({deployment});app.listen().then(port=>console.log(`Headache Diary Lab ${APP_VERSION}\n${deployment.mode==='https-proxy'?'HTTPS browser origin: '+deployment.publicOrigin+'\nLoopback proxy backend: 127.0.0.1:'+port:'Local: http://127.0.0.1:'+port}\nExperimental service. Press Ctrl+C to stop.`));for(const sig of ['SIGINT','SIGTERM'])process.on(sig,async()=>{await app.close();process.exit(0);});}
 

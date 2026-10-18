@@ -1,14 +1,33 @@
-# Validation record — 0.6.1
+# Validation record — 0.7.0
 
-Date: 2026-10-18. Local environment: Windows x64, Node.js 24.19.0. Synthetic data only. Application 0.6.1, statistical rules 0.1.0, glossary 0.2.0, schema 1.
+Date: 2026-10-18. Local environment: Windows x64, Node.js 24.19.0, headless Chrome. Synthetic data only. Application 0.7.0; statistical rules 0.1.0, glossary 0.2.0 and schema 1 are unchanged.
 
-## Current automated results
+## Current 0.7.0 results
 
-**137/137 automated tests passed** on Windows / Node.js 24.19.0 (122 prior tests + 15 care-history, snapshot and report-rendering regressions), with zero failures, skips or cancellations. Full output: [test-results.txt](test-results.txt).
+**169/169 automated tests passed**, with zero failures, skips or cancellations. Full output: [test-results.txt](test-results.txt). **125 browser checks passed**: 50 general UI, 21 patient/voice, 30 care/history/report and 24 offline/mobile/weak-network checks, with no page JavaScript errors. Existing clinical denominators, revisions, permissions, care history, voice review and publication boundaries remain covered.
 
-The suite covers clinical denominators and boundaries, missing/unknown answers, cross-midnight and overlapping events, civil dates/DST, medication days, response windows, revisions, atomic batch save, retries, role/ownership/CSRF checks, synthetic sharing, encrypted storage, voice provenance and mocked provider contracts.
+The offline browser suite verifies multiple dates and same-day amendments; encrypted recovery after a full browser restart; stable-ID replay after a lost acknowledgment; bounded hanging requests; session expiry and same-account reauthentication; account isolation; conflict retention; concurrent tabs; simulated quota exhaustion; retained unsubmitted drafts; and logout protection across tabs. It checks all 36 service-worker assets and clears the HTTP cache before reopening offline, so ordinary disk cache cannot mask missing offline resources. Eight languages were inspected at 390 CSS pixels, including Arabic/Urdu RTL; French and Urdu draft-recovery controls were also checked.
 
-Release regressions additionally cover exact source copying including dotfiles, exclusion of private parent data, rejection of sensitive source paths and symlinks, safe output boundaries, stale documentation and broken links, manifest tamper/extra/missing-file detection, HTTP delivery of all offline assets and service-worker cache boundaries. An uncached script now receives a 503 offline response instead of an HTML navigation fallback.
+The weak-network simulation retained a pending save after approximately 12.5 seconds. An already cached stylesheet returned in approximately 3 milliseconds despite a simulated 7-second server delay. These measurements describe this isolated test, not a universal device/network performance guarantee.
+
+The opt-in HTTPS-proxy tests validate origin/host/header contracts, secure cookies and client-IP rate limiting while keeping Node bound to loopback. A real public domain, TLS deployment and physical phone were not used. Email identity and all external reminder channels remain simulations; this does not certify an operational clinical service.
+
+Debugging reproduced and fixed: whole-page background refresh replacing unsaved forms; a shared cross-tab draft key losing another draft; sign-out clearing unsubmitted drafts; and a missing new module in the offline cache. The cache regression was exposed by both the source audit and the strengthened cold-restart browser test. Restricted-environment loopback failures were rerun with local-network access; they are not counted as passes.
+
+The local upgrade uses a verified consistent backup of both existing databases and encryption material, then compares every table and retained file after restart. Those private preservation records remain outside the public source package. Prepared source/portable ZIPs are independently checked; launcher/first-use and uploaded-asset results are recorded with the Release and local delivery evidence.
+
+**18/18 Windows launcher checks and 6/6 extracted-package first-use checks passed.** The launcher checks cover clean startup, repeated and concurrent startup, PID ownership, occupied-port rejection, safe stopping and restart preservation. First use checks the package manifest, patient record creation/revision, browser reload, report download and retained data after stopping/restarting. The test harness was corrected to bound its own launcher-process wait, verify the unrelated TCP listener with a real connection, and read the bundle version dynamically; these were harness corrections, with no product-launcher change.
+
+**中文：Windows启动器18/18项、解压包首次使用6/6项检查通过。** 检查包括全新启动、重复及并发启动、进程归属、端口占用保护、安全停止、重启保留，以及校验文件、患者记录与修订、浏览器重载、报告下载。测试脚本修正了等待后台子进程造成的卡住、端口断言兼容性及旧版本号写死问题；产品启动器未因此修改。这些仍是本机合成数据检查，不替代独立用户或真机测试。
+
+## Reproduce and interpret
+
+- `npm test` and `npm run check:release` cover core behavior and source boundaries.
+- Optional Playwright suites: `npm run test:browser`, `npm run test:patient-browser`, `npm run test:care-browser`, `npm run test:offline-browser`.
+- GitHub Actions runs core and release checks on Ubuntu and Windows, plus the offline browser suite on Ubuntu. Consult the [version's Release](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.7.0) and [Actions](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions) for the actual remote commit and result; local success does not imply hosted CI success.
+- True Android/iOS browser and installed-PWA acceptance, low-memory/storage eviction, multi-day real disconnection, background lifecycle, native-language comprehension, accessibility, security, live model/provider accuracy and clinical benefit remain unverified. See [the human checklist](OFFLINE_MOBILE.md) and [deployment boundary](MOBILE_DEPLOYMENT.md).
+
+中文：本轮169项核心测试、125项合成数据浏览器检查通过。浏览器冷启动前清除普通HTTP缓存，确认离线资源和记录可以恢复；修复多标签草稿、后台同步及退出保护问题。真实手机、持续多日实际断网、低内存/存储回收、公网HTTPS部署、母语审校、无障碍和临床效果仍需单独验证。下文0.6.1及更早结果为历史记录，不冒充本轮结果。
 
 ## Historical 0.5.1 packaged-source and browser smoke checks
 
@@ -98,3 +117,4 @@ The Release remains a pre-release. Its title, tag and assets were preserved when
 已核验公开仓库、v0.6.1实验预发布版、Ubuntu与Windows各137项自动测试及发布／打包检查，并重新下载三个附件核对SHA-256。此前101项浏览器检查仍属于本机合成验证。公开测试邀请已随Release提供，独立用户参与、母语审校、临床验证、安全审查及手机/PWA/小程序真机验收仍待完成；应用服务未因此部署公网。main文档为发布后状态同步，标签和冻结附件保持不变，包内较早的发布状态以当前在线说明为准。
 
 The Windows launcher harness passed 18 checks, including concurrent/repeated startup, Unicode/space paths, occupied-port rejection, PID ownership guards, legacy PID records without a port field, and preservation of SQLite table fingerprints and keys across stop/restart. The bundled Node.js v24.19.0 Windows x64 executable matches its official SHA-256 entry and has a valid OpenJS Foundation signature; this does not sign the project launch scripts.
+

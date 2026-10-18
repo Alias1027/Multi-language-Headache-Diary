@@ -1,4 +1,4 @@
-# Patient diary workflow / 患者日记工作流 — 0.6.1
+# Patient diary workflow / 患者日记工作流 — 0.7.0
 
 Updated: 2026-10-18. Experimental; synthetic demonstrations. No full chart or prescription execution.
 

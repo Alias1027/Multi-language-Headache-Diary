@@ -2,9 +2,9 @@
 
 **面向头痛记录与医患随访的八语言本地实验原型。**
 
-简体中文 · [完整英文说明 / Full English README](README.md) · **0.6.1 实验性预发布版** · Node.js 24 · [源码可见许可](LICENSE)
+简体中文 · [完整英文说明 / Full English README](README.md) · **0.7.0 实验性预发布版** · Node.js 24 · [源码可见许可](LICENSE)
 
-**2026-10-18 已发布：** [官方仓库](https://github.com/Alias1027/Multi-language-Headache-Diary--) · [v0.6.1 实验预发布版](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.6.1) · [发布标签自动测试结果](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/39118500923)。Ubuntu 与 Windows 各通过137项自动测试，以及发布检查、源码打包与解压核验。101项浏览器检查是此前本机合成数据证据，不属于远程 CI。
+**0.7.0 版本：** [官方仓库](https://github.com/Alias1027/Multi-language-Headache-Diary--) · [Release与下载](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.7.0) · [自动检查](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions)。当前版本结果见[验收记录](docs/VALIDATION.md)，历史0.6.1测试不等于本版验收。
 
 本项目将每日状态、头痛发作、实际用药及经人工核对的语音辅助输入整合为一个患者页面，生成保留漏填信息与记录覆盖率的随访摘要，并提供医生评估、模拟治疗方案及回访工作区。
 
@@ -18,13 +18,44 @@
 | 入口 | 当前可用 | 待部署、待验证 |
 | --- | --- | --- |
 | **Windows一键启动** | 完整便携交付包含运行环境，双击启动并打开浏览器；本机启动/停止流程已验证。 | 此入口属于单独准备的Windows便携包；GitHub纯源码包不含运行环境和根目录启动入口，需先配置Node.js 24。 |
-| **浏览器直接使用** | 电脑本机浏览器可用；手机可选择浏览器方式，无需下载手机APP或先安装PWA。 | **手机方式需先部署服务**：当前包仅允许电脑本机访问，需部署适配和手机可访问的HTTPS网址，之后完成真机验证。 |
+| **浏览器直接使用** | 电脑本机浏览器可用；手机可选择浏览器方式，无需下载手机APP或先安装PWA。 | **手机方式需先部署服务**：默认启动仍为电脑本机访问；本版新增可选HTTPS反向代理模式与配置示例，需维护者实际部署可访问的网址并完成真机验证。 |
 | **可选小程序入口** | 已提供微信、支付宝、抖音网页容器入口准备代码。 | 待服务部署、平台构建、准入审核、业务域名配置及真机扫码验证；尚无已上线小程序。 |
-| **可选PWA入口** | 已有应用清单（Manifest）、页面缓存和加密草稿基础。 | 各设备安装体验待验证，手机使用需先部署服务；安装后仍需后台服务，不等于完全离线应用，也不会自动启用真实推送。 |
+| **可选PWA入口** | 已有应用清单（Manifest）、缓存页面及首次初始化后的加密多日离线队列。 | 各设备安装体验待验证，手机使用需先部署服务；安装后仍需后台服务，不等于完全离线应用，也不会自动启用真实推送。 |
 
 使用步骤见[中文指南](docs/USER_GUIDE.zh.md#多入口使用亮点与当前范围)，小程序接入范围见[入口准备说明](miniapps/README.md)。便携交付中的“开始使用”页面提供设备指引。默认本机演示无需另装数据库或语音模型。
 
-## 0.6.1：历史反馈与可追溯摘要
+## 0.7.0：网络中断时仍可持续记录
+
+- **多日离线记录：** 首次在线登录并完成缓存后，可连续记录不同日期及修订当天内容。待同步内容在当前浏览器中加密保存并明确展示，不冒充已入库记录。
+- **可恢复同步：** 固定操作标识、顺序重试、账号核对、会话过期恢复及明确的冲突提示，防止重复提交与静默覆盖；必要时可导出待同步记录人工核对。
+- **弱网适应：** 缓存静态页面优先使用，请求有超时边界。生成或共享报告前需同步；语音服务、方案反馈等仍需连接服务。
+- **手机部署基础：** 新增限定网址的HTTPS反向代理模式和Secure Cookie，默认启动仍为本机模式。配置面向维护者控制的合成病例试点，不代表已上线临床服务。
+
+详见[离线与弱网使用](docs/OFFLINE_MOBILE.md)、[手机部署](docs/MOBILE_DEPLOYMENT.md)及[英文使用指南](docs/USER_GUIDE.en.md)。浏览器数据可能被清理或回收，支持时申请持久存储并另行导出；缺少Web Locks的旧浏览器不能安全写入新队列。八语言窄屏测试不代替真机、母语和患者理解验证。
+
+### 0.7.0八语言离线队列示例
+
+八张截图均使用相同的合成日记和390 CSS像素桌面浏览器视口，不是真机测试。见[截图来源](docs/screenshots/README.md)。
+
+| 中文 · 简体中文 | 英语 · English |
+| --- | --- |
+| [![0.7.0 中文 · 简体中文](docs/screenshots/offline-zh-070.jpg)](docs/screenshots/offline-zh-070.jpg) | [![0.7.0 英语 · English](docs/screenshots/offline-en-070.jpg)](docs/screenshots/offline-en-070.jpg) |
+
+| 西班牙语 · Español | 法语 · Français |
+| --- | --- |
+| [![0.7.0 西班牙语 · Español](docs/screenshots/offline-es-070.jpg)](docs/screenshots/offline-es-070.jpg) | [![0.7.0 法语 · Français](docs/screenshots/offline-fr-070.jpg)](docs/screenshots/offline-fr-070.jpg) |
+
+| 俄语 · Русский | 阿拉伯语 · العربية · RTL |
+| --- | --- |
+| [![0.7.0 俄语 · Русский](docs/screenshots/offline-ru-070.jpg)](docs/screenshots/offline-ru-070.jpg) | [![0.7.0 阿拉伯语 · العربية · RTL](docs/screenshots/offline-ar-070.jpg)](docs/screenshots/offline-ar-070.jpg) |
+
+| 印地语 · हिन्दी | 乌尔都语 · اردو · RTL |
+| --- | --- |
+| [![0.7.0 印地语 · हिन्दी](docs/screenshots/offline-hi-070.jpg)](docs/screenshots/offline-hi-070.jpg) | [![0.7.0 乌尔都语 · اردو · RTL](docs/screenshots/offline-ur-070.jpg)](docs/screenshots/offline-ur-070.jpg) |
+
+**0.7.0本机核验：** 169项核心测试、125项合成数据浏览器检查通过；真机、实际部署和患者理解测试仍需独立验证。[证据及复现](docs/VALIDATION.md)。
+
+## 既有0.6.1功能：历史反馈与可追溯摘要
 
 - **逐条查看历史反馈：** 按方案版本、来源和时间回看患者各次反馈，方案调整后仍保留此前内容。
 - **方案与反馈进入医生摘要：** 生成摘要时保存治疗方案、调整记录与患者主观变化的快照；既有报告保留生成时内容。建议和反馈不会自动成为实际服药记录。
@@ -55,7 +86,7 @@
 **让提醒配合患者的生活节奏，为持续记录提供支持。** 患者可自行设置每周提醒日、每日时间及时区、消息语言和内容，并在“设置 → 提醒”中随时调整或关闭。
 
 - **个性化且少打扰：** 免打扰时段、暂停日期、当天状态填写完整后跳过，以及每日去重，减少不必要的重复提示。
-- **提醒与临床共享分开：** 主动授权后启用，联系方式与提醒历史在本机加密保存，不进入医生摘要和临床共享数据。
+- **提醒与临床共享分开：** 主动授权后启用，联系方式与提醒历史由当前连接的日记服务加密保存，不进入医生摘要和临床共享数据。
 - **可演示、可扩展：** 可测试已保存的计划并查看提醒历史；网页内提示、邮件、短信、PWA、微信和支付宝均有模拟渠道，预留后续真实接入边界。
 
 **当前状态：所有渠道均为本机模拟，不向外发送。** 真实渠道仍需配置、账号绑定及相应授权。支持持续记录是设计目标，尚未验证对患者依从性或临床结局的改善。详见[提醒说明与接口](docs/REMINDERS.md)。
@@ -68,7 +99,7 @@
 - **连续患者记录页：** 每日状态、疼痛部位与性质、时间、伴随症状、疑似诱因、急性用药、预防治疗及活动影响；未填写的初始表单不自动生成记录。
 - **可复核的摘要：** 分别统计头痛日、发作次数与用药日，明确缺失、未知、跨午夜、记录修订与统计周期的处理规则。
 - **八语言界面与报告：** 中文、英语、西班牙语、法语、俄语、阿拉伯语、印地语、乌尔都语。印地语从左至右（LTR），阿拉伯语和乌尔都语从右至左（RTL）；切换界面不改写既有报告与原始备注。
-- **需人工确认的语音辅助：** 录音或上传音频，本地加密保留原件，将中英文文字整理为待核对字段。提供本机及可选云端适配接口，不附带模型或密钥。
+- **需人工确认的语音辅助：** 录音或上传音频，由当前连接的日记服务加密保留原件，将中英文文字整理为待核对字段。提供本机及可选云端适配接口，不附带模型或密钥。
 - **模拟随访流程：** 医生评估 → 模拟治疗方案 → 回访，支持确认、修订及患者反馈；建议方案不会自动变为实际用药记录。
 - **共享流程实验：** 独立授权、加密数据包、模拟接收端、回执、重复提交去重、重试与撤销后续共享；可导出 JSON 与有限的 FHIR R4 示例。
 - **离线草稿：** 首次成功访问后支持浏览器加密草稿及待同步队列。仅适用于可信本机环境，加密不能防护已解锁或被入侵的设备。
@@ -84,18 +115,11 @@
 
 页面顶部的语言选择器用于切换界面。未单独设置报告偏好或本次报告语言时，新报告跟随界面语言；已生成报告和原始自由文本保留各自的语言。
 
-## 获取0.6.1
+## 获取0.7.0
 
-两种干净 ZIP 及 [SHA-256 校验文件](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.6.1/SHA256SUMS.txt) 已在 [v0.6.1 预发布页面](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.6.1) 的 Assets 中提供。GitHub 自动生成的 Source code 压缩包与以下两个手工准备的 ZIP 不同。
+在[v0.7.0 Release](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.7.0)的Assets下载：[Windows x64便携包](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.7.0/headache-diary-windows-x64-0.7.0.zip)、[纯源码包](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.7.0/headache-diary-source-0.7.0.zip)、[SHA256SUMS.txt](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.7.0/SHA256SUMS.txt)。它们不同于GitHub自动生成的Source code压缩包。便携包包含Node.js 24和Start/Stop入口；源码使用者需自行配置Node.js 24。
 
-| 文件 | 适用对象 |
-| --- | --- |
-| [headache-diary-windows-x64-0.6.1.zip](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.6.1/headache-diary-windows-x64-0.6.1.zip) | Windows x64用户；包含运行环境、Start/Stop入口和“开始使用”，无需全局安装Node。 |
-| [headache-diary-source-0.6.1.zip](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.6.1/headache-diary-source-0.6.1.zip) | 开发者或自行配置环境的用户；需Node.js 24，不包含便携运行环境和启动入口。 |
-
-两种包均不含既有账号、记录、音频和密钥。将Windows包**全部解压**至有写入权限的新文件夹，双击 `Start.cmd`，选择“体验合成病例”；保存后用 `Stop.cmd` 结束。详见[下载与首次使用](docs/WINDOWS_PORTABLE.md)和[真人发布清单](docs/RELEASE_PARTICIPATION.md)。当前仅核验本机Windows流程；手机浏览器部署、PWA安装和小程序上线仍有上方列出的边界。
-
-本次为发布后的文档状态更新。v0.6.1 标签、已上传的两个 ZIP 及其校验值保持不变；压缩包内较旧的发布状态措辞以当前在线说明为准。
+请完整解压到可写的新文件夹。发布包不含既有账号、数据、密钥或音频。升级前备份完整data、导出浏览器待同步记录，保留原网址、data与密钥；不要用干净包覆盖数据。详见[首次使用与升级](docs/WINDOWS_PORTABLE.md)。原v0.6.1发布标签与附件保持不变。
 
 ## 欢迎参与体验测试
 
@@ -124,7 +148,7 @@ npm start
 4. 进入模拟医生工作台，查看评估、方案和回访，再返回患者视图。
 5. 在语音浮窗输入中英文文字，核对候选及原文依据后填入表单。自动转写需另行配置适配器。
 
-## 八语言界面示例
+## 保留的0.6.1八语言界面示例
 
 以下八张截图均于 **2026-10-18** 从 **0.6.1** 的独立合成病例中实际截取，展示相同的患者概览、统计周期（2026-09-01 至 2026-09-28）和浏览器视口。点击图片可查看原图。
 

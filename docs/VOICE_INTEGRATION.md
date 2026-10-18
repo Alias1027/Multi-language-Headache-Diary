@@ -1,4 +1,4 @@
-# Voice-assisted entry — 0.6.1
+# Voice-assisted entry — 0.7.0
 
 ## 控件说明
 

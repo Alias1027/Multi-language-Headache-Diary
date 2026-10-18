@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.7.0 — 2026-10-18
+
+- Patient diary: encrypted multi-day queue and same-day amendments; ordered idempotent replay, account/session recovery, explicit conflict handling and storage/export guidance.
+- Weak networks: cache-first static shell, finite request timeouts, no API caching or automatic write retries outside the diary queue.
+- Mobile: opt-in exact-origin HTTPS reverse-proxy mode with Secure cookies, documented deployment and physical-device boundaries; default remains local.
+- Eight-language offline messages; additional queue, network, security and browser regressions. No server clinical schema/rule change; existing data and0.6.1 assets preserved.
+
+
 ## 0.6.0 — 2026-10-17
 
 - Circular microphone launcher with an always-visible 18px labels in all eight languages above the microphone icon, with generous space for longer translations and script-specific line heights, a generous touch target and a persistent recording indicator; existing voice workflow preserved.

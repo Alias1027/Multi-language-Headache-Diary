@@ -1,4 +1,4 @@
-# Language support and review — 0.6.1
+# Language support and review — 0.7.0
 
 The application offers eight complete interface catalogs. This is a research preview, not evidence that the translations are clinically validated or cover all members of any ethnic group.
 
@@ -15,7 +15,7 @@ The application offers eight complete interface catalogs. This is a research pre
 
 ## What is consistent
 
-Each language has 626 keys in six namespaces: base (269), diary (54), workspace (150), assessment (31), voice (81), reminders (41). Native-language picker names, product names, medical abbreviations and units may intentionally use their conventional spelling. All 175 previously Chinese/English-only guidance keys now have Spanish/French/Russian/Arabic translations. Missing a key in a supported catalog fails the parity test; content is no longer silently replaced with English for those languages.
+Each language has 650 keys in six namespaces: base (293), diary (54), workspace (150), assessment (31), voice (81), reminders (41). Native-language picker names, product names, medical abbreviations and units may intentionally use their conventional spelling. All 175 previously Chinese/English-only guidance keys now have Spanish/French/Russian/Arabic translations. Missing a key in a supported catalog fails the parity test; content is no longer silently replaced with English for those languages.
 
 Patient fields, assessment and follow-up editors, shared settings and voice control explanations use these catalogs. New reports follow the selected interface unless an independent report language is requested. Existing report language and original clinical text are preserved. Stored clinical concept codes, quantities, dates and statistical rules are not translated. Glossary version is 0.2.0; statistical rules remain 0.1.0. Older report snapshots retain their metadata.
 
@@ -31,7 +31,7 @@ English + Hindi + Urdu are the initial formal interface choices for the intended
 
 ## Review materials and limits
 
-`INTERFACE_TRANSLATION_REVIEW.csv` lists all 626 keys with all eight translations and blank reviewer/status columns. `TRANSLATION_REVIEW.csv` retains the focused clinical concept checklist. Neither file signifies approval. Next review stages are independent native clinical review, patient comprehension tests, reconciliation of terminology, and task-based LTR/RTL usability testing.
+`INTERFACE_TRANSLATION_REVIEW.csv` lists all 650 keys with all eight translations and blank reviewer/status columns. `TRANSLATION_REVIEW.csv` retains the focused clinical concept checklist. Neither file signifies approval. Next review stages are independent native clinical review, patient comprehension tests, reconciliation of terminology, and task-based LTR/RTL usability testing.
 
 Automated checks verify matching keys, availability, concept distinctions, report-language settings, unchanged numbers and clinical data, offline catalog caching and retained speech-language limits. Browser checks are documented in VALIDATION.md. These do not establish clinical equivalence, usability for all literacy levels, speech accuracy or clinical benefit.
 
@@ -45,3 +45,8 @@ Automated checks verify matching keys, availability, concept distinctions, repor
 ## 0.6.1 care history and summary copy
 
 Two small eight-language catalogs (`care-history-i18n.mjs` and `care-report-ui.mjs`) add feedback-history, provenance, snapshot-scope and update notices. Rendering and browser checks cover all eight languages and RTL; original patient/clinician text is preserved, not machine-translated. Native linguistic and clinical review remains pending.
+
+
+## 0.7.0 offline messages
+
+Nineteen additional base strings cover pending records, re-authentication, conflicts, storage status and connection limits in all eight languages. Independent native review is still pending; parity tests check keys, not clinical or linguistic equivalence.

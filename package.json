@@ -1,6 +1,6 @@
 {
   "name": "headache-diary-lab",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "private": true,
   "type": "module",
   "license": "SEE LICENSE IN LICENSE",
@@ -14,7 +14,8 @@
     "check:release": "node scripts/release-check.mjs",
     "test:browser": "node scripts/browser-check.mjs",
     "test:patient-browser": "node scripts/patient-browser-check.mjs",
-    "test:care-browser": "node scripts/care-browser-check.mjs"
+    "test:care-browser": "node scripts/care-browser-check.mjs",
+    "test:offline-browser": "node scripts/offline-browser-check.mjs"
   },
   "author": "Junhui Liu M.D. <junhuiliu1025@gmail.com>"
 }

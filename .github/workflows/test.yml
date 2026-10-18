@@ -6,6 +6,7 @@ jobs:
   test:
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest]
     steps:
@@ -24,3 +25,18 @@ jobs:
           Expand-Archive -LiteralPath (Join-Path $env:RUNNER_TEMP "headache-release/headache-diary-source-$version.zip") -DestinationPath (Join-Path $env:RUNNER_TEMP 'headache-unpacked')
           node scripts/release-check.mjs (Join-Path $env:RUNNER_TEMP 'headache-unpacked/project')
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+  offline-browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install browser test tools only
+        run: npm install --no-save --package-lock=false playwright
+      - name: Install Chromium for synthetic browser checks
+        run: npx playwright install --with-deps chromium
+      - name: Verify multi-day offline diary and weak-network recovery
+        run: npm run test:offline-browser

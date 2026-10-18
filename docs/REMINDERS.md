@@ -1,6 +1,6 @@
 # Patient reminders / 患者提醒
 
-Version: **0.6.1 experimental pre-release**
+Version: **0.7.0 experimental pre-release**
 
 ## Feature highlight / 亮点功能
 
@@ -13,6 +13,8 @@ Version: **0.6.1 experimental pre-release**
 The Settings reminder panel supports eight UI languages, a message language independent of the UI, one chosen time on selected weekdays, an IANA time zone, custom text up to 240 UTF-16 code units, quiet hours, an inclusive pause-through date, and completed-day suppression. A blank message uses the selected language's neutral default. Disabling the schedule takes effect at the next scheduler tick. Tests explicitly bypass schedule, quiet hours, completion and pause settings.
 
 **All channels are local simulations.** Email, SMS, PWA/Web Push, WeChat and Alipay are selectable experimental channels, not connected providers. Phone/email fields do not verify ownership, bind platform accounts or grant subscription permission. No message is sent out of the local service. The in-page notice can display a newly simulated scheduled event while the logged-in page is open; it is not an OS notification.
+
+In an operator-hosted HTTPS pilot, these simulations run inside the connected diary service, not on the patient's phone. Settings changes and simulated reminder retrieval still need that service; the offline diary queue does not provide background mobile reminders or external delivery. / 在维护者部署的HTTPS试点中，模拟提醒运行在所连接的日记服务内，不是在患者手机本机。提醒设置和读取仍需连接服务；离线日记不自动提供手机后台提醒或外部投递。
 
 ## Timing and data rules
 

@@ -3,6 +3,7 @@ import {createEntryTemplate,isEmptyTemplate,entriesToSave} from './entry-templat
 import {assessmentText,renderAssessment,renderDayAssessment,checkAssessment,updateAssessment} from './episode-assessment.mjs';
 import {CODES,dateAt,boundary,addDays} from './domain.mjs';
 import {localVault} from './offline.mjs';
+import {createDraftStore} from './diary-drafts.mjs';
 
 export const diaryText=(lang,key)=>uiText(lang,'diary',key);
 export function checkPainQuality(root,message,focus=true){const groups=[...root.querySelectorAll('[data-quality-group]')];let first;for(const group of groups){if(group.closest('[data-template-empty="true"]'))continue;const missing=!group.querySelector('input[name=quality]:checked'),hint=group.querySelector('[data-quality-error]');hint.hidden=!missing;hint.textContent=missing?message:'';for(const input of group.querySelectorAll('input')){if(missing)input.setAttribute('aria-invalid','true');else input.removeAttribute('aria-invalid');}if(missing&&!first)first=group;}if(first&&focus){first.scrollIntoView({block:'center'});first.querySelector('input')?.focus({preventScroll:true});}return !first;}
@@ -11,9 +12,13 @@ const localTime=s=>{if(!s)return '';const d=new Date(s);return Number.isFinite(+
 const toISO=s=>s&&Number.isFinite(Date.parse(s))?new Date(s).toISOString():null;
 
 export function createDiaryWorkspace(){
-  let voiceOpen=false,voiceRecording=false,host,ctx,draft,loadedUser=null,writing=Promise.resolve(),saveTimer,saving=false,status='',legacy=[];
+  let voiceOpen=false,voiceRecording=false,host,ctx,draft,loadedUser=null,writing=Promise.resolve(),saveTimer,saving=false,status='',legacy=[],storedDrafts=[],releaseEditor=null;
+  const draftStore=createDraftStore({storage:localVault});
   const T=k=>assessmentText(ctx.lang,k)??diaryText(ctx.lang,k)??ctx.t(k),vault=()=>ctx.state().vault,today=()=>dateAt(Date.now(),vault().timezone);
-  const key=()=> 'unified-draft-'+ctx.state().user.id;
+  const uid=()=>ctx.state().user.id;
+  const pointer=()=> 'active-diary-draft-'+uid();
+  async function selectDraft(next){releaseEditor?.();releaseEditor=await draftStore.claim(uid(),next.operationId);if(!releaseEditor){next=structuredClone(next);next.operationId=crypto.randomUUID();releaseEditor=await draftStore.claim(uid(),next.operationId);}if(!releaseEditor)throw new Error('storageLockUnavailable');draft=next;sessionStorage.setItem(pointer(),draft.operationId);if(draft.changed)await draftStore.save(uid(),draft);storedDrafts=await draftStore.list(uid());}
+  async function removeDraft(){await draftStore.remove(uid(),draft.operationId);storedDrafts=await draftStore.list(uid());}
   const fresh=date=>({uid:ctx.state().user.id,date,day:structuredClone(vault().days.find(d=>d.date===date)||{id:'day-'+date,revision:0,date,headache:'unknown',acute:'unknown',migraine:'unknown',preventiveTaken:'',dailyImpact:''}),episodes:[],medications:[],preventives:[],voiceIds:[],voiceReviewed:false,changed:false,operationId:crypto.randomUUID()});
   const btn=(a,label,attrs='')=>`<button type="button" data-diary-action="${a}" ${attrs}>${esc(T(label))}</button>`;
   const field=(name,type,value='',opts='')=>`<label class="field">${esc(T(name))}<input name="${name}" type="${type}" value="${esc(value??'')}" ${opts}></label>`;
@@ -35,13 +40,13 @@ export function createDiaryWorkspace(){
     return `<fieldset class="diary-event" data-kind="${kind}" data-index="${i}" data-template-empty="${empty}">${top}${fields}</fieldset>`;
   }
   function render(){
-    if(!host?.isConnected)return;const d=draft.day,locked=ctx.pending();
+    if(!host?.isConnected)return;const d=draft.day,locked=false;
     if(!locked&&d.headache!=='yes')draft.episodes=draft.episodes.filter(r=>!isEmptyTemplate('episodes',r));
     if(!locked&&d.headache==='yes'&&!draft.episodes.length)draft.episodes.push(createEntryTemplate('episodes'));
     if(!locked&&d.acute!=='yes')draft.medications=draft.medications.filter(r=>!isEmptyTemplate('medications',r));
     if(!locked&&d.acute==='yes'&&!draft.medications.length)draft.medications.push(createEntryTemplate('medications'));
     if(!locked&&!draft.preventives.length)draft.preventives.push(createEntryTemplate('preventives'));
-    host.innerHTML=`<form id="unified-diary-form"><fieldset ${locked?'disabled':''}><section class="card unified-diary" id="unified-day"><div class="diary-heading"><div><span class="eyebrow">${esc(T('daily'))}</span><h2>${esc(T('statusTitle'))}</h2></div><label class="field diary-date">${esc(T('entryDate'))}<input name="diaryDate" type="date" min="${vault().enrolled}" max="${today()}" value="${draft.date}" required></label></div><p class="muted">${esc(T(draft.date===today()?'todayNote':'unknownNote'))}</p><fieldset data-kind="days"><div class="form-grid">${choice('headache',d.headache)}${choice('acute',d.acute)}</div><div class="daily-information"><div class="form-grid">${select('migraine',['unknown','yes','no'],d.migraine)}${chips('exposures',CODES.triggers,d.exposures)}${check('exposuresComplete',d.exposuresComplete)}${notes(d)}</div><p class="muted">${esc(T('noCause'))}</p></div></fieldset>
+    host.innerHTML=`${storedDrafts.some(d=>d.changed&&d.operationId!==draft.operationId)?`<details class="notice draft-recovery" open><summary>${esc(T('recoveredDrafts'))}</summary><p>${esc(T('draftRecoveryHint'))}</p>${storedDrafts.filter(d=>d.changed&&d.operationId!==draft.operationId).map(d=>`<div class="row"><div><bdi>${esc(d.date)}</bdi><div class="actions">${btn('recover-draft','recoverDraft',`data-operation="${esc(d.operationId)}"`)}${btn('discard-draft','discardDraft',`class="smallbutton" data-operation="${esc(d.operationId)}"`)}</div></div></div>`).join('')}</details>`:''}<form id="unified-diary-form"><fieldset ${locked?'disabled':''}><section class="card unified-diary" id="unified-day"><div class="diary-heading"><div><span class="eyebrow">${esc(T('daily'))}</span><h2>${esc(T('statusTitle'))}</h2></div><label class="field diary-date">${esc(T('entryDate'))}<input name="diaryDate" type="date" min="${vault().enrolled}" max="${today()}" value="${draft.date}" required></label></div><p class="muted">${esc(T(draft.date===today()?'todayNote':'unknownNote'))}</p><fieldset data-kind="days"><div class="form-grid">${choice('headache',d.headache)}${choice('acute',d.acute)}</div><div class="daily-information"><div class="form-grid">${select('migraine',['unknown','yes','no'],d.migraine)}${chips('exposures',CODES.triggers,d.exposures)}${check('exposuresComplete',d.exposuresComplete)}${notes(d)}</div><p class="muted">${esc(T('noCause'))}</p></div></fieldset>
 
       <section class="diary-section" id="unified-episodes"><p class="muted">${esc(T('inputTimezone'))} <bdi>${esc(Intl.DateTimeFormat().resolvedOptions().timeZone)}</bdi>${vault().timezone!==Intl.DateTimeFormat().resolvedOptions().timeZone?" · "+esc(vault().timezone):""}</p><div class="entry-heading"><h2>${esc(T('episodeTitle'))}</h2><span class="badge">${esc(T(d.headache))}</span></div>${d.headache==='yes'||draft.episodes.length||existing('episodes').length?`<p class="muted">${esc(T('ongoingHint'))}</p>${existingHTML('episodes')}${draft.episodes.map((r,i)=>eventHTML('episodes',r,i)).join('')}${btn('add','addEpisode','data-kind="episodes"')}`:`<p class="muted">${esc(T('detailsLater'))}</p>`}</section>
       <section class="diary-section" id="unified-medications"><div class="entry-heading"><h2>${esc(T('medicineTitle'))}</h2><span class="badge">${esc(T(d.acute))}</span></div>${d.acute==='yes'||draft.medications.length||existing('medications').length?`${existingHTML('medications')}${draft.medications.map((r,i)=>eventHTML('medications',r,i)).join('')}${btn('add','addMedicine','data-kind="medications"')}`:`<p class="muted">${esc(T('detailsLater'))}</p>`}<datalist id="unified-known-medicines">${[...new Set(vault().medications.map(m=>m.name))].map(n=>`<option value="${esc(n)}"></option>`).join('')}</datalist></section>
@@ -61,7 +66,7 @@ export function createDiaryWorkspace(){
   function capture(){
     if(!host?.querySelector('#unified-diary-form'))return;
     for(const fs of host.querySelectorAll('fieldset[data-kind]')){
-      const kind=fs.dataset.kind,r=kind==='days'?draft.day:draft[kind][Number(fs.dataset.index)],values={};
+      const kind=fs.dataset.kind,r=kind==='days'?draft.day:draft[kind][Number(fs.dataset.index)],values={};if(!r)continue;
       for(const el of fs.querySelectorAll('[name]')){if(el.type==='radio'){if(el.checked)values[el.name]=el.value;}else if(el.type==='checkbox'){if(['location','quality','symptoms','suspectedTriggers','exposures'].includes(el.name)){values[el.name]??=[];if(el.checked)values[el.name].push(el.value);}else values[el.name]=el.checked;}else values[el.name]=el.value;}
       for(const n of ['intensity','beforePain','dose','reportedDurationMinutes'])if(n in values)values[n]=values[n]===''?null:Number(values[n]);
       if(kind==='episodes'){values.start=toISO(values.start);values.end=toISO(values.end);values.originalTimezone=Intl.DateTimeFormat().resolvedOptions().timeZone;}
@@ -72,16 +77,16 @@ export function createDiaryWorkspace(){
     }
     draft.voiceReviewed=!!host.querySelector('[name="voiceReviewed"]')?.checked;
   }
-  async function persist(){clearTimeout(saveTimer);if(!draft)return;const snapshot=structuredClone(draft),name=key();writing=writing.catch(()=>{}).then(()=>localVault.put(name,snapshot));try{await writing;}catch(err){say(T('draftFailure'));throw err;}}
+  async function persist(){clearTimeout(saveTimer);if(!draft)return;const snapshot=structuredClone(draft),userId=uid();writing=writing.catch(()=>{}).then(()=>draftStore.save(userId,snapshot));try{await writing;}catch(err){say(T('offlineSaveFailed'));throw err;}}
   function mark(){draft.changed=true;clearTimeout(saveTimer);saveTimer=setTimeout(()=>persist().then(()=>say(T('draftKept'))).catch(()=>{}),200);}
   function input(ev){if(ev.target.closest('#voice-root')||ev.target.name==='diaryDate')return;updateAssessment(ev.target,T);capture();if(ev.target.name==='quality')checkPainQuality(ev.target.closest('[data-kind]'),T('invalid_episode_quality'),false);mark();}
   async function change(ev){
-    if(ev.target.closest('#voice-root'))return;
+    if(!host.contains(ev.target)||ev.target.closest('#voice-root'))return;
     if(ev.target.name==='diaryDate'){
       const date=ev.target.value;if(!ev.target.checkValidity()||!date){ev.target.value=draft.date;return;}
       capture();if(draft.changed&&!confirm(T('switchDate'))){ev.target.value=draft.date;return;}
       if(!ctx.canVoiceLeave()){ev.target.value=draft.date;return;}
-      clearTimeout(saveTimer);await writing.catch(()=>{});draft=fresh(date);status='';await persist();render();return;
+      clearTimeout(saveTimer);await writing.catch(()=>{});await removeDraft();await selectDraft(fresh(date));status='';render();await persist();return;
     }
     if(['headache','acute'].includes(ev.target.name)){capture();mark();await persist();if(ctx.canVoiceLeave())render();}
   }
@@ -93,7 +98,9 @@ export function createDiaryWorkspace(){
     try{
       if(a==='export'){ctx.download('diary-draft.json',draft);return;}
       if(!ctx.canVoiceLeave())return;
-      if(a==='clear'){if(!confirm(T('clearConfirm')))return;clearTimeout(saveTimer);await writing.catch(()=>{});draft=fresh(draft.date);await localVault.remove(key());status='';render();return;}
+      if(a==='clear'){if(!confirm(T('clearConfirm')))return;clearTimeout(saveTimer);await writing.catch(()=>{});await removeDraft();await selectDraft(fresh(draft.date));status='';render();return;}
+      if(a==='recover-draft'){if(draft.changed&&!confirm(T('switchDate')))return;const candidate=(await draftStore.list(uid())).find(d=>d.operationId===b.dataset.operation);if(!candidate)return;clearTimeout(saveTimer);await writing.catch(()=>{});await removeDraft();await selectDraft(candidate);status='';render();return;}
+      if(a==='discard-draft'){if(!confirm(T('clearConfirm')))return;const release=await draftStore.claim(uid(),b.dataset.operation);if(!release){say(T('draftRecoveryHint'));return;}try{await draftStore.remove(uid(),b.dataset.operation);}finally{release();}storedDrafts=await draftStore.list(uid());render();return;}
       if(a==='add'){
         const blank=draft[kind].findIndex(r=>isEmptyTemplate(kind,r));if(blank>=0){host.querySelector(`[data-kind="${kind}"][data-index="${blank}"] input`)?.focus();return;}
         if(['episodes','medications','preventives'].reduce((n,k)=>n+entriesToSave(k,draft[k]).length,0)>=30)return;
@@ -116,25 +123,25 @@ export function createDiaryWorkspace(){
     draft.voiceIds.push(note.id);draft.voiceReviewed=false;draft.changed=true;status=T('voiceAdded');await persist();render();host.querySelector('#unified-episodes')?.scrollIntoView({block:'start'});
   }
   async function submit(ev){
-    ev.preventDefault();ev.stopPropagation();if(saving||ctx.pending()||!ctx.canVoiceLeave())return;capture();
+    ev.preventDefault();ev.stopPropagation();if(saving||!ctx.canVoiceLeave())return;capture();
     if(!checkPainQuality(host,T('invalid_episode_quality'))){say(T('invalid_episode_quality'));await persist();return;}
     if(!checkAssessment(host,T)){say(T('completeRequired'));await persist();return;}
     if(draft.voiceIds.length&&!draft.voiceReviewed){say(T('voiceDateCheck'));host.querySelector('[name="voiceReviewed"]')?.focus();return;}
-    saving=true;const button=host.querySelector('[type="submit"]');button.disabled=true;say(T('saving'));
+    saving=true;const button=host.querySelector('[type="submit"]'),fields=host.querySelector('#unified-diary-form > fieldset');button.disabled=true;fields.disabled=true;say(T('saving'));
     try{
       await persist();const records=[{kind:'days',record:{...draft.day,date:draft.date}},...['episodes','medications','preventives'].flatMap(kind=>entriesToSave(kind,draft[kind]).map(record=>({kind,record})))];
       const result=await ctx.save({date:draft.date,records,operationId:draft.operationId});
       clearTimeout(saveTimer);await writing;
-      if(result.queued){draft.changed=false;draft.awaiting=true;await persist();}else{await localVault.remove(key());draft=fresh(draft.date);}
+      await removeDraft();await selectDraft(fresh(draft.date));
       status=T(result.queued?'offlineSaved':'savedAll');saving=false;ctx.onSaved();
-    }catch(err){say(T(err.message)===err.message?ctx.t('error'):T(err.message));saving=false;if(button.isConnected)button.disabled=false;}
+    }catch(err){say(T(err.message)===err.message?ctx.t('error'):T(err.message));saving=false;if(button.isConnected)button.disabled=false;if(fields.isConnected)fields.disabled=false;}
   }
   return {
     text:diaryText,
-    async mount(element,context){host=element;ctx=context;host.innerHTML=`<p>${esc(T('loading'))}</p>`;const uid=ctx.state().user.id;if(loadedUser!==uid||!draft){loadedUser=uid;draft=await localVault.get(key())||fresh(today());}if(!draft.changed&&!ctx.pending())draft=fresh(draft.date);legacy=[];for(const [form,task] of [['daily-form','daily'],['episode-form','episodes'],['med-form','medications'],['preventive-form','medications']])if(await localVault.get('draft-'+form))legacy.push(task);legacy=[...new Set(legacy)];render();},
+    async mount(element,context){host=element;ctx=context;host.innerHTML=`<p>${esc(T('loading'))}</p>`;const uid=ctx.state().user.id;if(loadedUser!==uid||!draft){loadedUser=uid;await draftStore.migrate(uid);storedDrafts=await draftStore.list(uid);const remembered=sessionStorage.getItem(pointer()),candidate=storedDrafts.find(d=>d.operationId===remembered)||storedDrafts.find(d=>d.changed);await selectDraft(candidate||fresh(today()));}if(!draft.changed){await removeDraft();await selectDraft(fresh(draft.date));}storedDrafts=await draftStore.list(uid);legacy=[];for(const [form,task] of [['daily-form','daily'],['episode-form','episodes'],['med-form','medications'],['preventive-form','medications']])if(await localVault.get('draft-'+form))legacy.push(task);legacy=[...new Set(legacy)];render();},
     async flush(){if(saving)return false;if(host?.isConnected&&draft?.changed){capture();await persist();}return true;},
     openVoice(){voiceOpen=true;updateVoiceVisibility();},
-    reset(){voiceOpen=false;voiceRecording=false;clearTimeout(saveTimer);draft=null;loadedUser=null;status='';},
+    reset(){voiceOpen=false;voiceRecording=false;clearTimeout(saveTimer);releaseEditor?.();releaseEditor=null;draft=null;loadedUser=null;status='';storedDrafts=[];},
     dirty(){return !!draft?.changed;}
   };
 }

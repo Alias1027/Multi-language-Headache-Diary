@@ -1,6 +1,6 @@
-# 中文使用说明 — 0.6.1
+# 中文使用说明 — 0.7.0
 
-**2026-10-18 已发布：** [官方仓库](https://github.com/Alias1027/Multi-language-Headache-Diary--) · [v0.6.1 实验预发布版](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.6.1) · [发布标签自动测试结果](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/39118500923)。Ubuntu 与 Windows 各通过137项自动测试，以及发布检查、源码打包与解压核验。101项浏览器检查是此前本机合成数据证据，不属于远程 CI。
+当前版本0.7.0：[Release](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.7.0) · [自动检查](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions) · [英文指南](USER_GUIDE.en.md)。详见[版本验收](VALIDATION.md)。
 
 用于合成病例演示。八语言界面可用；语音转写与字段提取仍限中文、英文，需配置适配器才能自动转写。
 
@@ -17,7 +17,7 @@
 | 入口 | 当前可用 | 待部署、待验证 |
 | --- | --- | --- |
 | **Windows一键启动** | 完整便携交付包含运行环境，双击启动并打开浏览器；本机启动/停止流程已验证。 | 此入口属于单独准备的Windows便携包；GitHub纯源码包不含运行环境和根目录启动入口，需先配置Node.js 24。 |
-| **浏览器直接使用** | 电脑本机浏览器可用；手机可选择浏览器方式，无需下载手机APP或先安装PWA。 | **手机方式需先部署服务**：当前包仅允许电脑本机访问，需部署适配和手机可访问的HTTPS网址，之后完成真机验证。 |
+| **浏览器直接使用** | 电脑本机浏览器可用；手机可选择浏览器方式，无需下载手机APP或先安装PWA。 | **手机方式需先部署服务**：默认启动仅供电脑本机；本版已提供可选HTTPS反向代理配置，维护者需实际部署，并完成手机真机验证。 |
 | **可选小程序入口** | 已提供微信、支付宝、抖音网页容器入口准备代码。 | 待服务部署、平台构建、准入审核、业务域名配置及真机扫码验证；尚无已上线小程序。 |
 | **可选PWA入口** | 已有应用清单（Manifest）、页面缓存和加密草稿基础。 | 各设备安装体验待验证，手机使用需先部署服务；安装后仍需后台服务，不等于完全离线应用，也不会自动启用真实推送。 |
 
@@ -25,7 +25,7 @@ Windows便携交付可从“开始使用/01-Windows电脑/一键启动.cmd”进
 
 ## 下载哪一种包？
 
-从 [v0.6.1 Release](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.6.1) 下载 [Windows x64 便携包](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.6.1/headache-diary-windows-x64-0.6.1.zip) 或 [纯源码包](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.6.1/headache-diary-source-0.6.1.zip)，并用同页 [SHA256SUMS.txt](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.6.1/SHA256SUMS.txt) 核对 SHA-256。Windows x64便携包带运行环境和一键入口；纯源码需自行安装Node.js 24。两者不含既有账号、数据、音频或密钥。
+从 [v0.7.0 Release](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.7.0) 下载 [Windows x64 便携包](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.7.0/headache-diary-windows-x64-0.7.0.zip) 或 [纯源码包](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.7.0/headache-diary-source-0.7.0.zip)，并用同页 [SHA256SUMS.txt](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.7.0/SHA256SUMS.txt) 核对 SHA-256。Windows x64便携包带运行环境和一键入口；纯源码需自行安装Node.js 24。两者不含既有账号、数据、音频或密钥。
 
 便携包先全部解压到新文件夹，再运行 `Start.cmd`；不要在压缩包中直接启动或覆盖原有数据。详细步骤见[双语下载与首次使用](WINDOWS_PORTABLE.md)。感兴趣的用户可阅读[测试邀请](TEST_INVITATION.md)，使用[合成任务与反馈格式](RELEASE_PARTICIPATION.md)；机构及商业用途仍须书面授权。
 
@@ -65,6 +65,10 @@ Windows便携交付可从“开始使用/01-Windows电脑/一键启动.cmd”进
 
 合成病例可进入模拟医生工作台，依次填写医生评估、模拟治疗方案和回访；确认后患者视图可查看与反馈。修订保留版本；这里没有真实处方和医师资质认证。
 
+## 连续离线与手机
+
+首次初始化后可连续记录多日，页面显示待同步数量；会话过期时使用原账号重新登录。服务端冲突不静默覆盖，先导出核对；浏览器存储并非永久备份。手机已提供可选HTTPS部署模式，实际服务与真机验收仍需维护者完成。请按[离线与弱网指南](OFFLINE_MOBILE.md)及[部署说明](MOBILE_DEPLOYMENT.md)操作。
+
 ## 设置、共享与离线
 
 设置集中管理偏好、共享授权、回执、同步和实验工具。授权只面向本机模拟医院；接收回执不表示真实医生已阅读。撤销影响后续共享，不撤回已接收快照。服务关闭期间不执行排程。
@@ -98,4 +102,4 @@ Windows便携交付可从“开始使用/01-Windows电脑/一键启动.cmd”进
 当前模拟共享只发送日记摘要，不含新增方案和反馈；打印和下载的医生摘要含随访附录。真实医师认证、机构接入和消息送达仍需后续部署；反馈和回执不表示实时监护。详见[患者工作流](PATIENT_WORKFLOW.md)和[产品对照](PRODUCT_COMPARISON.md)。
 
 
-本次为发布后的文档状态更新。v0.6.1 标签、已上传的两个 ZIP 及其校验值保持不变；压缩包内较旧的发布状态措辞以当前在线说明为准。
+原0.6.1标签及附件保留；本轮功能以0.7.0另行发布。

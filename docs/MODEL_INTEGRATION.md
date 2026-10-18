@@ -1,4 +1,4 @@
-# 模型接入说明 · 0.6.1
+# 模型接入说明 · 0.7.0
 
 2026-10-13。交付的是可配置的数据接口及离线协议测试，不是已经开通的云模型服务。默认不开启、不读取前端密钥、不调用外部模型。项目中的“ChatGPT接入”对应OpenAI开发者API，不使用聊天网页的登录会话。
 
@@ -73,7 +73,9 @@ items最多48项；kind仅days/episodes/medications；字段、枚举、数值�
 
 ## 验证下一步
 
-当前0.6.0的122项自动测试包含使用假HTTP响应和本机模拟模型的接口测试；没有真实云调用、费用或密钥配置。真实麦克风、医疗词汇、中英混说、口音、背景噪声及供应商的可用性尚未验证。先使用获得许可的非患者样例，分别记录转写字/词错误、药名/剂量/否定/左右侧字段错误、人工纠正次数、耗时与成本，再决定是否进入患者试点。不能用接口成功率替代临床准确率。
+历史0.6.0的122项自动测试曾包含假HTTP响应和本机模拟模型接口测试；该数字不是当前0.7.0的测试结果。本版工程证据见[验收记录](VALIDATION.md)，未因此完成真实云调用、费用或密钥配置。真实麦克风、医疗词汇、中英混说、口音、背景噪声及供应商可用性仍需验证。先使用获得许可的非患者样例，分别记录转写字/词错误、药名/剂量/否定/左右侧字段错误、人工纠正次数、耗时与成本，再决定是否进入患者试点。不能用接口成功率替代临床准确率。
+
+在可选HTTPS部署中，“本机ASR适配器”指日记服务主机上的回环服务，不是患者手机。患者点击保存的音频与笔记会传到所连接的日记服务并在该服务端加密保存；外部模型处理另需配置及逐次确认。浏览器草稿和服务端原件是不同存储位置，不能宣称音频永不离开手机。
 
 ## 官方协议依据（2026-10-12核对）
 
@@ -85,6 +87,6 @@ items最多48项；kind仅days/episodes/medications；字段、枚举、数值�
 
 模型列表和账户权限会变化，以接入时控制台与官方文档为准。
 
-## 0.6.0 review-only integration
+## Review-only integration introduced in 0.6.0
 
 Speech models and Python ASR dependencies are optional, unbundled and not enabled in this delivery. Only adapters/contracts are retained; typed ASR text works without a model. Candidate selection is per field plus explicit review. A conservative bilingual guard withholds medication candidates when advice, planned or historical use is detected, including provider output; mixed statements may therefore need manual entry. This is not a semantic-accuracy guarantee. No automatic medical record or prescription writeback is supported. See [patient workflow](PATIENT_WORKFLOW.md).

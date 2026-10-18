@@ -1,0 +1,15 @@
+# Operator example only; Caddy is not bundled and no service is deployed.
+# Set HD_PUBLIC_ORIGIN to an exact https:// hostname origin and PORT to 8765.
+# Use a real domain you control, DNS, reachable TLS ports and trusted certificates.
+# Run Caddy and Node on the same trusted host. No upstream CDN/proxy is assumed.
+# Copy this file to a private deployment directory and validate with Caddy before use.
+# Official reference: https://caddyserver.com/docs/caddyfile/directives/reverse_proxy
+{$HD_PUBLIC_ORIGIN} {
+    encode gzip
+    reverse_proxy 127.0.0.1:{$PORT:8765} {
+        header_up -Forwarded
+        header_up X-Forwarded-Proto {scheme}
+        header_up X-Forwarded-Host {hostport}
+        header_up X-Forwarded-For {remote_host}
+    }
+}

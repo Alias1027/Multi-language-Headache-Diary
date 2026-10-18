@@ -1,4 +1,4 @@
-# Data dictionary and statistical contract — 0.6.1
+# Data dictionary and statistical contract — 0.7.0
 
 ## Assessment extension introduced in 0.4.2
 

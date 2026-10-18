@@ -1,4 +1,4 @@
-# Third-party notices and provenance — 0.6.1
+# Third-party notices and provenance — 0.7.0
 
 - **QR Code generator library**, Project Nayuki, MIT license. Vendored `public/vendor/qrcodegen.js`, retrieved 2026-10-10 from https://www.nayuki.io/res/qr-code-generator-library/qrcodegen.js . Original copyright/license header is retained. Only modification: append `export { qrcodegen };` for ES-module loading. No runtime CDN dependency.
 - **Node.js 24.19.0 Windows x64**, supplied in the separate portable bundle `runtime/node.exe`. Complete Node and bundled third-party license text is `runtime/LICENSE-node.txt`, obtained from https://raw.githubusercontent.com/nodejs/node/v24.19.0/LICENSE . SHA256 is listed in the delivery checksums. Source repository excludes the runtime binary.

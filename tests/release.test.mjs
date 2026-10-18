@@ -63,7 +63,7 @@ function workerHarness({network=async()=>{throw Error('offline');},cached=new Ma
  const handlers={},puts=[],deleted=[];
  const self={location:{origin:'http://127.0.0.1:9999'},addEventListener:(name,fn)=>handlers[name]=fn,skipWaiting:async()=>{},clients:{claim:async()=>{}}};
  const caches={open:async()=>({addAll:async()=>{},put:async(request)=>puts.push(request.url)}),match:async key=>cached.get(typeof key==='string'?key:key.url),keys:async()=>['headache-shell-0.0.0','unrelated-cache','headache-shell-'+APP_VERSION],delete:async key=>deleted.push(key)};
- vm.runInNewContext(readFileSync(path.join(root,'public','sw.js'),'utf8'),{self,caches,fetch:network,URL,Response});return {handlers,puts,deleted};
+ vm.runInNewContext(readFileSync(path.join(root,'public','sw.js'),'utf8'),{self,caches,fetch:network,URL,Response,AbortController,setTimeout,clearTimeout});return {handlers,puts,deleted};
 }
 test('Offline worker never intercepts APIs, external origins or writes',()=>{
  const {handlers}=workerHarness();for(const [url,method] of [['http://127.0.0.1:9999/api/state','GET'],['https://external.invalid/file','GET'],['http://127.0.0.1:9999/','POST']]){
