@@ -1,0 +1,2 @@
+<web-view tt:if="{{url}}" src="{{url}}"></web-view>
+<view tt:else class="notice">Headache Diary Lab — 实验入口尚未配置。请先阅读 miniapps/README.md。未连接真实医院。</view>

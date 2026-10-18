@@ -1,0 +1,90 @@
+Headache Diary Lab Personal Noncommercial Source-Available License 1.0
+Effective for the project-authored material in release 0.5.1, 2026-10-13.
+Copyright (c) 2026 Junhui Liu M.D.
+
+1. Scope and licensor
+
+The licensor is Junhui Liu M.D. These terms apply to project-authored code,
+documentation and synthetic fixtures that the licensor owns or is entitled to
+license (the Software), except material identified under another license in
+NOTICE.md or its own notices. All rights not expressly granted are reserved.
+This is a source-available license, not an OSI-approved open-source license.
+
+2. Personal noncommercial permission
+
+Subject to these terms, a natural person may download, copy, run, inspect and
+modify the Software solely for that person's private, noncommercial learning,
+self-directed research, experimentation and testing. The activity must not be
+conducted on behalf of, commissioned by, sponsored by, or as a duty to an
+organization, and must not involve an anticipated commercial application.
+Mere employment or enrollment does not by itself disqualify unrelated personal
+activities conducted independently in a private capacity.
+
+Individuals may share copies and modifications without charge solely for the
+permitted personal purposes, provided all copies retain these terms, copyright
+and third-party notices. Modifications must be clearly identified. Recipients
+receive rights directly under these terms, not under a sublicense. No right to
+remove these restrictions or relicense project-authored material is granted.
+
+3. Commercial and institutional authorization
+
+Prior, explicit written authorization from Junhui Liu M.D. is required for any
+commercial use or any institutional use beyond the inspection rights in section
+4, whether or not fees are charged. Institutional use includes use by or on
+behalf of a company, hospital, clinic, university, school, research laboratory,
+charity, government body or other organization, including nonprofit research,
+internal evaluation, education, deployment, integration and service provision.
+
+Commercial use includes sale, paid services, business operations, commercially
+directed development, hosted services and incorporation into commercial products.
+An authorization request, acknowledgment, silence, public availability of code,
+or possession of an API key does not constitute permission. Separate written
+terms must define the authorized entity, purpose, users, version, deployment
+scope, duration and any fees. Personal permission does not authorize clinical
+care, patient-facing deployment, diagnosis, prescribing or medical monitoring.
+
+4. Public repository inspection
+
+Anyone may view the publicly posted source and create copies or forks solely
+to inspect it, discuss it, propose contributions or request authorization. These
+inspection rights do not authorize institutional or commercial execution,
+deployment or integration. Nothing here restricts rights granted by applicable
+hosting-platform terms, statutory exceptions or other nonwaivable law. A public
+GitHub repository can be viewed and forked under GitHub's terms.
+
+5. Attribution, third-party rights and older versions
+
+Retain attribution to Junhui Liu M.D. and identify changes without implying
+endorsement. No trademark, professional endorsement or affiliation is granted.
+Third-party components remain governed by their own licenses; this license does
+not restrict rights independently granted by those licensors. It does not
+retroactively revoke rights already granted in copies of earlier releases under
+their original licenses. No claim of ownership over third-party material is made.
+
+6. Compliance and termination
+
+Permissions under this license cease if you breach its conditions. Stop use and
+distribution beyond any independently held rights and contact the licensor to
+discuss a remedy. No continued permission or reinstatement is implied. Statutory
+rights and valid separately executed licenses are unaffected.
+
+7. Experimental software; no warranty
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT, TO THE EXTENT PERMITTED BY LAW. THE LICENSOR AND CONTRIBUTORS
+SHALL NOT BE LIABLE FOR CLAIMS, DAMAGES OR OTHER LIABILITY ARISING FROM THE
+SOFTWARE OR ITS USE, TO THE EXTENT PERMITTED BY LAW. It is an experimental
+research prototype, not a validated medical device or a clinical service.
+Separate permission to use it does not establish clinical safety, regulatory
+authorization, institutional approval or compliance with data-protection duties.
+
+8. Contact and interpretation
+
+Request authorization at junhuiliu1025@gmail.com or through the official GitHub
+repository maintained by Junhui Liu M.D. when published. Do not send patient
+data, credentials or confidential contracts in public issues. Written permission
+must expressly come from the licensor or a verified authorized representative.
+The English text in this LICENSE is the governing license; translated summaries
+are explanatory only. Severability applies to the extent permitted by law; an
+unenforceable provision does not expand the express permission grants.

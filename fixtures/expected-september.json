@@ -1,0 +1,308 @@
+{
+  "ruleVersion": "0.1.0",
+  "from": "2026-09-01",
+  "to": "2026-09-28",
+  "timezone": "Asia/Shanghai",
+  "eligibleDays": 28,
+  "excludedDays": 0,
+  "statusDays": 23,
+  "coverage": 82.1,
+  "unknownDays": 5,
+  "clinicalKnownDays": 23,
+  "headacheDays": 8,
+  "episodeInferredDays": [],
+  "conflicts": [],
+  "medConflicts": [],
+  "episodes": 7,
+  "carriedIn": 0,
+  "ongoing": 0,
+  "unknownEnds": 0,
+  "completedDurations": [
+    {
+      "id": "attack-2",
+      "minutes": 180
+    },
+    {
+      "id": "attack-5",
+      "minutes": 180
+    },
+    {
+      "id": "attack-8",
+      "minutes": 60
+    },
+    {
+      "id": "attack-13",
+      "minutes": 180
+    },
+    {
+      "id": "attack-17",
+      "minutes": 180
+    },
+    {
+      "id": "attack-21",
+      "minutes": 180
+    },
+    {
+      "id": "attack-23",
+      "minutes": 180
+    }
+  ],
+  "completedUnionMinutes": 1140,
+  "acuteDays": 5,
+  "acuteStatusDays": 21,
+  "medicationEvents": 5,
+  "byClass": {
+    "simple_analgesic": 0,
+    "nsaid": 0,
+    "triptan": 0,
+    "combination": 0,
+    "opioid": 0,
+    "gepant": 0,
+    "other": 5
+  },
+  "response": {
+    "eligible": 5,
+    "inWindow": 4,
+    "painFree": 3,
+    "notPainFree": 1,
+    "missing": 1,
+    "outsideWindow": 0,
+    "functionRecovered": 4,
+    "functionKnown": 4
+  },
+  "maxIntensity": 8,
+  "averageIntensity": 6.3,
+  "lateDays": 4,
+  "impact": {
+    "none": 0,
+    "limited": 7,
+    "unable": 0,
+    "unknown": 0
+  },
+  "adverseEffects": [],
+  "patientMigraineDays": 8,
+  "exposureDays": 23,
+  "dailyImpact": {
+    "none": 0,
+    "limited": 0,
+    "unable": 0,
+    "unknown": 23,
+    "unanswered": 5
+  },
+  "preventiveAdherence": {
+    "yes": 0,
+    "no": 0,
+    "unknown": 28
+  },
+  "calendar": [
+    {
+      "date": "2026-09-01",
+      "status": "no",
+      "episode": false,
+      "medication": false,
+      "conflict": false
+    },
+    {
+      "date": "2026-09-02",
+      "status": "yes",
+      "episode": true,
+      "medication": true,
+      "conflict": false
+    },
+    {
+      "date": "2026-09-03",
+      "status": "no",
+      "episode": false,
+      "medication": false,
+      "conflict": false
+    },
+    {
+      "date": "2026-09-04",
+      "status": "no",
+      "episode": false,
+      "medication": false,
+      "conflict": false
+    },
+    {
+      "date": "2026-09-05",
+      "status": "yes",
+      "episode": true,
+      "medication": true,
+      "conflict": false
+    },
+    {
+      "date": "2026-09-06",
+      "status": "no",
+      "episode": false,
+      "medication": false,
+      "conflict": false
+    },
+    {
+      "date": "2026-09-07",
+      "status": "no",
+      "episode": false,
+      "medication": false,
+      "conflict": false
+    },
+    {
+      "date": "2026-09-08",
+      "status": "yes",
+      "episode": true,
+      "medication": true,
+      "conflict": false
+    },
+    {
+      "date": "2026-09-09",
+      "status": "yes",
+      "episode": true,
+      "medication": false,
+      "conflict": false
+    },
+    {
+      "date": "2026-09-10",
+      "status": "no",
+      "episode": false,
+      "medication": false,
+      "conflict": false
+    },
+    {
+      "date": "2026-09-11",
+      "status": "no",
+      "episode": false,
+      "medication": false,
+      "conflict": false
+    },
+    {
+      "date": "2026-09-12",
+      "status": "no",
+      "episode": false,
+      "medication": false,
+      "conflict": false
+    },
+    {
+      "date": "2026-09-13",
+      "status": "yes",
+      "episode": true,
+      "medication": false,
+      "conflict": false
+    },
+    {
+      "date": "2026-09-14",
+      "status": "no",
+      "episode": false,
+      "medication": false,
+      "conflict": false
+    },
+    {
+      "date": "2026-09-15",
+      "status": "no",
+      "episode": false,
+      "medication": false,
+      "conflict": false
+    },
+    {
+      "date": "2026-09-16",
+      "status": "no",
+      "episode": false,
+      "medication": false,
+      "conflict": false
+    },
+    {
+      "date": "2026-09-17",
+      "status": "yes",
+      "episode": true,
+      "medication": true,
+      "conflict": false
+    },
+    {
+      "date": "2026-09-18",
+      "status": "no",
+      "episode": false,
+      "medication": false,
+      "conflict": false
+    },
+    {
+      "date": "2026-09-19",
+      "status": "no",
+      "episode": false,
+      "medication": false,
+      "conflict": false
+    },
+    {
+      "date": "2026-09-20",
+      "status": "no",
+      "episode": false,
+      "medication": false,
+      "conflict": false
+    },
+    {
+      "date": "2026-09-21",
+      "status": "yes",
+      "episode": true,
+      "medication": true,
+      "conflict": false
+    },
+    {
+      "date": "2026-09-22",
+      "status": "no",
+      "episode": false,
+      "medication": false,
+      "conflict": false
+    },
+    {
+      "date": "2026-09-23",
+      "status": "yes",
+      "episode": true,
+      "medication": false,
+      "conflict": false
+    },
+    {
+      "date": "2026-09-24",
+      "status": "unknown",
+      "episode": false,
+      "medication": false,
+      "conflict": false
+    },
+    {
+      "date": "2026-09-25",
+      "status": "unknown",
+      "episode": false,
+      "medication": false,
+      "conflict": false
+    },
+    {
+      "date": "2026-09-26",
+      "status": "unknown",
+      "episode": false,
+      "medication": false,
+      "conflict": false
+    },
+    {
+      "date": "2026-09-27",
+      "status": "unknown",
+      "episode": false,
+      "medication": false,
+      "conflict": false
+    },
+    {
+      "date": "2026-09-28",
+      "status": "unknown",
+      "episode": false,
+      "medication": false,
+      "conflict": false
+    }
+  ],
+  "preventives": [
+    {
+      "id": "preventive-1",
+      "revision": 1,
+      "name": "Synthetic preventive B",
+      "regimen": "Demonstration only",
+      "start": "2026-09-15",
+      "end": null,
+      "reason": "Synthetic adjustment",
+      "adverse": "",
+      "notes": ""
+    }
+  ]
+}

@@ -1,0 +1,844 @@
+{
+  "notice": "Purely synthetic; no treatment recommendation",
+  "asOf": "2026-10-10T10:00:00Z",
+  "vault": {
+    "schema": 1,
+    "revision": 1,
+    "enrolled": "2026-08-01",
+    "timezone": "Asia/Shanghai",
+    "language": "zh",
+    "reportLanguage": "zh",
+    "reportLanguageMode": "interface",
+    "synthetic": true,
+    "days": [
+      {
+        "id": "day-2026-09-01",
+        "revision": 1,
+        "date": "2026-09-01",
+        "headache": "no",
+        "acute": "no",
+        "exposures": [
+          "caffeine"
+        ],
+        "exposuresComplete": true,
+        "migraine": "unknown",
+        "migraineSource": "patient",
+        "preventiveTaken": "unknown",
+        "dailyImpact": "unknown",
+        "dayAssessmentVersion": 1,
+        "notes": "",
+        "late": true,
+        "createdAt": "2026-09-02T12:00:00Z",
+        "updatedAt": "2026-09-01T12:00:00Z"
+      },
+      {
+        "id": "day-2026-09-02",
+        "revision": 1,
+        "date": "2026-09-02",
+        "headache": "yes",
+        "acute": "yes",
+        "exposures": [
+          "stress",
+          "poor_sleep"
+        ],
+        "exposuresComplete": true,
+        "migraine": "yes",
+        "migraineSource": "patient",
+        "preventiveTaken": "unknown",
+        "dailyImpact": "unknown",
+        "dayAssessmentVersion": 1,
+        "notes": "",
+        "late": true,
+        "createdAt": "2026-09-03T12:00:00Z",
+        "updatedAt": "2026-09-02T12:00:00Z"
+      },
+      {
+        "id": "day-2026-09-03",
+        "revision": 1,
+        "date": "2026-09-03",
+        "headache": "no",
+        "acute": "no",
+        "exposures": [
+          "caffeine"
+        ],
+        "exposuresComplete": true,
+        "migraine": "unknown",
+        "migraineSource": "patient",
+        "preventiveTaken": "unknown",
+        "dailyImpact": "unknown",
+        "dayAssessmentVersion": 1,
+        "notes": "",
+        "late": true,
+        "createdAt": "2026-09-04T12:00:00Z",
+        "updatedAt": "2026-09-03T12:00:00Z"
+      },
+      {
+        "id": "day-2026-09-04",
+        "revision": 1,
+        "date": "2026-09-04",
+        "headache": "no",
+        "acute": "no",
+        "exposures": [
+          "caffeine"
+        ],
+        "exposuresComplete": true,
+        "migraine": "unknown",
+        "migraineSource": "patient",
+        "preventiveTaken": "unknown",
+        "dailyImpact": "unknown",
+        "dayAssessmentVersion": 1,
+        "notes": "",
+        "late": true,
+        "createdAt": "2026-09-05T12:00:00Z",
+        "updatedAt": "2026-09-04T12:00:00Z"
+      },
+      {
+        "id": "day-2026-09-05",
+        "revision": 1,
+        "date": "2026-09-05",
+        "headache": "yes",
+        "acute": "yes",
+        "exposures": [
+          "stress",
+          "poor_sleep"
+        ],
+        "exposuresComplete": true,
+        "migraine": "yes",
+        "migraineSource": "patient",
+        "preventiveTaken": "unknown",
+        "dailyImpact": "unknown",
+        "dayAssessmentVersion": 1,
+        "notes": "",
+        "late": false,
+        "createdAt": "2026-09-05T12:00:00Z",
+        "updatedAt": "2026-09-05T12:00:00Z"
+      },
+      {
+        "id": "day-2026-09-06",
+        "revision": 1,
+        "date": "2026-09-06",
+        "headache": "no",
+        "acute": "no",
+        "exposures": [
+          "caffeine"
+        ],
+        "exposuresComplete": true,
+        "migraine": "unknown",
+        "migraineSource": "patient",
+        "preventiveTaken": "unknown",
+        "dailyImpact": "unknown",
+        "dayAssessmentVersion": 1,
+        "notes": "",
+        "late": false,
+        "createdAt": "2026-09-06T12:00:00Z",
+        "updatedAt": "2026-09-06T12:00:00Z"
+      },
+      {
+        "id": "day-2026-09-07",
+        "revision": 1,
+        "date": "2026-09-07",
+        "headache": "no",
+        "acute": "no",
+        "exposures": [
+          "caffeine"
+        ],
+        "exposuresComplete": true,
+        "migraine": "unknown",
+        "migraineSource": "patient",
+        "preventiveTaken": "unknown",
+        "dailyImpact": "unknown",
+        "dayAssessmentVersion": 1,
+        "notes": "",
+        "late": false,
+        "createdAt": "2026-09-07T12:00:00Z",
+        "updatedAt": "2026-09-07T12:00:00Z"
+      },
+      {
+        "id": "day-2026-09-08",
+        "revision": 1,
+        "date": "2026-09-08",
+        "headache": "yes",
+        "acute": "yes",
+        "exposures": [
+          "stress",
+          "poor_sleep"
+        ],
+        "exposuresComplete": true,
+        "migraine": "yes",
+        "migraineSource": "patient",
+        "preventiveTaken": "unknown",
+        "dailyImpact": "unknown",
+        "dayAssessmentVersion": 1,
+        "notes": "",
+        "late": false,
+        "createdAt": "2026-09-08T12:00:00Z",
+        "updatedAt": "2026-09-08T12:00:00Z"
+      },
+      {
+        "id": "day-2026-09-09",
+        "revision": 1,
+        "date": "2026-09-09",
+        "headache": "yes",
+        "acute": "no",
+        "exposures": [
+          "stress",
+          "poor_sleep"
+        ],
+        "exposuresComplete": true,
+        "migraine": "yes",
+        "migraineSource": "patient",
+        "preventiveTaken": "unknown",
+        "dailyImpact": "unknown",
+        "dayAssessmentVersion": 1,
+        "notes": "",
+        "late": false,
+        "createdAt": "2026-09-09T12:00:00Z",
+        "updatedAt": "2026-09-09T12:00:00Z"
+      },
+      {
+        "id": "day-2026-09-10",
+        "revision": 1,
+        "date": "2026-09-10",
+        "headache": "no",
+        "acute": "no",
+        "exposures": [
+          "caffeine"
+        ],
+        "exposuresComplete": true,
+        "migraine": "unknown",
+        "migraineSource": "patient",
+        "preventiveTaken": "unknown",
+        "dailyImpact": "unknown",
+        "dayAssessmentVersion": 1,
+        "notes": "",
+        "late": false,
+        "createdAt": "2026-09-10T12:00:00Z",
+        "updatedAt": "2026-09-10T12:00:00Z"
+      },
+      {
+        "id": "day-2026-09-11",
+        "revision": 1,
+        "date": "2026-09-11",
+        "headache": "no",
+        "acute": "no",
+        "exposures": [
+          "caffeine"
+        ],
+        "exposuresComplete": true,
+        "migraine": "unknown",
+        "migraineSource": "patient",
+        "preventiveTaken": "unknown",
+        "dailyImpact": "unknown",
+        "dayAssessmentVersion": 1,
+        "notes": "",
+        "late": false,
+        "createdAt": "2026-09-11T12:00:00Z",
+        "updatedAt": "2026-09-11T12:00:00Z"
+      },
+      {
+        "id": "day-2026-09-12",
+        "revision": 1,
+        "date": "2026-09-12",
+        "headache": "no",
+        "acute": "no",
+        "exposures": [
+          "caffeine"
+        ],
+        "exposuresComplete": true,
+        "migraine": "unknown",
+        "migraineSource": "patient",
+        "preventiveTaken": "unknown",
+        "dailyImpact": "unknown",
+        "dayAssessmentVersion": 1,
+        "notes": "",
+        "late": false,
+        "createdAt": "2026-09-12T12:00:00Z",
+        "updatedAt": "2026-09-12T12:00:00Z"
+      },
+      {
+        "id": "day-2026-09-13",
+        "revision": 1,
+        "date": "2026-09-13",
+        "headache": "yes",
+        "acute": "no",
+        "exposures": [
+          "stress",
+          "poor_sleep"
+        ],
+        "exposuresComplete": true,
+        "migraine": "yes",
+        "migraineSource": "patient",
+        "preventiveTaken": "unknown",
+        "dailyImpact": "unknown",
+        "dayAssessmentVersion": 1,
+        "notes": "",
+        "late": false,
+        "createdAt": "2026-09-13T12:00:00Z",
+        "updatedAt": "2026-09-13T12:00:00Z"
+      },
+      {
+        "id": "day-2026-09-14",
+        "revision": 1,
+        "date": "2026-09-14",
+        "headache": "no",
+        "acute": "no",
+        "exposures": [
+          "caffeine"
+        ],
+        "exposuresComplete": true,
+        "migraine": "unknown",
+        "migraineSource": "patient",
+        "preventiveTaken": "unknown",
+        "dailyImpact": "unknown",
+        "dayAssessmentVersion": 1,
+        "notes": "",
+        "late": false,
+        "createdAt": "2026-09-14T12:00:00Z",
+        "updatedAt": "2026-09-14T12:00:00Z"
+      },
+      {
+        "id": "day-2026-09-15",
+        "revision": 1,
+        "date": "2026-09-15",
+        "headache": "no",
+        "acute": "no",
+        "exposures": [
+          "caffeine"
+        ],
+        "exposuresComplete": true,
+        "migraine": "unknown",
+        "migraineSource": "patient",
+        "preventiveTaken": "unknown",
+        "dailyImpact": "unknown",
+        "dayAssessmentVersion": 1,
+        "notes": "",
+        "late": false,
+        "createdAt": "2026-09-15T12:00:00Z",
+        "updatedAt": "2026-09-15T12:00:00Z"
+      },
+      {
+        "id": "day-2026-09-16",
+        "revision": 1,
+        "date": "2026-09-16",
+        "headache": "no",
+        "acute": "no",
+        "exposures": [
+          "caffeine"
+        ],
+        "exposuresComplete": true,
+        "migraine": "unknown",
+        "migraineSource": "patient",
+        "preventiveTaken": "unknown",
+        "dailyImpact": "unknown",
+        "dayAssessmentVersion": 1,
+        "notes": "",
+        "late": false,
+        "createdAt": "2026-09-16T12:00:00Z",
+        "updatedAt": "2026-09-16T12:00:00Z"
+      },
+      {
+        "id": "day-2026-09-17",
+        "revision": 1,
+        "date": "2026-09-17",
+        "headache": "yes",
+        "acute": "yes",
+        "exposures": [
+          "stress",
+          "poor_sleep"
+        ],
+        "exposuresComplete": true,
+        "migraine": "yes",
+        "migraineSource": "patient",
+        "preventiveTaken": "unknown",
+        "dailyImpact": "unknown",
+        "dayAssessmentVersion": 1,
+        "notes": "",
+        "late": false,
+        "createdAt": "2026-09-17T12:00:00Z",
+        "updatedAt": "2026-09-17T12:00:00Z"
+      },
+      {
+        "id": "day-2026-09-18",
+        "revision": 1,
+        "date": "2026-09-18",
+        "headache": "no",
+        "acute": "no",
+        "exposures": [
+          "caffeine"
+        ],
+        "exposuresComplete": true,
+        "migraine": "unknown",
+        "migraineSource": "patient",
+        "preventiveTaken": "unknown",
+        "dailyImpact": "unknown",
+        "dayAssessmentVersion": 1,
+        "notes": "",
+        "late": false,
+        "createdAt": "2026-09-18T12:00:00Z",
+        "updatedAt": "2026-09-18T12:00:00Z"
+      },
+      {
+        "id": "day-2026-09-19",
+        "revision": 1,
+        "date": "2026-09-19",
+        "headache": "no",
+        "acute": "no",
+        "exposures": [
+          "caffeine"
+        ],
+        "exposuresComplete": true,
+        "migraine": "unknown",
+        "migraineSource": "patient",
+        "preventiveTaken": "unknown",
+        "dailyImpact": "unknown",
+        "dayAssessmentVersion": 1,
+        "notes": "",
+        "late": false,
+        "createdAt": "2026-09-19T12:00:00Z",
+        "updatedAt": "2026-09-19T12:00:00Z"
+      },
+      {
+        "id": "day-2026-09-20",
+        "revision": 1,
+        "date": "2026-09-20",
+        "headache": "no",
+        "acute": "no",
+        "exposures": [
+          "caffeine"
+        ],
+        "exposuresComplete": true,
+        "migraine": "unknown",
+        "migraineSource": "patient",
+        "preventiveTaken": "unknown",
+        "dailyImpact": "unknown",
+        "dayAssessmentVersion": 1,
+        "notes": "",
+        "late": false,
+        "createdAt": "2026-09-20T12:00:00Z",
+        "updatedAt": "2026-09-20T12:00:00Z"
+      },
+      {
+        "id": "day-2026-09-21",
+        "revision": 1,
+        "date": "2026-09-21",
+        "headache": "yes",
+        "acute": "yes",
+        "exposures": [
+          "stress",
+          "poor_sleep"
+        ],
+        "exposuresComplete": true,
+        "migraine": "yes",
+        "migraineSource": "patient",
+        "preventiveTaken": "unknown",
+        "dailyImpact": "unknown",
+        "dayAssessmentVersion": 1,
+        "notes": "",
+        "late": false,
+        "createdAt": "2026-09-21T12:00:00Z",
+        "updatedAt": "2026-09-21T12:00:00Z"
+      },
+      {
+        "id": "day-2026-09-22",
+        "revision": 1,
+        "date": "2026-09-22",
+        "headache": "no",
+        "acute": "unknown",
+        "exposures": [
+          "caffeine"
+        ],
+        "exposuresComplete": true,
+        "migraine": "unknown",
+        "migraineSource": "patient",
+        "preventiveTaken": "unknown",
+        "dailyImpact": "unknown",
+        "dayAssessmentVersion": 1,
+        "notes": "",
+        "late": false,
+        "createdAt": "2026-09-22T12:00:00Z",
+        "updatedAt": "2026-09-22T12:00:00Z"
+      },
+      {
+        "id": "day-2026-09-23",
+        "revision": 1,
+        "date": "2026-09-23",
+        "headache": "yes",
+        "acute": "unknown",
+        "exposures": [
+          "stress",
+          "poor_sleep"
+        ],
+        "exposuresComplete": true,
+        "migraine": "yes",
+        "migraineSource": "patient",
+        "preventiveTaken": "unknown",
+        "dailyImpact": "unknown",
+        "dayAssessmentVersion": 1,
+        "notes": "",
+        "late": false,
+        "createdAt": "2026-09-23T12:00:00Z",
+        "updatedAt": "2026-09-23T12:00:00Z"
+      }
+    ],
+    "episodes": [
+      {
+        "id": "attack-2",
+        "revision": 1,
+        "start": "2026-09-02T02:00:00Z",
+        "end": "2026-09-02T05:00:00Z",
+        "assessmentVersion": 1,
+        "durationStatus": "from_times",
+        "frequencyStatus": "unknown",
+        "symptomsStatus": "present",
+        "triggersStatus": "present",
+        "endStatus": "ended",
+        "intensity": 6,
+        "location": [
+          "left",
+          "temple"
+        ],
+        "quality": [
+          "pulsating"
+        ],
+        "symptoms": [
+          "nausea",
+          "photophobia"
+        ],
+        "suspectedTriggers": [
+          "stress"
+        ],
+        "impact": "limited",
+        "precision": "exact",
+        "type": "attack",
+        "originalTimezone": "Asia/Shanghai",
+        "notes": "Synthetic case / 合成病例",
+        "createdAt": "2026-09-02T12:00:00Z",
+        "updatedAt": "2026-09-02T12:00:00Z"
+      },
+      {
+        "id": "attack-5",
+        "revision": 1,
+        "start": "2026-09-05T02:00:00Z",
+        "end": "2026-09-05T05:00:00Z",
+        "assessmentVersion": 1,
+        "durationStatus": "from_times",
+        "frequencyStatus": "unknown",
+        "symptomsStatus": "present",
+        "triggersStatus": "present",
+        "endStatus": "ended",
+        "intensity": 6,
+        "location": [
+          "left",
+          "temple"
+        ],
+        "quality": [
+          "pulsating"
+        ],
+        "symptoms": [
+          "nausea",
+          "photophobia"
+        ],
+        "suspectedTriggers": [
+          "stress"
+        ],
+        "impact": "limited",
+        "precision": "exact",
+        "type": "attack",
+        "originalTimezone": "Asia/Shanghai",
+        "notes": "Synthetic case / 合成病例",
+        "createdAt": "2026-09-05T12:00:00Z",
+        "updatedAt": "2026-09-05T12:00:00Z"
+      },
+      {
+        "id": "attack-8",
+        "revision": 1,
+        "start": "2026-09-08T15:30:00Z",
+        "end": "2026-09-08T16:30:00Z",
+        "assessmentVersion": 1,
+        "durationStatus": "from_times",
+        "frequencyStatus": "unknown",
+        "symptomsStatus": "present",
+        "triggersStatus": "present",
+        "endStatus": "ended",
+        "intensity": 8,
+        "location": [
+          "left",
+          "temple"
+        ],
+        "quality": [
+          "pulsating"
+        ],
+        "symptoms": [
+          "nausea",
+          "photophobia"
+        ],
+        "suspectedTriggers": [
+          "stress"
+        ],
+        "impact": "limited",
+        "precision": "exact",
+        "type": "attack",
+        "originalTimezone": "Asia/Shanghai",
+        "notes": "Synthetic case / 合成病例",
+        "createdAt": "2026-09-08T12:00:00Z",
+        "updatedAt": "2026-09-08T12:00:00Z"
+      },
+      {
+        "id": "attack-13",
+        "revision": 1,
+        "start": "2026-09-13T02:00:00Z",
+        "end": "2026-09-13T05:00:00Z",
+        "assessmentVersion": 1,
+        "durationStatus": "from_times",
+        "frequencyStatus": "unknown",
+        "symptomsStatus": "present",
+        "triggersStatus": "present",
+        "endStatus": "ended",
+        "intensity": 6,
+        "location": [
+          "left",
+          "temple"
+        ],
+        "quality": [
+          "pulsating"
+        ],
+        "symptoms": [
+          "nausea",
+          "photophobia"
+        ],
+        "suspectedTriggers": [
+          "stress"
+        ],
+        "impact": "limited",
+        "precision": "exact",
+        "type": "attack",
+        "originalTimezone": "Asia/Shanghai",
+        "notes": "Synthetic case / 合成病例",
+        "createdAt": "2026-09-13T12:00:00Z",
+        "updatedAt": "2026-09-13T12:00:00Z"
+      },
+      {
+        "id": "attack-17",
+        "revision": 1,
+        "start": "2026-09-17T02:00:00Z",
+        "end": "2026-09-17T05:00:00Z",
+        "assessmentVersion": 1,
+        "durationStatus": "from_times",
+        "frequencyStatus": "unknown",
+        "symptomsStatus": "present",
+        "triggersStatus": "present",
+        "endStatus": "ended",
+        "intensity": 6,
+        "location": [
+          "left",
+          "temple"
+        ],
+        "quality": [
+          "pulsating"
+        ],
+        "symptoms": [
+          "nausea",
+          "photophobia"
+        ],
+        "suspectedTriggers": [
+          "stress"
+        ],
+        "impact": "limited",
+        "precision": "exact",
+        "type": "attack",
+        "originalTimezone": "Asia/Shanghai",
+        "notes": "Synthetic case / 合成病例",
+        "createdAt": "2026-09-17T12:00:00Z",
+        "updatedAt": "2026-09-17T12:00:00Z"
+      },
+      {
+        "id": "attack-21",
+        "revision": 1,
+        "start": "2026-09-21T02:00:00Z",
+        "end": "2026-09-21T05:00:00Z",
+        "assessmentVersion": 1,
+        "durationStatus": "from_times",
+        "frequencyStatus": "unknown",
+        "symptomsStatus": "present",
+        "triggersStatus": "present",
+        "endStatus": "ended",
+        "intensity": 6,
+        "location": [
+          "left",
+          "temple"
+        ],
+        "quality": [
+          "pulsating"
+        ],
+        "symptoms": [
+          "nausea",
+          "photophobia"
+        ],
+        "suspectedTriggers": [
+          "stress"
+        ],
+        "impact": "limited",
+        "precision": "exact",
+        "type": "attack",
+        "originalTimezone": "Asia/Shanghai",
+        "notes": "Synthetic case / 合成病例",
+        "createdAt": "2026-09-21T12:00:00Z",
+        "updatedAt": "2026-09-21T12:00:00Z"
+      },
+      {
+        "id": "attack-23",
+        "revision": 1,
+        "start": "2026-09-23T02:00:00Z",
+        "end": "2026-09-23T05:00:00Z",
+        "assessmentVersion": 1,
+        "durationStatus": "from_times",
+        "frequencyStatus": "unknown",
+        "symptomsStatus": "present",
+        "triggersStatus": "present",
+        "endStatus": "ended",
+        "intensity": 6,
+        "location": [
+          "left",
+          "temple"
+        ],
+        "quality": [
+          "pulsating"
+        ],
+        "symptoms": [
+          "nausea",
+          "photophobia"
+        ],
+        "suspectedTriggers": [
+          "stress"
+        ],
+        "impact": "limited",
+        "precision": "exact",
+        "type": "attack",
+        "originalTimezone": "Asia/Shanghai",
+        "notes": "Synthetic case / 合成病例",
+        "createdAt": "2026-09-23T12:00:00Z",
+        "updatedAt": "2026-09-23T12:00:00Z"
+      }
+    ],
+    "medications": [
+      {
+        "id": "med-2",
+        "revision": 1,
+        "at": "2026-09-02T02:15:00Z",
+        "name": "Synthetic medicine A",
+        "dose": 10,
+        "unit": "mg",
+        "drugClass": "other",
+        "beforePain": 6,
+        "followup": {
+          "at": "2026-09-02T04:15:00Z",
+          "painFree": "yes",
+          "functionRecovered": "yes"
+        },
+        "rescue": false,
+        "recurrence": "unknown",
+        "adverse": "",
+        "notes": "Not a treatment recommendation",
+        "originalTimezone": "Asia/Shanghai"
+      },
+      {
+        "id": "med-5",
+        "revision": 1,
+        "at": "2026-09-05T02:15:00Z",
+        "name": "Synthetic medicine A",
+        "dose": 10,
+        "unit": "mg",
+        "drugClass": "other",
+        "beforePain": 6,
+        "followup": {
+          "at": "2026-09-05T04:15:00Z",
+          "painFree": "no",
+          "functionRecovered": "yes"
+        },
+        "rescue": false,
+        "recurrence": "unknown",
+        "adverse": "",
+        "notes": "Not a treatment recommendation",
+        "originalTimezone": "Asia/Shanghai"
+      },
+      {
+        "id": "med-8",
+        "revision": 1,
+        "at": "2026-09-08T02:15:00Z",
+        "name": "Synthetic medicine A",
+        "dose": 10,
+        "unit": "mg",
+        "drugClass": "other",
+        "beforePain": 6,
+        "followup": {
+          "at": "2026-09-08T04:15:00Z",
+          "painFree": "yes",
+          "functionRecovered": "yes"
+        },
+        "rescue": false,
+        "recurrence": "unknown",
+        "adverse": "",
+        "notes": "Not a treatment recommendation",
+        "originalTimezone": "Asia/Shanghai"
+      },
+      {
+        "id": "med-17",
+        "revision": 1,
+        "at": "2026-09-17T02:15:00Z",
+        "name": "Synthetic medicine A",
+        "dose": 10,
+        "unit": "mg",
+        "drugClass": "other",
+        "beforePain": 6,
+        "followup": {
+          "at": "2026-09-17T04:15:00Z",
+          "painFree": "yes",
+          "functionRecovered": "yes"
+        },
+        "rescue": false,
+        "recurrence": "unknown",
+        "adverse": "",
+        "notes": "Not a treatment recommendation",
+        "originalTimezone": "Asia/Shanghai"
+      },
+      {
+        "id": "med-21",
+        "revision": 1,
+        "at": "2026-09-21T02:15:00Z",
+        "name": "Synthetic medicine A",
+        "dose": 10,
+        "unit": "mg",
+        "drugClass": "other",
+        "beforePain": 6,
+        "followup": null,
+        "rescue": false,
+        "recurrence": "unknown",
+        "adverse": "",
+        "notes": "Not a treatment recommendation",
+        "originalTimezone": "Asia/Shanghai"
+      }
+    ],
+    "preventives": [
+      {
+        "id": "preventive-1",
+        "revision": 1,
+        "name": "Synthetic preventive B",
+        "regimen": "Demonstration only",
+        "start": "2026-09-15",
+        "end": null,
+        "reason": "Synthetic adjustment",
+        "adverse": "",
+        "notes": ""
+      }
+    ],
+    "operations": [],
+    "consent": null,
+    "reminder": {
+      "enabled": false,
+      "time": "20:00"
+    },
+    "reports": [],
+    "jobs": [],
+    "notifications": []
+  }
+}

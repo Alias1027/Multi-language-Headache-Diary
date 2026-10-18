@@ -1,0 +1,2 @@
+# Optional adapter only. Not installed or model-benchmarked in the portable bundle.
+faster-whisper>=1.1,<2

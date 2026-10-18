@@ -1,0 +1,10 @@
+{
+  "pages": [
+    "pages/index/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "Headache Diary Lab",
+    "navigationBarBackgroundColor": "#146b63",
+    "navigationBarTextStyle": "white"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "headache-diary-lab",
+  "version": "0.6.1",
+  "private": true,
+  "type": "module",
+  "license": "SEE LICENSE IN LICENSE",
+  "description": "Eight-language experimental headache diary with reproducible clinical summaries and a mock hospital receiver",
+  "engines": {
+    "node": ">=24.0.0 <25"
+  },
+  "scripts": {
+    "start": "node server/main.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "check:release": "node scripts/release-check.mjs",
+    "test:browser": "node scripts/browser-check.mjs",
+    "test:patient-browser": "node scripts/patient-browser-check.mjs",
+    "test:care-browser": "node scripts/care-browser-check.mjs"
+  },
+  "author": "Junhui Liu M.D. <junhuiliu1025@gmail.com>"
+}

@@ -1,0 +1,190 @@
+[
+  {
+    "id": "T01",
+    "scenario": "28-day synthetic window",
+    "expected": {
+      "statusDays": 23,
+      "eligibleDays": 28,
+      "headacheDays": 8,
+      "unknownDays": 5,
+      "coverage": 82.1
+    },
+    "ruleVersion": "0.1.0",
+    "reviewer": null,
+    "reviewStatus": "pending",
+    "executable": "tests/core.test.mjs"
+  },
+  {
+    "id": "T02",
+    "scenario": "2026-09-01T23:30+08:00 to 2026-09-02T00:30+08:00",
+    "expected": {
+      "episodes": 1,
+      "headacheDays": 2,
+      "minutes": 60
+    },
+    "ruleVersion": "0.1.0",
+    "reviewer": null,
+    "reviewStatus": "pending",
+    "executable": "tests/core.test.mjs"
+  },
+  {
+    "id": "T03",
+    "scenario": "2026-09-01T23:30+08:00 to 2026-09-02T00:00+08:00",
+    "expected": {
+      "episodes": 1,
+      "headacheDays": 1,
+      "minutes": 30
+    },
+    "ruleVersion": "0.1.0",
+    "reviewer": null,
+    "reviewStatus": "pending",
+    "executable": "tests/core.test.mjs"
+  },
+  {
+    "id": "T04",
+    "scenario": "Two episodes same day",
+    "expected": {
+      "episodes": 2,
+      "headacheDays": 1
+    },
+    "ruleVersion": "0.1.0",
+    "reviewer": null,
+    "reviewStatus": "pending",
+    "executable": "tests/core.test.mjs"
+  },
+  {
+    "id": "T05",
+    "scenario": "Two doses same class same day",
+    "expected": {
+      "medicationEvents": 2,
+      "acuteDays": 1,
+      "classDays": 1
+    },
+    "ruleVersion": "0.1.0",
+    "reviewer": null,
+    "reviewStatus": "pending",
+    "executable": "tests/core.test.mjs"
+  },
+  {
+    "id": "T06",
+    "scenario": "Two classes same day",
+    "expected": {
+      "acuteDays": 1,
+      "eachClassDays": 1
+    },
+    "ruleVersion": "0.1.0",
+    "reviewer": null,
+    "reviewStatus": "pending",
+    "executable": "tests/core.test.mjs"
+  },
+  {
+    "id": "T07",
+    "scenario": "Ongoing or unknown end",
+    "expected": {
+      "finalDuration": null
+    },
+    "ruleVersion": "0.1.0",
+    "reviewer": null,
+    "reviewStatus": "pending",
+    "executable": "tests/core.test.mjs"
+  },
+  {
+    "id": "T08",
+    "scenario": "Daily no with overlapping episode",
+    "expected": {
+      "conflict": true,
+      "originalDailyStatus": "no"
+    },
+    "ruleVersion": "0.1.0",
+    "reviewer": null,
+    "reviewStatus": "pending",
+    "executable": "tests/core.test.mjs"
+  },
+  {
+    "id": "T09",
+    "scenario": "Duplicate operation ID",
+    "expected": {
+      "additionalRecords": 0,
+      "additionalRevision": 0
+    },
+    "ruleVersion": "0.1.0",
+    "reviewer": null,
+    "reviewStatus": "pending",
+    "executable": "tests/core.test.mjs"
+  },
+  {
+    "id": "T10",
+    "scenario": "Revision of already shared record",
+    "expected": {
+      "newReportVersion": true,
+      "oldSnapshotPreserved": true
+    },
+    "ruleVersion": "0.1.0",
+    "reviewer": null,
+    "reviewStatus": "pending",
+    "executable": "tests/core.test.mjs"
+  },
+  {
+    "id": "T11",
+    "scenario": "Same case in eight language reports",
+    "expected": {
+      "sameFacts": true,
+      "arDirection": "rtl",
+      "urDirection": "rtl",
+      "hiDirection": "ltr"
+    },
+    "ruleVersion": "0.1.0",
+    "reviewer": null,
+    "reviewStatus": "pending",
+    "executable": "tests/core.test.mjs"
+  },
+  {
+    "id": "T12",
+    "scenario": "Revoke before queued attempt",
+    "expected": {
+      "delivered": 0,
+      "audited": true
+    },
+    "ruleVersion": "0.1.0",
+    "reviewer": null,
+    "reviewStatus": "pending",
+    "executable": "tests/sharing.test.mjs"
+  },
+  {
+    "id": "T13",
+    "scenario": "Receiver stored; ACK lost; retry",
+    "expected": {
+      "receiverRows": 1,
+      "duplicateReceipt": true
+    },
+    "ruleVersion": "0.1.0",
+    "reviewer": null,
+    "reviewStatus": "pending",
+    "executable": "tests/sharing.test.mjs"
+  },
+  {
+    "id": "T14",
+    "scenario": "America/New_York 2026-03-08 01:30-05:00 to03:30-04:00",
+    "expected": {
+      "elapsedMinutes": 60,
+      "civilDayHours": 23
+    },
+    "ruleVersion": "0.1.0",
+    "reviewer": null,
+    "reviewStatus": "pending",
+    "executable": "tests/core.test.mjs"
+  },
+  {
+    "id": "T15",
+    "scenario": "Missing and late response",
+    "expected": {
+      "neitherSuccessNorFailure": true,
+      "missingSeparate": true,
+      "outsideWindowSeparate": true
+    },
+    "ruleVersion": "0.1.0",
+    "reviewer": null,
+    "reviewStatus": "pending",
+    "executable": "tests/core.test.mjs"
+  }
+]
