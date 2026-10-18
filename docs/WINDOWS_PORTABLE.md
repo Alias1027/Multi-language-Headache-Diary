@@ -2,12 +2,16 @@
 
 ## 中文
 
-本地发布材料已准备两种附件，**尚未上传GitHub**。实际仓库创建后，在同一个 `v0.6.1` 实验性预发布（Pre-release）的 Assets 中提供；请核对发布者和校验值，不要从无法确认来源的链接下载。
+**2026-10-18 已发布：** [官方仓库](https://github.com/Alias1027/Multi-language-Headache-Diary--) · [v0.6.1 实验预发布版](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.6.1) · [发布标签自动测试结果](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/39118500923)。Ubuntu 与 Windows 各通过137项自动测试，以及发布检查、源码打包与解压核验。101项浏览器检查是此前本机合成数据证据，不属于远程 CI。
+
+两个 ZIP 均已提供下载；校验文件为 [SHA256SUMS.txt](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.6.1/SHA256SUMS.txt)。请从官方 Release 取得文件并核对 SHA-256；GitHub 自动生成的 Source code 压缩包与下表两个附件不同。
+
+本次为发布后的文档状态更新。v0.6.1 标签、已上传的两个 ZIP 及其校验值保持不变；压缩包内较旧的发布状态措辞以当前在线说明为准。
 
 | 选择 | 文件 | 适用对象与内容 |
 | --- | --- | --- |
-| Windows一键体验 | `headache-diary-windows-x64-0.6.1.zip` | Windows x64用户；包含应用源码、Node.js运行环境及其许可、Start/Stop入口和“开始使用”。解压后无需全局安装Node，不含既有账号、数据库、音频或密钥。 |
-| 纯源码 | `headache-diary-source-0.6.1.zip` | 开发者或希望自行配置运行环境的用户；不含便携运行环境和根目录启动入口，需Node.js 24。解压后的 `project` 是仓库根目录。 |
+| Windows一键体验 | [headache-diary-windows-x64-0.6.1.zip](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.6.1/headache-diary-windows-x64-0.6.1.zip) | Windows x64用户；包含应用源码、Node.js运行环境及其许可、Start/Stop入口和“开始使用”。解压后无需全局安装Node，不含既有账号、数据库、音频或密钥。 |
+| 纯源码 | [headache-diary-source-0.6.1.zip](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.6.1/headache-diary-source-0.6.1.zip) | 开发者或希望自行配置运行环境的用户；不含便携运行环境和根目录启动入口，需Node.js 24。解压后的 `project` 是仓库根目录。 |
 
 ### 第一次使用便携包
 
@@ -25,12 +29,16 @@
 
 ## English
 
-Two local release assets are prepared; **they have not been uploaded to GitHub**. Once the repository exists, both are intended for the same `v0.6.1` experimental pre-release. Check the publisher and the accompanying SHA-256 checksums before use.
+**Published on 2026-10-18:** [official repository](https://github.com/Alias1027/Multi-language-Headache-Diary--) · [v0.6.1 research pre-release](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.6.1) · [release-tag CI results](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/39118500923). Ubuntu and Windows each passed 137 automated tests, release checks and source packaging/extraction checks. The 101 browser checks are earlier local synthetic-data evidence, not part of hosted CI.
+
+Both ZIPs are available for download with [SHA256SUMS.txt](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.6.1/SHA256SUMS.txt). Download from the official release and verify the checksums. GitHub's auto-generated Source code archives are separate from the two assets below.
+
+These online documents were updated after publication. The v0.6.1 tag, both uploaded ZIPs and their checksums remain unchanged; older publication-status wording inside the ZIPs is superseded by the current online documentation.
 
 | Choose | File | Intended use |
 | --- | --- | --- |
-| Windows one-click trial | `headache-diary-windows-x64-0.6.1.zip` | Windows x64; includes source, the Node.js runtime and notices, Start/Stop launchers and Start Here guides. No global Node installation is needed. No existing accounts, databases, recordings or keys are included. |
-| Source only | `headache-diary-source-0.6.1.zip` | Developers and users configuring their own runtime. Requires Node.js 24; excludes the portable runtime and root launchers. The extracted `project` directory is the repository root. |
+| Windows one-click trial | [headache-diary-windows-x64-0.6.1.zip](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.6.1/headache-diary-windows-x64-0.6.1.zip) | Windows x64; includes source, the Node.js runtime and notices, Start/Stop launchers and Start Here guides. No global Node installation is needed. No existing accounts, databases, recordings or keys are included. |
+| Source only | [headache-diary-source-0.6.1.zip](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.6.1/headache-diary-source-0.6.1.zip) | Developers and users configuring their own runtime. Requires Node.js 24; excludes the portable runtime and root launchers. The extracted `project` directory is the repository root. |
 
 ### First use of the portable bundle
 

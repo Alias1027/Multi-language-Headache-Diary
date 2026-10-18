@@ -4,6 +4,8 @@
 
 简体中文 · [完整英文说明 / Full English README](README.md) · **0.6.1 实验性预发布版** · Node.js 24 · [源码可见许可](LICENSE)
 
+**2026-10-18 已发布：** [官方仓库](https://github.com/Alias1027/Multi-language-Headache-Diary--) · [v0.6.1 实验预发布版](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.6.1) · [发布标签自动测试结果](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/39118500923)。Ubuntu 与 Windows 各通过137项自动测试，以及发布检查、源码打包与解压核验。101项浏览器检查是此前本机合成数据证据，不属于远程 CI。
+
 本项目将每日状态、头痛发作、实际用药及经人工核对的语音辅助输入整合为一个患者页面，生成保留漏填信息与记录覆盖率的随访摘要，并提供医生评估、模拟治疗方案及回访工作区。
 
 当前用于合成病例演示与工程验证。译文、模型准确性及临床结局尚未完成独立验证；邮箱和医院接收端为本地模拟，小程序目录为接口准备代码。
@@ -30,7 +32,7 @@
 
 详见[患者工作流](docs/PATIENT_WORKFLOW.md)、[代表性同类产品比较与发布取舍](docs/PRODUCT_COMPARISON.md)及[各版本验证记录](docs/VALIDATION.md)。比较使用第一方资料，吸收适用的交互和报告优点，不声称全网首创或临床效果优于竞品。本项目采用源码可见许可，非OSI开源。
 
-**0.6.1 核验：** 137项自动测试及101项浏览器检查在隔离合成数据环境通过。详见[验收与边界](docs/VALIDATION.md)。
+**0.6.1 核验：** [Ubuntu 与 Windows 远程 CI](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/39118500923) 各通过137项自动测试及发布／打包检查；此前本机完成101项合成数据浏览器检查。详见[验收与边界](docs/VALIDATION.md)。
 
 ### 新功能示例
 
@@ -84,18 +86,20 @@
 
 ## 获取0.6.1
 
-两种干净发布附件已在本地准备，**等待上传GitHub**。正式发布后，二者将放在同一个 `v0.6.1` Pre-release中；此处不提供尚不存在的下载链接。
+两种干净 ZIP 及 [SHA-256 校验文件](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.6.1/SHA256SUMS.txt) 已在 [v0.6.1 预发布页面](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.6.1) 的 Assets 中提供。GitHub 自动生成的 Source code 压缩包与以下两个手工准备的 ZIP 不同。
 
 | 文件 | 适用对象 |
 | --- | --- |
-| `headache-diary-windows-x64-0.6.1.zip` | Windows x64用户；包含运行环境、Start/Stop入口和“开始使用”，无需全局安装Node。 |
-| `headache-diary-source-0.6.1.zip` | 开发者或自行配置环境的用户；需Node.js 24，不包含便携运行环境和启动入口。 |
+| [headache-diary-windows-x64-0.6.1.zip](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.6.1/headache-diary-windows-x64-0.6.1.zip) | Windows x64用户；包含运行环境、Start/Stop入口和“开始使用”，无需全局安装Node。 |
+| [headache-diary-source-0.6.1.zip](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.6.1/headache-diary-source-0.6.1.zip) | 开发者或自行配置环境的用户；需Node.js 24，不包含便携运行环境和启动入口。 |
 
 两种包均不含既有账号、记录、音频和密钥。将Windows包**全部解压**至有写入权限的新文件夹，双击 `Start.cmd`，选择“体验合成病例”；保存后用 `Stop.cmd` 结束。详见[下载与首次使用](docs/WINDOWS_PORTABLE.md)和[真人发布清单](docs/RELEASE_PARTICIPATION.md)。当前仅核验本机Windows流程；手机浏览器部署、PWA安装和小程序上线仍有上方列出的边界。
 
+本次为发布后的文档状态更新。v0.6.1 标签、已上传的两个 ZIP 及其校验值保持不变；压缩包内较旧的发布状态措辞以当前在线说明为准。
+
 ## 欢迎参与体验测试
 
-欢迎感兴趣的用户使用合成案例，反馈难懂、难找、难操作的地方，以及语言和可访问性问题。无需编程经验或个人健康信息，可随时停止；这是软件可用性体验，不是临床试验。详见[双语测试邀请](docs/TEST_INVITATION.md)及[任务和反馈模板](docs/RELEASE_PARTICIPATION.md)。联系 **Junhui Liu M.D. — [junhuiliu1025@gmail.com](mailto:junhuiliu1025@gmail.com)**，或发布后的官方仓库Issue。机构及商业评估仍须事先书面授权，邀请不构成许可豁免。
+欢迎感兴趣的用户使用合成案例，反馈难懂、难找、难操作的地方，以及语言和可访问性问题。无需编程经验或个人健康信息，可随时停止；这是软件可用性体验，不是临床试验。详见[双语测试邀请](docs/TEST_INVITATION.md)及[任务和反馈模板](docs/RELEASE_PARTICIPATION.md)。联系 **Junhui Liu M.D. — [junhuiliu1025@gmail.com](mailto:junhuiliu1025@gmail.com)**，或[本仓库 Issues](https://github.com/Alias1027/Multi-language-Headache-Diary--/issues)。机构及商业评估仍须事先书面授权，邀请不构成许可豁免。
 
 ## 从源码启动
 
@@ -146,7 +150,7 @@ npm start
 
 ## 检查与源码打包
 
-`npm test` 验证合成临床案例、HTTP、权限、语言、模型接口、离线与打包边界；`npm run check:release` 检查当前文档版本、相对链接、源码边界与离线资源。仓库包含 Windows/Linux 的 GitHub Actions 配置，本地通过不代表远程 CI 已经运行。
+`npm test` 验证合成临床案例、HTTP、权限、语言、模型接口、离线与打包边界；`npm run check:release` 检查当前文档版本、相对链接、源码边界与离线资源。[v0.6.1 标签工作流](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/39118500923) 已在 Ubuntu 和 Windows 通过。后续提交状态请查看 [Actions](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions)；此处链接的发布结果明确对应 c1644cd。
 
 使用 PowerShell 打包（Linux 需 PowerShell 7）：
 
@@ -183,10 +187,10 @@ pwsh -File scripts/package.ps1 -Destination ../headache-release
 
 **Research scope:** interface/report localization covers eight languages. Speech and structured extraction adapters currently cover Chinese and English only, with a configured service and manual review. Email/hospital receivers are simulated, mini-program folders are scaffolds, and clinical outcomes, model accuracy and native clinical translations have not been independently validated.
 
-**License:** source-available for independent personal noncommercial learning and experiments. All institutional and commercial use requires prior written authorization from **Junhui Liu M.D.** Contact [junhuiliu1025@gmail.com](mailto:junhuiliu1025@gmail.com) or the official project repository once published. This is not an OSI-approved open-source license.
+**License:** source-available for independent personal noncommercial learning and experiments. All institutional and commercial use requires prior written authorization from **Junhui Liu M.D.** Contact [junhuiliu1025@gmail.com](mailto:junhuiliu1025@gmail.com) or the [official project repository](https://github.com/Alias1027/Multi-language-Headache-Diary--). This is not an OSI-approved open-source license.
 
 Read the [full English README](README.md) for features, the patient/clinician workflow, startup, packaging, documentation links and limitations.
 
 ## 许可与授权
 
-权利人：**Junhui Liu M.D.**。[许可](LICENSE)允许独立个人的非商业学习与实验；**全部机构及商业用途须事先取得书面授权**，包括非营利机构内部评估。可通过 [junhuiliu1025@gmail.com](mailto:junhuiliu1025@gmail.com) 或项目发布后的官方GitHub仓库联系。本项目为源码可见，并非OSI认可的开源许可；第三方许可和旧版已授予权利不受追溯影响。见[授权政策](docs/LICENSING.md)。
+权利人：**Junhui Liu M.D.**。[许可](LICENSE)允许独立个人的非商业学习与实验；**全部机构及商业用途须事先取得书面授权**，包括非营利机构内部评估。可通过 [junhuiliu1025@gmail.com](mailto:junhuiliu1025@gmail.com) 或[官方 GitHub 仓库](https://github.com/Alias1027/Multi-language-Headache-Diary--)联系。本项目为源码可见，并非OSI认可的开源许可；第三方许可和旧版已授予权利不受追溯影响。见[授权政策](docs/LICENSING.md)。

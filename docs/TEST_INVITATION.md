@@ -16,9 +16,9 @@ Headache Diary Lab是一款以患者为中心的头痛记录实验原型，将�
 - 查看两条历史反馈，生成摘要，判断日期、用药与建议来源是否容易理解。
 - 在熟悉的语言下检查文字、按钮、术语及手机宽度布局；指出译文不自然或含义不清的地方。
 
-下载材料当前已在本地准备，**尚未上传GitHub**。正式发布后将从官方仓库的 `v0.6.1` Pre-release提供源码ZIP和Windows x64便携ZIP；在链接公布前可先联系作者表达兴趣。包的区别和操作见[下载与首次使用](WINDOWS_PORTABLE.md)，具体任务与反馈格式见[参与测试清单](RELEASE_PARTICIPATION.md)。
+**v0.6.1 实验预发布版已发布。** 请从[官方Release的Assets](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.6.1)下载源码ZIP、Windows x64便携ZIP及 `SHA256SUMS.txt`。包的区别和操作见[下载与首次使用](WINDOWS_PORTABLE.md)，具体任务与反馈格式见[参与测试清单](RELEASE_PARTICIPATION.md)。公开邀请已随Release提供，尚未核验独立用户参与或完成测试。
 
-欢迎通过 **junhuiliu1025@gmail.com** 联系 **Junhui Liu M.D.**，或在项目发布后的官方GitHub仓库提交Issue。请写明版本、系统/浏览器、使用语言、任务步骤和期望/实际结果。截图仅使用合成内容；不要发送真实患者信息、病历、录音、密码、密钥或整个数据目录。安全问题请通过私密渠道反馈。
+欢迎通过 **junhuiliu1025@gmail.com** 联系 **Junhui Liu M.D.**，或在[官方仓库Issues](https://github.com/Alias1027/Multi-language-Headache-Diary--/issues)反馈。请写明版本、系统/浏览器、使用语言、任务步骤和期望/实际结果。截图仅使用合成内容；不要发送真实患者信息、病历、录音、密码、密钥或整个数据目录。安全问题请通过私密渠道反馈。
 
 本项目为**源码可见（source-available）**。独立个人非商业学习与实验遵循现有[许可](../LICENSE)；**所有机构及商业用途，包括非营利机构内部评估，须事先取得作者书面授权**。本邀请不构成许可豁免。欢迎先咨询后参与。
 
@@ -38,8 +38,8 @@ You could try:
 - Reviewing two historical feedback entries and generating a summary, checking whether dates, medication and advice provenance are understandable.
 - Reviewing a familiar language, labels, buttons, clinical terms and narrow-window layout, and pointing out unnatural or ambiguous wording.
 
-The assets are prepared locally but **have not yet been uploaded to GitHub**. After publication, the official repository's `v0.6.1` Pre-release will offer source and Windows x64 portable ZIPs. Until a link is announced, you may contact the author to express interest. See [download and first use](WINDOWS_PORTABLE.md) and the [tasks and feedback template](RELEASE_PARTICIPATION.md).
+**The v0.6.1 research pre-release is published.** Download the source ZIP, Windows x64 portable ZIP and `SHA256SUMS.txt` from the [official Release Assets](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.6.1). See [download and first use](WINDOWS_PORTABLE.md) and the [tasks and feedback template](RELEASE_PARTICIPATION.md). The public invitation is included in the Release; independent user participation or completed testing has not been verified.
 
-Contact **Junhui Liu M.D.** at **junhuiliu1025@gmail.com**, or open an Issue in the official repository once it is published. Include the version, OS/browser, language, steps and expected/actual result. Screenshots must contain synthetic information only. Do not send real patient information, medical records, recordings, passwords, keys or a complete data folder. Report security concerns privately.
+Contact **Junhui Liu M.D.** at **junhuiliu1025@gmail.com**, or use the [official repository's Issues](https://github.com/Alias1027/Multi-language-Headache-Diary--/issues). Include the version, OS/browser, language, steps and expected/actual result. Screenshots must contain synthetic information only. Do not send real patient information, medical records, recordings, passwords, keys or a complete data folder. Report security concerns privately.
 
 The project is **source-available**. Independent personal noncommercial learning and experimentation follow [LICENSE](../LICENSE). **All institutional and commercial use, including internal nonprofit evaluation, requires prior written authorization from the author.** This invitation does not waive the license. You are welcome to ask about scope before participating.

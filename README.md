@@ -4,6 +4,8 @@
 
 [简体中文 / Chinese](README.zh-CN.md) · **English documentation** · **0.6.1 experimental pre-release** · Node.js 24 · [Source-available license](LICENSE)
 
+**Published on 2026-10-18:** [official repository](https://github.com/Alias1027/Multi-language-Headache-Diary--) · [v0.6.1 research pre-release](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.6.1) · [release-tag CI results](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/39118500923). Ubuntu and Windows each passed 137 automated tests, release checks and source packaging/extraction checks. The 101 browser checks are earlier local synthetic-data evidence, not part of hosted CI.
+
 Headache Diary Lab connects daily status, headache episodes, medication use and reviewed voice-assisted input in one patient page. It produces reproducible summaries that show missing days and record coverage, alongside a simulated clinician workspace for assessments, treatment plans and follow-up.
 
 This release is for synthetic-data demonstrations and engineering evaluation. Translations, model accuracy and clinical outcomes have not been independently validated. Email delivery and the hospital receiver are local simulations; mini-program folders are integration scaffolds.
@@ -30,7 +32,7 @@ See the [usage guide and readiness boundaries](docs/USER_GUIDE.zh.md#多入口�
 
 See the [patient workflow](docs/PATIENT_WORKFLOW.md), [representative product comparison and release priorities](docs/PRODUCT_COMPARISON.md), and [version-specific validation](docs/VALIDATION.md). The comparison uses first-party sources and identifies useful design patterns; it does not claim global novelty or superior clinical outcomes. This project is source-available, not OSI-approved open source.
 
-**0.6.1 verification:** 137 automated tests and 101 browser checks passed locally using isolated synthetic data. See [validation and boundaries](docs/VALIDATION.md).
+**0.6.1 verification:** [Ubuntu and Windows CI](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/39118500923) each passed 137 automated tests and release/package checks. Earlier local checks include 101 browser checks using isolated synthetic data. See [validation and boundaries](docs/VALIDATION.md).
 
 ### New workflow examples
 
@@ -84,18 +86,20 @@ Use the language selector at the top of the page to change the interface. New re
 
 ## Get 0.6.1
 
-Two clean local release assets are prepared and **await GitHub upload**. Once published, both will appear in the same `v0.6.1` Pre-release; no public download URL is asserted here.
+Both clean ZIPs and the [SHA-256 checksum file](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.6.1/SHA256SUMS.txt) are available under Assets in the [published v0.6.1 pre-release](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.6.1). GitHub's automatically generated Source code archives are separate from the two prepared ZIPs below.
 
 | File | Choose this when |
 | --- | --- |
-| `headache-diary-windows-x64-0.6.1.zip` | You use Windows x64 and want one-click startup. Includes the runtime, Start/Stop launchers and Start Here guides; no global Node installation is required. |
-| `headache-diary-source-0.6.1.zip` | You want source code or will configure your own environment. Requires Node.js 24 and excludes the portable runtime/launchers. |
+| [headache-diary-windows-x64-0.6.1.zip](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.6.1/headache-diary-windows-x64-0.6.1.zip) | You use Windows x64 and want one-click startup. Includes the runtime, Start/Stop launchers and Start Here guides; no global Node installation is required. |
+| [headache-diary-source-0.6.1.zip](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.6.1/headache-diary-source-0.6.1.zip) | You want source code or will configure your own environment. Requires Node.js 24 and excludes the portable runtime/launchers. |
 
 Both assets exclude existing accounts, records, recordings and keys. Extract the complete Windows ZIP into a new writable folder, double-click `Start.cmd`, and choose **Try synthetic case**. Use `Stop.cmd` after saving. See [download and first-use steps](docs/WINDOWS_PORTABLE.md) and the [owner's publication checklist](docs/RELEASE_PARTICIPATION.md). Current local Windows checks do not establish compatibility with every device; mobile browser deployment, PWA installation and mini-program launch have the limits above.
 
+These online documents were updated after publication. The v0.6.1 tag, both uploaded ZIPs and their checksums remain unchanged; older publication-status wording inside the ZIPs is superseded by the current online documentation.
+
 ## Help test the prototype
 
-Interested users can try a few synthetic tasks and share usability, language or accessibility feedback. No coding experience or personal health information is needed; participation is optional and this is not a clinical trial. See the [bilingual invitation](docs/TEST_INVITATION.md) and [tasks and feedback template](docs/RELEASE_PARTICIPATION.md). Contact **Junhui Liu M.D.** at [junhuiliu1025@gmail.com](mailto:junhuiliu1025@gmail.com), or use the official repository's Issues after publication. Institutional and commercial evaluation still requires prior written authorization; the invitation does not waive the license.
+Interested users can try a few synthetic tasks and share usability, language or accessibility feedback. No coding experience or personal health information is needed; participation is optional and this is not a clinical trial. See the [bilingual invitation](docs/TEST_INVITATION.md) and [tasks and feedback template](docs/RELEASE_PARTICIPATION.md). Contact **Junhui Liu M.D.** at [junhuiliu1025@gmail.com](mailto:junhuiliu1025@gmail.com), or use [this repository's Issues](https://github.com/Alias1027/Multi-language-Headache-Diary--/issues). Institutional and commercial evaluation still requires prior written authorization; the invitation does not waive the license.
 
 ## Quick start from source
 
@@ -146,7 +150,7 @@ Every language shows **8 headache days, 7 attacks, 5 acute-medication days, 23/2
 
 ## Reproduce and inspect
 
-`npm test` runs synthetic clinical, HTTP, access-control, localization, model-contract, offline and packaging regressions. `npm run check:release` checks current documentation versions, local links, source boundaries and offline assets. A Windows/Linux GitHub Actions workflow is provided; local success is not a claim that hosted CI has run.
+`npm test` runs synthetic clinical, HTTP, access-control, localization, model-contract, offline and packaging regressions. `npm run check:release` checks current documentation versions, local links, source boundaries and offline assets. The [v0.6.1 tag workflow](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/39118500923) passed on Ubuntu and Windows. Check [Actions](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions) for results of later commits; the linked release result applies specifically to commit c1644cd.
 
 Create a clean source ZIP with PowerShell (PowerShell 7 on Linux):
 
@@ -177,4 +181,4 @@ Contributions using synthetic examples are welcome, especially clinical boundary
 
 ## License and authorization
 
-Copyright (c) 2026 **Junhui Liu M.D.** Personal noncommercial learning and experimentation are permitted under [LICENSE](LICENSE). **All institutional and commercial use requires prior written authorization**, including nonprofit institutional evaluation. Contact [junhuiliu1025@gmail.com](mailto:junhuiliu1025@gmail.com) or this project’s official GitHub repository when published. This is source-available, not OSI-approved open source. Third-party licenses and previously granted rights in older versions remain unaffected. See [licensing details](docs/LICENSING.md).
+Copyright (c) 2026 **Junhui Liu M.D.** Personal noncommercial learning and experimentation are permitted under [LICENSE](LICENSE). **All institutional and commercial use requires prior written authorization**, including nonprofit institutional evaluation. Contact [junhuiliu1025@gmail.com](mailto:junhuiliu1025@gmail.com) or the [official GitHub repository](https://github.com/Alias1027/Multi-language-Headache-Diary--). This is source-available, not OSI-approved open source. Third-party licenses and previously granted rights in older versions remain unaffected. See [licensing details](docs/LICENSING.md).

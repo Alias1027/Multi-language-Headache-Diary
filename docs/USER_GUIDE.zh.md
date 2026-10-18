@@ -1,5 +1,7 @@
 # 中文使用说明 — 0.6.1
 
+**2026-10-18 已发布：** [官方仓库](https://github.com/Alias1027/Multi-language-Headache-Diary--) · [v0.6.1 实验预发布版](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.6.1) · [发布标签自动测试结果](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/39118500923)。Ubuntu 与 Windows 各通过137项自动测试，以及发布检查、源码打包与解压核验。101项浏览器检查是此前本机合成数据证据，不属于远程 CI。
+
 用于合成病例演示。八语言界面可用；语音转写与字段提取仍限中文、英文，需配置适配器才能自动转写。
 
 ## 亮点功能：患者自主提醒
@@ -23,7 +25,7 @@ Windows便携交付可从“开始使用/01-Windows电脑/一键启动.cmd”进
 
 ## 下载哪一种包？
 
-本地已准备 `headache-diary-windows-x64-0.6.1.zip` 与 `headache-diary-source-0.6.1.zip`，目前等待上传GitHub。正式发布后从同一Pre-release的附件取得，并核对SHA-256。Windows x64便携包带运行环境和一键入口；纯源码需自行安装Node.js 24。两者不含既有账号、数据、音频或密钥。
+从 [v0.6.1 Release](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.6.1) 下载 [Windows x64 便携包](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.6.1/headache-diary-windows-x64-0.6.1.zip) 或 [纯源码包](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.6.1/headache-diary-source-0.6.1.zip)，并用同页 [SHA256SUMS.txt](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.6.1/SHA256SUMS.txt) 核对 SHA-256。Windows x64便携包带运行环境和一键入口；纯源码需自行安装Node.js 24。两者不含既有账号、数据、音频或密钥。
 
 便携包先全部解压到新文件夹，再运行 `Start.cmd`；不要在压缩包中直接启动或覆盖原有数据。详细步骤见[双语下载与首次使用](WINDOWS_PORTABLE.md)。感兴趣的用户可阅读[测试邀请](TEST_INVITATION.md)，使用[合成任务与反馈格式](RELEASE_PARTICIPATION.md)；机构及商业用途仍须书面授权。
 
@@ -94,3 +96,6 @@ Windows便携交付可从“开始使用/01-Windows电脑/一键启动.cmd”进
 5. 点击打印可通过浏览器另存PDF；打印时展开全部报告历史，下载JSON包含同一快照。后续变化不改写旧报告，页面提示重新生成。既往报告缺少随访附录时有明确说明。
 
 当前模拟共享只发送日记摘要，不含新增方案和反馈；打印和下载的医生摘要含随访附录。真实医师认证、机构接入和消息送达仍需后续部署；反馈和回执不表示实时监护。详见[患者工作流](PATIENT_WORKFLOW.md)和[产品对照](PRODUCT_COMPARISON.md)。
+
+
+本次为发布后的文档状态更新。v0.6.1 标签、已上传的两个 ZIP 及其校验值保持不变；压缩包内较旧的发布状态措辞以当前在线说明为准。

@@ -1,16 +1,18 @@
 # Release and human testing checklist / 发布与真人测试清单 — 0.6.1
 
-Updated / 更新：2026-10-18. This checklist separates prepared local materials from actions that need the project owner or independent participants. Unchecked items are pending, not completed validation.
+Updated / 更新：2026-10-18. v0.6.1 is published as a research pre-release. This checklist separates verified publication from checks still needing the project owner or independent participants. Unchecked items are pending, not completed validation.
 
-## 中文：发布者需要完成
+## 中文：已完成发布与后续核验
 
-- [ ] 确定仓库账户、名称和公开范围，创建真实GitHub仓库；仅以纯源码包内的 `project` 为仓库根目录。若导入旧提交历史，检查历史中的私密内容与旧许可。
-- [ ] 在仓库填写实际简介、授权邮箱和真实链接；README中的状态在上传后再更新。不要编造尚不存在的网址、下载量或用户评价。
-- [ ] 提交源码后运行现有Windows/Linux GitHub Actions，检查完整日志并处理失败。实际结果通过前，不宣称远程CI成功。现有自动工作流不等于真人浏览器或临床测试。
-- [ ] 在仓库可用时启用私密漏洞报告；确认安全联系方式。准备Issue模板，引导只提交合成复现案例。不要在公开Issue收集患者信息、数据库、音频、登录信息或密钥。
-- [ ] 从最终附件在新目录完成一次独立下载体验：核对哈希、全部解压、启动、保存合成记录、生成摘要、停止、重启并检查记录仍在。当前维护者本机核验不能替代另一位用户的验证。
-- [ ] 给已通过检查的提交打 `v0.6.1` 标签，建立 **Pre-release**，上传源码ZIP、已净化Windows x64便携ZIP及各自SHA-256校验文件，并附双语发布说明。只上传指定干净附件，不上传活动交付目录。
-- [ ] 亲自检查公开附件能下载、链接正确、八语和新功能图片可见、许可醒目，再发布。记录最终仓库/Release网址、CI运行链接和日期。
+- [x] [实际GitHub仓库](https://github.com/Alias1027/Multi-language-Headache-Diary--)已公开。仓库以项目源码为根目录，运行环境与一键启动器通过独立便携附件提供。
+- [x] 发布标签提交 `c1644cd` 的[远程CI](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/39118500923)已通过：Ubuntu与Windows每个平台137项自动测试，以及发布检查和源码打包／解压核验。此前101项浏览器检查属于本机合成验证。
+- [x] [v0.6.1实验预发布版](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.6.1)已发布，附源码ZIP、Windows x64便携ZIP、`SHA256SUMS.txt`及双语发布说明。
+- [x] 三个发布附件均已重新下载并核对SHA-256；这项下载核验不等于独立用户的首次使用验收。
+- [x] 公开测试邀请已随Release提供；尚未核验独立参与者招募或完成测试。
+- [ ] 核验并按需启用仓库私密漏洞报告，确认安全联系方式及Issue模板。不要在公开Issue收集患者信息、数据库、音频、登录信息或密钥；仓库相关设置不能仅凭文档认定完成。
+- [ ] 由独立用户从最终附件在新目录完成体验：核对哈希、全部解压、启动、保存合成记录、生成摘要、停止、重启并检查记录仍在。维护者本机核验不能替代另一位用户的验证。
+
+本次main分支文档同步实际仓库、下载和CI状态；`v0.6.1`标签及两个ZIP与校验文件保持冻结，不为更新说明而替换。包内较早的发布状态以当前在线文档为准。若导入旧Git历史，仍需另查历史中的私密内容与旧许可，当前文件检查不覆盖全部旧提交。
 
 **包的区别：** 源码包需要Node.js 24；Windows x64便携包自带运行环境及一键入口，属于单独Release附件，不把 `runtime/` 提交进源码仓库。包内不含已有账号、数据或密钥。详见[下载与首次使用](WINDOWS_PORTABLE.md)。
 
@@ -44,7 +46,7 @@ Updated / 更新：2026-10-18. This checklist separates prepared local materials
 建议：
 ```
 
-反馈可以通过发布后的官方仓库Issue或邮件发送给 **Junhui Liu M.D. — junhuiliu1025@gmail.com**。安全漏洞通过私密渠道反馈；不要公开利用细节、凭据或任何人的资料。可先发送不含附件的简短问题描述，未经请求无需发送日志或数据包。
+反馈可以通过[官方仓库Issues](https://github.com/Alias1027/Multi-language-Headache-Diary--/issues)或邮件发送给 **Junhui Liu M.D. — junhuiliu1025@gmail.com**。安全漏洞通过私密渠道反馈；不要公开利用细节、凭据或任何人的资料。可先发送不含附件的简短问题描述，未经请求无需发送日志或数据包。
 
 ### 尚待真人或外部环境完成的验证
 
@@ -53,17 +55,19 @@ Updated / 更新：2026-10-18. This checklist separates prepared local materials
 - [ ] 部署适配后进行手机真机浏览器测试；再分别验证PWA安装/升级和小程序平台接入，不以电脑缩放替代真机验证。
 - [ ] 如拟面向真实患者、机构或研究使用，另行明确授权、隐私、安全、伦理/研究方案及支持职责。当前测试邀请仅涉及合成病例可用性体验。
 
-可发布的双语邀请见[测试邀请](TEST_INVITATION.md)。本清单与邀请已准备，不表示已经发出邀请、招募参与者或完成真人测试。
+公开双语邀请见[测试邀请](TEST_INVITATION.md)，已随Release提供。邀请公开不表示已招募独立参与者或完成真人测试。
 
-## English: actions for the project owner
+## English: completed publication and remaining checks
 
-- [ ] Choose the actual GitHub account, repository name and visibility. Import only the source ZIP's `project` as the repository root; audit any imported Git history for private material and prior license grants.
-- [ ] Add the real description, authorization contact and repository links. Update download/publication status only after upload; do not invent URLs, usage figures or testimonials.
-- [ ] Run the provided Windows/Linux GitHub Actions, inspect full logs and resolve failures. Local success is not evidence that hosted CI has passed. Automated checks do not replace human browser or clinical review.
-- [ ] Enable private vulnerability reporting when available and confirm the security contact. Configure issue templates requesting synthetic reproductions only; do not collect patient information, databases, recordings, credentials or keys in public issues.
+- [x] The [actual GitHub repository](https://github.com/Alias1027/Multi-language-Headache-Diary--) is public. The repository root contains the project source; the runtime and one-click launchers are provided in the separate portable asset.
+- [x] [Hosted CI](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/39118500923) passed for release-tag commit `c1644cd`: 137 automated tests per platform on Ubuntu and Windows, plus release checks and source packaging/extraction verification. The prior 101 browser checks were local synthetic checks.
+- [x] The [v0.6.1 research pre-release](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.6.1) is published with the source ZIP, Windows x64 portable ZIP, `SHA256SUMS.txt` and bilingual release notes.
+- [x] All three release assets were downloaded again and their SHA-256 checksums verified. Download verification does not replace independent first-use acceptance.
+- [x] The public testing invitation is included in the Release; independent participant recruitment or completed testing has not been verified.
+- [ ] Verify and, where appropriate, enable private vulnerability reporting, and confirm the security contact and issue templates. Do not collect patient information, databases, recordings, credentials or keys in public issues. Documentation alone does not establish that repository settings are configured.
 - [ ] Have an independent user try the final downloadable assets in a fresh folder: verify checksums, extract, start, save a synthetic record, generate a summary, stop, restart and check persistence. The maintainer's host check does not replace this independent attempt.
-- [ ] Tag the checked commit `v0.6.1` and create a **Pre-release**. Attach the source ZIP, sanitized Windows x64 portable ZIP, their SHA-256 lists and bilingual release notes. Upload designated clean artifacts only, never the active delivery directory.
-- [ ] Check downloads, links, all eight language examples, new-feature screenshots and the license notice before publication. Record actual repository/Release URLs, CI links and date.
+
+This main-branch documentation update records the actual repository, download and CI status. The `v0.6.1` tag, both ZIP assets and checksum file remain frozen and are not replaced for documentation changes. Current online documentation supersedes older publication-status wording inside the packages. Imported Git history still needs separate checks for private material and previous license grants; current-tree checks do not cover all earlier commits.
 
 The source ZIP needs Node.js 24. The separate portable Release asset includes the runtime and one-click entry points; do not commit `runtime/` to the source repository. Neither clean asset contains existing accounts, records or keys. See [download and first use](WINDOWS_PORTABLE.md).
 
@@ -95,7 +99,7 @@ Screenshot (synthetic data only, checked for personal information):
 Suggestion:
 ```
 
-Contact **Junhui Liu M.D. — junhuiliu1025@gmail.com**, or use the official repository's Issues after publication. Report security concerns privately. A short description without attachments is enough to begin; do not send records, recordings, logs or keys unless a safe synthetic reproduction has been agreed.
+Contact **Junhui Liu M.D. — junhuiliu1025@gmail.com**, or use the [official repository's Issues](https://github.com/Alias1027/Multi-language-Headache-Diary--/issues). Report security concerns privately. A short description without attachments is enough to begin; do not send records, recordings, logs or keys unless a safe synthetic reproduction has been agreed.
 
 ### External checks still pending
 
@@ -104,4 +108,4 @@ Contact **Junhui Liu M.D. — junhuiliu1025@gmail.com**, or use the official rep
 - [ ] Real-device mobile-browser checks after deployment adaptation; separate PWA install/upgrade and mini-program platform checks. Desktop resizing is not real-device validation.
 - [ ] Separate authorization, privacy, security, ethics/research planning and support responsibilities before any real-patient, institutional or research use.
 
-The [public testing invitation](TEST_INVITATION.md) is ready to copy. Preparing this checklist does not mean invitations were sent, volunteers recruited or human testing completed.
+The [public testing invitation](TEST_INVITATION.md) is included in the Release. A public invitation does not establish that independent volunteers have been recruited or human testing completed.

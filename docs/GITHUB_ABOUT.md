@@ -24,4 +24,18 @@ headache-diary, neurology, clinical-informatics, patient-reported-outcomes, loca
 
 Junhui Liu M.D. · [junhuiliu1025@gmail.com](mailto:junhuiliu1025@gmail.com) · [License and authorization](LICENSING.md)
 
-Repository URL and GitHub badges should be added only after the actual repository and CI run exist. Do not use an MIT or OSI-open-source badge for this release.
+## 已发布链接 / Published links
+
+- [GitHub repository / 仓库](https://github.com/Alias1027/Multi-language-Headache-Diary--)
+- [v0.6.1 research pre-release / 实验预发布版与下载](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.6.1)
+- [Release-tag CI / 发布标签自动检查](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/39118500923)
+
+2026-10-18 已核验：发布标签对应提交 `c1644cd` 的 Ubuntu 与 Windows 自动检查均通过，每个平台137项测试，以及发布检查和源码打包／解压核验；三个发布附件已下载并核对SHA-256。独立用户测试、母语审校和临床验证仍待完成。
+
+Verified on 2026-10-18: the release-tag commit `c1644cd` passed Ubuntu and Windows CI, with 137 tests per platform plus release checks and source packaging/extraction verification. All three release assets were downloaded and their SHA-256 checksums verified. Independent user testing, native-language review and clinical validation remain pending.
+
+main 分支文档在发布后同步状态；`v0.6.1` 标签及ZIP附件保持冻结，包内较早的发布状态以当前在线文档为准。
+
+The main-branch documentation reflects a post-publication status update. The `v0.6.1` tag and ZIP assets remain frozen; current online documentation supersedes older publication-status wording inside the packages.
+
+Do not use an MIT or OSI-open-source badge for this release.

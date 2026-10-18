@@ -16,7 +16,9 @@
 | 浏览器直接使用 | 电脑本机可用；手机可选择浏览器方式，无需安装APP或PWA | 手机需先部署适配和可访问HTTPS服务，并完成真机验证 |
 | 可选PWA入口 | Manifest、页面缓存及加密草稿基础 | 跨设备安装待验证；仍需后台服务，不提供完整离线操作或真实推送 |
 | 三平台小程序 | 微信/支付宝/抖音网页入口准备代码 | 平台构建、准入审核、业务域名和真机扫码 |
-| 发布工程 | 源码可见许可、双语README、公开合成样例、自动测试、源码检查、源码ZIP与独立Windows x64便携ZIP及校验材料、双语测试邀请 | 远程GitHub CI、附件上传、实际仓库发布与独立用户体验；见[人工清单](RELEASE_PARTICIPATION.md) |
+| 发布工程 | [实际仓库](https://github.com/Alias1027/Multi-language-Headache-Diary--)与[v0.6.1预发布版](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.6.1)已发布；三个附件下载及SHA-256核验通过；[发布标签CI](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/39118500923)的Ubuntu/Windows各137项测试及发布、源码打包／解压检查通过；公开双语测试邀请已提供 | 独立用户体验、母语与临床审校、安全评估及真机验收；见[人工清单](RELEASE_PARTICIPATION.md) |
+
+上述远程CI对应发布标签提交 `c1644cd`；此前101项浏览器检查为本机合成验证。main分支文档现为发布后状态同步，冻结的 `v0.6.1` 标签、ZIP和校验文件不替换；包内较早的发布状态以当前在线文档为准。公开仓库与附件发布不代表应用服务已部署公网。
 
 默认运行不请求外部模型；明确启用并逐次确认后，可选适配器会向配置的外部服务发送相应内容。详情见 [模型接口](MODEL_INTEGRATION.md)。
 

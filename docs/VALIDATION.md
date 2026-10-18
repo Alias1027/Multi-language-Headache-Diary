@@ -30,7 +30,7 @@ Selected historical screenshots are retained in local pre-update backups; `scree
 
 ## Pending validation
 
-- Hosted GitHub Actions on Windows/Linux: workflow supplied, no remote run or publication performed by this local preparation.
+- Hosted GitHub Actions and publication have since been verified for v0.6.1; see the dated publication verification below. They are no longer pending items.
 - Independent clinical review, native clinical translation review, patient comprehension and usability studies.
 - Real microphone/model accuracy, regional vendor availability and live-provider billing behavior.
 - Full assistive-technology, print/PDF pagination, multi-device, performance and security audits.
@@ -77,9 +77,24 @@ The first full run exposed a cache-name/test mismatch and in-progress README ver
 
 The 137 core tests were rerun successfully for this packaging/documentation update. Twelve new screenshots were captured from isolated synthetic cases: eight consistent overview languages, plus Chinese/English feedback-history and report-appendix views. All eight overview values were checked as 8 headache days, 7 attacks, 5 acute-medication days and 82.1% coverage. Hindi used LTR; Arabic/Urdu used RTL. Every image was visually reviewed; the overview framing was revised to end after the complete overview card, excluding the unfinished form below. No application UI or clinical calculation was changed for the captures.
 
-The current source gallery replaces older images; historical test conclusions above remain historical. The separate Windows x64 artifact includes a verified Node.js 24 runtime, its third-party license, launchers and device guides, without existing accounts, data, keys or recordings. Launcher and extracted-artifact first-use checks are engineering verification on the current Windows host; independent users, GitHub hosted CI and real-device acceptance remain pending in the [human checklist](RELEASE_PARTICIPATION.md). The invitation is prepared but has not been sent.
+The current source gallery replaces older images; historical test conclusions above remain historical. The separate Windows x64 artifact includes a verified Node.js 24 runtime, its third-party license, launchers and device guides, without existing accounts, data, keys or recordings. Launcher and extracted-artifact first-use checks are engineering verification on the current Windows host; independent user testing and real-device acceptance remain pending in the [human checklist](RELEASE_PARTICIPATION.md). Hosted CI and publication were subsequently verified as recorded below. The invitation is now publicly included in the Release; independent participation or completed testing has not been verified.
 
 The first restricted-environment test attempt could not connect to temporary loopback test servers. The final core run was made with loopback access and passed; the environmental failure is not counted as a passing run. No real provider, clinical platform or patient data was used.
 
-The Windows launcher harness passed 18 checks, including concurrent/repeated startup, Unicode/space paths, occupied-port rejection, PID ownership guards, legacy PID records without a port field, and preservation of SQLite table fingerprints and keys across stop/restart. The bundled Node.js v24.19.0 Windows x64 executable matches its official SHA-256 entry and has a valid OpenJS Foundation signature; this does not sign the project launch scripts.
+## 0.6.1 GitHub publication verification (2026-10-18)
 
+The [official repository](https://github.com/Alias1027/Multi-language-Headache-Diary--) and [v0.6.1 research pre-release](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.6.1) are public. [GitHub Actions run 39118500923](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/39118500923) passed for the release-tag commit `c1644cd8ca4767b20abc551167de6a33fadd2175`: **137 tests passed on Ubuntu and 137 on Windows**, together with release checks and source packaging/extraction verification. The previously recorded **101 browser checks were local synthetic checks**; they are not claimed as hosted CI results or as a new run during this documentation update.
+
+All three uploaded Release assets were downloaded successfully and their SHA-256 values verified against the local release evidence:
+
+| Asset | Bytes | SHA-256 |
+| --- | ---: | --- |
+| `headache-diary-source-0.6.1.zip` | 1582723 | `9b9336488d5030e8c929f049808d6469da612bac5640b98c3a4b88eb5fb9d699` |
+| `headache-diary-windows-x64-0.6.1.zip` | 36327762 | `3d09f4ed3e9ebdbb9f363113620ab8224cdbcd594e2a3184944acc03f812bd47` |
+| `SHA256SUMS.txt` | 203 | `ba39662a84e2b009ffe084db3da566a252131506109747500fef8a2af60fdf6a` |
+
+The Release remains a pre-release. Its title, tag and assets were preserved when the bilingual publication wording was updated. The main-branch documentation now records the published status; the frozen `v0.6.1` tag and ZIPs are not replaced. Current online documentation supersedes older publication-status wording inside those packages. These results apply to the named commit and artifacts, not automatically to future main-branch changes.
+
+已核验公开仓库、v0.6.1实验预发布版、Ubuntu与Windows各137项自动测试及发布／打包检查，并重新下载三个附件核对SHA-256。此前101项浏览器检查仍属于本机合成验证。公开测试邀请已随Release提供，独立用户参与、母语审校、临床验证、安全审查及手机/PWA/小程序真机验收仍待完成；应用服务未因此部署公网。main文档为发布后状态同步，标签和冻结附件保持不变，包内较早的发布状态以当前在线说明为准。
+
+The Windows launcher harness passed 18 checks, including concurrent/repeated startup, Unicode/space paths, occupied-port rejection, PID ownership guards, legacy PID records without a port field, and preservation of SQLite table fingerprints and keys across stop/restart. The bundled Node.js v24.19.0 Windows x64 executable matches its official SHA-256 entry and has a valid OpenJS Foundation signature; this does not sign the project launch scripts.

@@ -2,7 +2,7 @@
 
 权利人 / Licensor: **Junhui Liu M.D.**  
 Email: [junhuiliu1025@gmail.com](mailto:junhuiliu1025@gmail.com)  
-GitHub：项目发布后可通过其官方仓库联系；目前未在本文编造仓库网址。
+GitHub：[官方仓库 / Official repository](https://github.com/Alias1027/Multi-language-Headache-Diary--) · [联系入口 / Issues](https://github.com/Alias1027/Multi-language-Headache-Diary--/issues)。授权申请可先通过邮箱联系；公开Issue不应包含保密资料。
 
 本项目采用自定义 **Headache Diary Lab Personal Noncommercial Source-Available License 1.0**，以根目录 [LICENSE](../LICENSE) 的英文条款为准。它是源码可见许可，不是OSI认可的开源许可；不是MIT，也不是PolyForm标准许可证。
 
@@ -23,6 +23,6 @@ GitHub：项目发布后可通过其官方仓库联系；目前未在本文编�
 
 This release permits independent personal noncommercial learning and experimentation. All institutional and commercial uses require prior explicit written permission from **Junhui Liu M.D.**, including nonprofit institutional evaluation and research. Public inspection and GitHub forking do not grant deployment permission. Third-party licenses and previously granted rights in older versions remain unaffected. See [LICENSE](../LICENSE) for the governing terms and contact the licensor using the channels above.
 
-这是按项目权利人确认的政策编写的自定义许可，尚未经外部律师审查。正式对外采用前建议复核权属、条款可执行性及贡献者授权；不宣称适用于所有司法辖区。
+这是按项目权利人确认的政策编写并随v0.6.1发布的自定义许可，尚未经外部律师审查。仍建议复核权属、条款可执行性及贡献者授权；不宣称适用于所有司法辖区。本次仅同步公开联系入口，不改变许可条款或已授予权利。
 
 参考：[OSI开源定义](https://opensource.org/osd)、[GitHub许可说明](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository)、[MIT许可文本](https://choosealicense.com/licenses/mit/)、[PolyForm Noncommercial许可](https://polyformproject.org/licenses/noncommercial/1.0.0)。

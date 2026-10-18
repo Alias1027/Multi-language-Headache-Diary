@@ -1,6 +1,6 @@
-# Release preparation — 0.6.1
+# Release status and verification — 0.6.1
 
-Date: 2026-10-18. Target: **experimental source-available pre-release**. This file distinguishes locally checked engineering work from external validation and actual GitHub publication.
+Updated: 2026-10-18. Status: **published experimental source-available pre-release**. This file distinguishes verified publication and engineering checks from external validation still pending.
 
 ## Reproducible local gate
 
@@ -14,19 +14,25 @@ Date: 2026-10-18. Target: **experimental source-available pre-release**. This fi
 
 ## License and public description
 
-The current project-authored release uses the custom [personal noncommercial source-available license](../LICENSE). **Junhui Liu M.D.** requires prior written permission for all institutional and commercial use. Requests: [junhuiliu1025@gmail.com](mailto:junhuiliu1025@gmail.com) or the official GitHub repository when published. See [LICENSING.md](LICENSING.md).
+The current project-authored release uses the custom [personal noncommercial source-available license](../LICENSE). **Junhui Liu M.D.** requires prior written permission for all institutional and commercial use. Requests: [junhuiliu1025@gmail.com](mailto:junhuiliu1025@gmail.com) or the [official GitHub repository](https://github.com/Alias1027/Multi-language-Headache-Diary--). See [LICENSING.md](LICENSING.md).
 
-Third-party licenses are preserved. Rights already granted in older versions are not retroactively revoked. Review authorship, any prior distribution and external contributions before publication. This custom license has not had independent legal review. GitHub may display a custom license as “Other”; do not add an MIT/open-source badge to bypass that classification.
+Third-party licenses are preserved. Rights already granted in older versions are not retroactively revoked. Authorship, prior distribution and external-contribution rights still need independent review. This custom license has not had independent legal review. GitHub may display a custom license as “Other”; do not add an MIT/open-source badge to bypass that classification.
 
-## Publication steps not performed locally
+## Verified publication status
 
-The [bilingual owner and participant checklist](RELEASE_PARTICIPATION.md) lists the remaining human tasks, synthetic usability exercises and feedback template. The [testing invitation](TEST_INVITATION.md) is ready to copy but has not been sent. The clean source and Windows x64 ZIPs are separate assets awaiting upload; no actual download URL or hosted CI success is implied.
+- [x] The [official repository](https://github.com/Alias1027/Multi-language-Headache-Diary--) is public, and [v0.6.1](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.6.1) is published with the pre-release designation.
+- [x] The release-tag commit `c1644cd` passed [GitHub Actions run 39118500923](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/39118500923): 137 tests per platform on Ubuntu and Windows, release checks and source packaging/extraction verification.
+- [x] The source ZIP, Windows x64 portable ZIP and `SHA256SUMS.txt` are available under Release Assets. All three downloads and SHA-256 values have been verified. The automatic GitHub source archives are different from the manually uploaded source ZIP.
+- [x] The public [testing invitation](TEST_INVITATION.md) is included in the Release. This is not evidence that independent participants have been recruited or completed the tasks.
 
+The main-branch documentation is updated after publication. The `v0.6.1` tag, two ZIP assets and checksum file are unchanged; current online documentation supersedes older publication-status wording inside the frozen packages. Future source changes need their own validation; the linked CI result belongs to the release-tag commit.
 
-- Create/select the actual repository; do not publish the whole Windows delivery folder.
+## Remaining human and external checks
+
+The [bilingual owner and participant checklist](RELEASE_PARTICIPATION.md) contains synthetic usability tasks and a feedback template. Independent user first-use testing, native-language and clinical review, security review and real-device acceptance remain pending. The previous 101 browser checks were local synthetic checks, not part of the hosted CI run.
+
+- Confirm private vulnerability reporting where available; its repository setting has not been verified here. Do not collect patient data or credentials in public issues.
 - If importing an existing Git history, inspect that history for sensitive material and old licensing grants; current-tree checks do not scan all prior commits.
-- Run the provided GitHub Actions matrix on Windows and Linux; resolve failures before tagging the release.
-- Use `v0.6.1` as the application tag and mark the GitHub release as a pre-release. Use actual repository links in metadata only after they exist.
-- Enable private vulnerability reporting where available. Do not collect patient data or credentials in public issues.
+- Preserve the source-only repository and sanitized assets; never upload the active Windows delivery folder, local records, recordings, keys, backups or QA files.
 
-No remote GitHub CI run, repository publication, independent security audit, native clinical translation approval or patient study is asserted by completing the local gate. Actual local results and prior browser evidence are in [VALIDATION.md](VALIDATION.md).
+Automated success and publication do not establish clinical effectiveness, production readiness or deployment approval. See [VALIDATION.md](VALIDATION.md) for the evidence and its scope.
