@@ -1,3 +1,4 @@
+import {clinicianActive,activeGrant} from './care-access.mjs';
 import {randomUUID} from 'node:crypto';
 import {seal,unseal} from './storage.mjs';
 import {validDate,dateAt} from './core.mjs';
@@ -7,10 +8,11 @@ const text=(value,max=2000)=>{if(typeof value!=='string'||value.length>max)fail(
 const choice=(value,values)=>{if(!values.includes(value))fail('invalid_care_value');return value;};
 const date=value=>{if(!validDate(value))fail('invalid_care_date');return value;};
 export function prepareCare(store){store.db.exec('CREATE TABLE IF NOT EXISTS care_records (patient_id TEXT PRIMARY KEY,body TEXT NOT NULL)');}
-export function careContext(store,actor){
+export function careContext(store,actor,patientId=null){
   if(actor.profile.role!=='clinician')return {actor,patient:actor,role:'patient'};
-  const patient=store.get(actor.profile.patientId);
-  if(!patient?.vault.synthetic||!actor.vault.synthetic||patient.profile.clinicianId!==actor.id)fail('care_access_denied',403);
+  if(!clinicianActive(actor)||!patientId)fail('care_access_denied',403);
+  activeGrant(store,patientId,actor.id);const patient=store.get(patientId);
+  if(!patient||patient.profile.role==='clinician')fail('care_access_denied',403);
   return {actor,patient,role:'clinician'};
 }
 export function ensureDemoPair(store,patient){
@@ -31,6 +33,7 @@ export function viewCare(store,context){
     out.assessments=out.assessments.filter(r=>r.status==='confirmed');out.plans=out.plans.filter(r=>r.status==='confirmed');
     out.followups=out.followups.filter(r=>r.status!=='draft');delete out.history;
   }
+  if(context.role==='clinician'){for(const k of ['assessments','plans','followups'])out[k]=out[k].filter(r=>r.status!=='draft'||r.authorId===context.actor.id);out.history=out.history.filter(h=>h.record.status!=='draft'||h.actorId===context.actor.id).map(h=>({...h,previous:h.previous?.status==='draft'&&h.previous.authorId!==context.actor.id?null:h.previous}));}
   return {...out,role:context.role,patientId:context.patient.id,sourceRevision:context.patient.vault.revision};
 }
 export function saveCare(store,context,body){
@@ -43,9 +46,10 @@ export function saveCare(store,context,body){
   if(body.revision!==c.revision)fail('revision_care_conflict',409);
   if(c.history.length>=1000||c[kind].length>=500)fail('care_limit',409);
   const input=body.record||{},now=new Date().toISOString(),old=input.id&&c[kind].find(r=>r.id===input.id);
+  if(old?.status==='draft'&&old.authorId!==actor.id)fail('care_access_denied',403);
   if(input.id&&!old)fail('care_not_found',404);
   if(old&&(old.status==='confirmed'||['feedback','patientPlans'].includes(kind)))fail('care_amend_required',409);
-  let r={id:old?.id||randomUUID(),authorId:actor.id,author:role==='clinician'?'Demo clinician':'Patient',createdAt:old?.createdAt||now,updatedAt:now};
+  let r={id:old?.id||randomUUID(),authorId:actor.id,author:role==='clinician'?actor.profile.displayName:'Patient',authorRole:role,provenance:role==='clinician'?(patient.vault.synthetic?'simulated_clinician':'clinician_entered'):'patient_reported',createdAt:old?.createdAt||now,updatedAt:now};
   if(kind==='assessments'){
     const report=patient.vault.reports.find(x=>x.id===input.reportId);if(!report)fail('invalid_care_report');
     r={...r,reportId:report.id,report:structuredClone(report),status:choice(input.status,['draft','confirmed']),summary:text(input.summary),response:text(input.response||''),functionNote:text(input.functionNote||''),questions:text(input.questions||''),patientMessage:text(input.patientMessage||'')};
@@ -56,7 +60,7 @@ export function saveCare(store,context,body){
     if(!r.medication||r.end&&r.end<r.start)fail('invalid_care_plan');
     if(r.assessmentId&&!c.assessments.some(x=>x.id===r.assessmentId&&x.status==='confirmed'))fail('invalid_care_assessment');
     if(r.status==='confirmed'&&(!r.reason||r.change!=='stop'&&(!r.dose||!r.route||!r.frequency)))fail('invalid_care_required');
-    r.simulated=true;r.observationFocus=text(input.observationFocus||'');r.reviewDate=input.reviewDate?date(input.reviewDate):null;
+    r.simulated=!!patient.vault.synthetic;r.observationFocus=text(input.observationFocus||'');r.reviewDate=input.reviewDate?date(input.reviewDate):null;
   }
   if(kind==='patientPlans'){
     // Patient transcription is never promoted to clinician confirmation.
@@ -89,6 +93,7 @@ export function saveCare(store,context,body){
     r={...r,planId:input.planId,planKind,status,actualStart,perceivedChange:choice(input.perceivedChange||'not_assessed',['not_assessed','better','same','worse','uncertain']),difficultyReason:choice(input.difficultyReason||'none',['none','forgot','unavailable','side_effects','unclear','other']),adverseNote:text(input.adverseNote||'',1000),note:text(input.note||'',1000)};
     if(status!=='difficulty'&&r.difficultyReason!=='none')fail('invalid_care_value');
   }
+  if(role==='clinician'){r.reviewedAt=input.reviewedAt||null;r.reviewId=input.reviewId||null;r.reviewedReportId=input.reviewedReportId||null;}
   if(old)c[kind][c[kind].indexOf(old)]=r;else c[kind].push(r);
   c.revision++;c.history.push({kind,record:structuredClone(r),previous:old||null,revision:c.revision,at:now,actorId:actor.id});c.operations.push(actor.id+':'+body.operationId);
   store.db.prepare('INSERT INTO care_records VALUES (?,?) ON CONFLICT(patient_id) DO UPDATE SET body=excluded.body').run(patient.id,seal(c,store.key,patient.id+':care'));

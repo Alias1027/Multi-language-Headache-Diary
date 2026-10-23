@@ -1,6 +1,31 @@
 # Changelog
 
-## 0.7.0 — 2026-10-18
+## 0.8.2 — 2026-10-23 (local)
+
+- Add Android 0.1.0-preview: first-launch offline diary, eight languages, Android Keystore encrypted storage, password-encrypted backup/restore, native recorder intent and system-file fallback, account linking and patient-authorized clinician synchronization.
+- Reuse the diary form with injected storage; disable entry controls during asynchronous date changes to prevent lost rapid input.
+- Preserve browser/PWA and existing server data. Add Android-specific tests and source-package exclusions for build products/signing secrets.
+- No bundled speech model, public mobile service, app-store release or GitHub publication.
+
+## 0.8.1 — Local review build, 2026-10-21
+
+- Separate patient/clinician choices on both sign-in pages; language follows the selected portal link, and synthetic demo is secondary.
+- Centralize patient permission management under Settings. Advice & follow-up retains connection status and a direct management shortcut; duplicate clinician entry links are removed.
+- Match eight-language labels, RTL and mobile layouts. Keep existing authentication, consent, diary and care-history storage unchanged.
+- Browser checks cover public entry choices, the actual settings grant/revoke path, linked/unlinked states and all eight language layouts. Offline cache checks now use the shipped version instead of a fixed version string.
+- Local delivery only; no new GitHub release or remote CI is claimed.
+
+
+
+## 0.8.1 — local review build, 2026-10-21
+- Separate clinician credentials/session and operator account approval; patient-controlled, expiring, revocable access.
+- Separate Advice & follow-up and Visit summary patient navigation.
+- Review diary, historical feedback and dated summaries before confirming advice; retain review provenance and immutable history.
+- Eight-language clinician/access UI, mobile layout and authorization regression tests.
+- Patient diary remains the core product; no electronic prescription, credential verification or clinical effectiveness claim.
+- Existing published 0.7.0 artifacts remain unchanged. This local build is not a GitHub release.
+
+## 0.8.0 — 2026-10-18
 
 - Patient diary: encrypted multi-day queue and same-day amendments; ordered idempotent replay, account/session recovery, explicit conflict handling and storage/export guidance.
 - Weak networks: cache-first static shell, finite request timeouts, no API caching or automatic write retries outside the diary queue.

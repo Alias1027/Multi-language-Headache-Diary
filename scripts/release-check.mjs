@@ -3,14 +3,15 @@ import path from 'node:path';
 import {fileURLToPath,pathToFileURL} from 'node:url';
 
 const rootFiles=new Set(['package.json','README.md','README.zh-CN.md','LICENSE','NOTICE.md','SECURITY.md','CONTRIBUTING.md','CHANGELOG.md','.env.example','.gitignore']);
-const trees=new Set(['public','server','tests','scripts','docs','fixtures','examples','miniapps','.github']);
-const extensions=new Set(['.mjs','.js','.ps1','.py','.json','.md','.txt','.csv','.html','.css','.svg','.png','.jpg','.webmanifest','.yml','.yaml','.wxml','.wxss','.axml','.acss','.ttml','.ttss']);
+const trees=new Set(['public','server','tests','scripts','docs','fixtures','examples','miniapps','android','.github']);
+const extensions=new Set(['.mjs','.js','.ps1','.py','.json','.md','.txt','.csv','.html','.css','.svg','.png','.jpg','.webmanifest','.yml','.yaml','.wxml','.wxss','.axml','.acss','.ttml','.ttss','.gradle','.properties','.java','.xml']);
 const privateName=/(^|\/)(data|runtime|node_modules|models|\.venv|__pycache__|coverage|test-results)(\/|$)|(^|\/)(\.env(?:\..+)?|local-keys\.json)$|\.(?:sqlite(?:-wal|-shm)?|db|log|pid|zip|docx|exe|wav|mp3|webm|pem|key)$/i;
 export function sourceFiles(root){
  const files=[];root=realpathSync(root);
  const walk=(dir)=>{for(const name of readdirSync(dir).sort()){
   const file=path.join(dir,name),relative=path.relative(root,file).split(path.sep).join('/');
   if(relative==='.git')continue;
+  if(/(^|\/)(build|\.gradle)(\/|$)|\.(?:jks|keystore|apk|aab|class)$|(^|\/)local\.properties$/i.test(relative))throw Error('Android build/private file forbidden: '+relative);
   const st=lstatSync(file);if(st.isSymbolicLink())throw Error('Symlink forbidden: '+relative);
   if(privateName.test(relative)&&relative!=='.env.example')throw Error('Private/runtime file forbidden: '+relative);
   const top=relative.split('/')[0];if(!trees.has(top)&&!rootFiles.has(relative))throw Error('Unexpected source path: '+relative);
@@ -30,7 +31,7 @@ export function auditSource(root){
   if(!read(file).split('\n').slice(0,8).join('\n').includes(version))errors.push('Stale document version: '+file);
  }
  for(const file of files){
-  if(!/\.(?:mjs|js|json|md|txt|csv|html|py|ps1|yml|yaml)$/.test(file)&&file!=='.env.example')continue;
+  if(!/\.(?:mjs|js|json|md|txt|csv|html|py|ps1|yml|yaml|gradle|properties|java|xml)$/.test(file)&&file!=='.env.example')continue;
   const s=read(file);
   if(/-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----|\b(?:sk-proj-|sk-ant-)[A-Za-z0-9_-]{20,}|\bAKIA[A-Z0-9]{16}\b/.test(s))errors.push('Possible credential: '+file);
   if(/\.(?:md|txt|csv|html)$/.test(file)&&/\b(?:NRMP|ERAS|MyERAS)\b|申请CV|申请规划|Match排名|住院医申请|遴选委员会/i.test(s))errors.push('Non-project private discussion: '+file);
@@ -41,12 +42,18 @@ export function auditSource(root){
    if(path.isAbsolute(rel)||rel==='..'||rel.startsWith('..'+path.sep)||!existsSync(target))errors.push('Broken/nonportable link: '+file+' -> '+link);
   }
  }
+ for(const file of ['docs/RELEASE_CHECKLIST.md','docs/RELEASE_PARTICIPATION.md']){
+  if(!read(file).includes('<!-- release-target: '+version+' -->'))errors.push('Stale release target: '+file);
+ }
+ for(const file of ['docs/USER_GUIDE.en.md','docs/WINDOWS_PORTABLE.md']){
+  if(!read(file).split('\n').slice(0,8).join('\n').includes(version))errors.push('Stale document version: '+file);
+ }
  const sw=read('public/sw.js'),release=read('public/release.mjs');
  if(!release.includes("APP_VERSION='"+version+"'"))errors.push('Release module version mismatch');
  if(!sw.includes("headache-shell-"+version))errors.push('Offline cache version mismatch');
  const assets=[...sw.matchAll(/'([^']+)'/g)].map(x=>x[1]).filter(x=>x.startsWith('/')&&x!=='/api/');
  for(const asset of assets)if(!existsSync(path.join(root,'public',asset==='/'?'index.html':asset.slice(1))))errors.push('Missing offline asset: '+asset);
- for(const file of files.filter(x=>/^public\/(?:locales\/)?[^/]+\.mjs$/.test(x)))if(!assets.includes('/'+file.slice(7)))errors.push('Uncached public module: '+file);
+ for(const file of files.filter(x=>/^public\/(?:locales\/)?[^/]+\.mjs$/.test(x)))if(file!=='public/clinician.mjs'&&!assets.includes('/'+file.slice(7)))errors.push('Uncached public module: '+file);
  if(errors.length)throw Error(errors.join('\n'));
  return {version,files:files.length,offlineAssets:new Set(assets).size,license:pkg.license};
 }

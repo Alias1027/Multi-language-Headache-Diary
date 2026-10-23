@@ -88,3 +88,20 @@ textarea[dir=auto],.care-text,.voice-quote{unicode-bidi:plaintext}
 .plan-observation{margin-block:24px;padding-block:16px;border-top:1px solid var(--line)}.plan-observation .data-table{table-layout:fixed;width:100%}.plan-observation th,.plan-observation td{white-space:normal;overflow-wrap:anywhere}.plan-observation th{min-width:0}.plan-observation bdi{display:inline-block}.care-editor summary{cursor:pointer}.care-record{overflow-wrap:anywhere}
 .report-care{margin-block-start:24px;border-top:2px solid var(--line);padding-block-start:16px;overflow-wrap:anywhere}.report-care-plan,.feedback-entry,.report-care-notes{margin-block:14px;padding:16px;border:1px solid var(--line);border-radius:12px}.report-care-plan>summary,.feedback-entry>summary{line-height:1.65}.feedback-history{margin-block:20px}.report-care-note{border-top:1px solid var(--line);padding-block:12px}.feedback-entry .care-text{margin-block:12px}.report-care bdi,.feedback-entry bdi{overflow-wrap:anywhere}.care-record:target{outline:2px solid var(--primary);outline-offset:6px;scroll-margin-top:24px}
 @media print{.report-care-plan,.feedback-entry,.report-care-notes{padding:8px;border-radius:0;break-inside:auto}.report-care h2,.report-care h3,.report-care summary{break-after:avoid}.report-care-note{break-inside:auto}.report-care details>summary{list-style:none}.report-care .care-text{font-size:10px;margin-block:6px}.report-care a{text-decoration:none}}
+
+/* Independent, online-only clinician workspace */
+.clinician-shell{max-width:1220px;margin:auto}.clinician-shell main{padding:24px}.clinician-shell .topbar{position:static;flex-wrap:wrap;gap:16px}.clinician-shell h1{font-size:1.6rem}.care-code{font-family:monospace;overflow-wrap:anywhere;font-size:1.15rem}.care-steps{display:flex;flex-wrap:wrap;gap:16px;margin:24px 0}.care-steps a{background:var(--surface,#fff);border:1px solid #126b64;border-radius:12px;padding:14px;color:#126b64}.access-grants{margin-block-start:20px}.clinician-shell details{margin-block:12px}.clinician-shell dd{margin-inline-start:16px;overflow-wrap:anywhere}.clinician-shell input,.clinician-shell select{max-width:100%}.clinician-shell .report-paper{margin-block:20px}.clinician-shell .check{margin-block:14px}
+@media(max-width:600px){.clinician-shell main{padding:12px}.clinician-shell .topbar{padding:14px}.clinician-shell .card{padding:18px}.care-steps{display:grid}.care-code{font-size:1rem}}
+@media print{.clinician-shell header,.clinician-shell footer,.clinician-shell .care-steps,#doctor-diary,#doctor-advice,.clinician-shell main>section.card,.clinician-shell main>p,#doctor-summary>.card{display:none!important}.clinician-shell main{padding:0}}
+
+.clinical-layout{grid-template-columns:minmax(0,1fr)}
+
+/* 0.8.1: distinct sign-in portals and compact patient connection status. */
+.login-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-block:24px}
+.login-choice{display:flex;align-items:center;justify-content:center;min-height:62px;padding:16px;border:2px solid var(--line);border-radius:14px;font-size:18px;font-weight:700;text-align:center;text-decoration:none;color:var(--ink);overflow-wrap:anywhere}
+.login-choice.selected{border-color:var(--primary);background:var(--soft);color:var(--primary)}
+.login-choice:focus-visible{outline:3px solid var(--primary);outline-offset:4px}
+.demo-entry{border-top:1px solid var(--line);padding-top:18px;margin-top:24px}.auth .demo-entry .demo{margin:0;background:var(--surface);color:var(--primary);border:1px solid var(--line)}
+.care-connection h2{font-size:1.15rem;margin-bottom:8px}.care-connection .section-head{margin:0;gap:16px;align-items:center}.care-connection ul{padding-inline-start:20px;margin:8px 0}.care-connection p{margin:8px 0}.care-connection button{min-height:48px;flex-shrink:0}
+.access-panel{margin-block-start:20px}.setting-group[data-setting=access]>summary{scroll-margin-top:24px}
+@media(max-width:720px){.login-choices{gap:8px}.login-choice{font-size:17px;padding:12px;min-height:64px}.care-connection .section-head{flex-direction:column;align-items:stretch}.care-connection button{width:100%}}

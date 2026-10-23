@@ -1,4 +1,4 @@
-# Language support and review — 0.7.0
+# Language support and review — 0.8.2
 
 The application offers eight complete interface catalogs. This is a research preview, not evidence that the translations are clinically validated or cover all members of any ethnic group.
 

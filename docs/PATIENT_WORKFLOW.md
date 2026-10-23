@@ -1,4 +1,6 @@
-# Patient diary workflow / 患者日记工作流 — 0.7.0
+# Patient diary workflow / 患者日记工作流 — 0.8.2
+
+> 0.8.2：医生入口与授权流程以 [CLINICIAN_ACCESS.md](CLINICIAN_ACCESS.md) 为准。旧版“模拟角色切换”已移除；下文涉及 v0.7.0 的发布/验证记录属于历史证据。当前新增范围需独立验证，未复用旧 CI 结果。
 
 Updated: 2026-10-18. Experimental; synthetic demonstrations. No full chart or prescription execution.
 

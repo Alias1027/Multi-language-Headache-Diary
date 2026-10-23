@@ -1,30 +1,33 @@
-# 实施状态 — 0.7.0
+# 实施状态 — 0.8.2
+
+> 0.8.2：医生入口与授权流程以 [CLINICIAN_ACCESS.md](CLINICIAN_ACCESS.md) 为准。旧版“模拟角色切换”已移除；下文涉及 v0.7.0 的发布/验证记录属于历史证据。当前新增范围需独立验证，未复用旧 CI 结果。
 
 
-更新：2026-10-18。当前版本：**0.7.0 患者头痛日记实验预发布版**。本轮增加连续多日离线日记、弱网超时与可选 HTTPS 手机部署基础。具体自动检查结果与对应提交见[验收记录](VALIDATION.md)；历史版本测试数字不代替本版验收。临床统计规则 0.1.0，术语版本 0.2.0，数据模式 1 保持不变。
+更新：2026-10-23。当前交付：**Web/服务端 0.8.2，Android 0.1.0-preview**，均保持患者头痛日记定位。浏览器/PWA保留初始化后的多日离线和弱网恢复；Android支持首次离线使用、加密备份和手动联网同步。医生使用独立账号，须部署者批准及患者授权后审阅。具体自动检查结果与对应提交见[验收记录](VALIDATION.md)；历史测试数字和远程CI不代替本版验收。临床统计规则 0.1.0，术语版本 0.2.0，日记数据模式 1 保持不变。真机验收按本轮决定安排在预发布后，未完成前不得标称已通过真机验证。
 
 | 功能 | 当前成果 | 尚未完成 |
 | --- | --- | --- |
 | 每日状态与头痛发作 | 同页记录，区分无、有、未知、漏填；临床评估展开；跨日、多次发作与修订 | 独立临床规则复核和患者可用性研究 |
 | 急性用药与预防治疗 | 实际用药、剂量、时间、响应及活动影响；未填初始表单不保存 | 药物目录集成与真实治疗结局验证 |
 | 医生摘要 | 周、自然月、滚动28日、自定义；覆盖率和缺失分母；独立报告语言 | 真实门诊阅读效率研究 |
-| 模拟随访 | 医生评估、模拟方案、回访、患者反馈、修订历史 | 正式身份与授权；真实处方和完整医院工作流不属于本产品范围 |
+| 医生建议与随访 | 独立医生账号/会话、部署者批准、患者限时授权/撤销、审阅凭据；评估、建议、回访、逐条反馈及修订关联摘要 | 执业资质核验、真实临床使用与独立安全验证；不提供电子处方或完整医院工作流 |
 | 八语言 | zh/en/es/fr/ru/ar/hi/ur；各语言界面键集合一致性自动检查；阿拉伯语与乌尔都语RTL，印地语LTR | 母语临床审校、患者理解及正式无障碍评估 |
 | 语音与模型 | 原件本地加密、浮窗、中英文候选及人工核对；本机ASR与可选云端适配 | 可选模型接入（非必需）、真实录音准确率、印地语/乌尔都语/Hinglish语音 |
 | 邮箱账号 | 本机账号、模拟验证、会话与导出 | 真实邮件投递、邮箱所有权验证、找回密码 |
 | 模拟医院共享 | 授权、加密数据包、周/月排程、回执、重试、去重及撤销后续共享 | 实际医院对接、身份匹配、真实机构权限与部署 |
 | Windows一键启动 | 单独的便携交付包包含运行环境，本机启动/停止已验证 | GitHub纯源码需配置Node.js 24；不等于跨平台一键部署 |
-| 多日离线日记 | 初始化后继续记录不同日期及同日修订；加密队列、顺序重试、会话恢复及冲突保留 | 首次登录需服务；旧浏览器缺少Web Locks时不能安全写队列；浏览器清理、磁盘压力和真机恢复验收仍需完成 |
+| 浏览器/PWA多日离线日记 | 初始化后继续记录不同日期及同日修订；加密队列、顺序重试、会话恢复及冲突保留 | 首次登录需服务；旧浏览器缺少Web Locks时不能安全写队列；浏览器清理、磁盘压力和真机恢复验收仍需完成 |
+| Android离线患者版 | 首次启动无需账号或网络；八语言、Android Keystore加密本地存储、密码加密备份/恢复、显式账号关联和手动同步；优先调用已有录音工具，无模型捆绑 | 预发布后验证真实手机、不同录音工具返回、跨设备恢复及实际HTTPS服务；离线时不能提交新的医生反馈 |
 | 浏览器直接使用 | 电脑本机可用；新增限定网址的HTTPS反向代理模式和示例，手机可选浏览器方式 | 维护者仍需部署真实域名、证书与访问控制，并完成手机真机验证 |
 | 可选PWA入口 | Manifest、缓存优先页面、加密草稿和多日待同步队列 | 跨设备安装／更新待验证；报告、登录、方案反馈等仍需后台服务；不提供真实推送 |
 | 三平台小程序 | 微信/支付宝/抖音网页入口准备代码 | 平台构建、准入审核、业务域名和真机扫码 |
-| 发布工程 | [实际仓库](https://github.com/Alias1027/Multi-language-Headache-Diary--)、源码边界检查、双语说明、独立便携包及公开测试邀请；本轮目标为0.7.0 | 本版提交、CI、附件及校验结果以[验收记录](VALIDATION.md)为准；独立用户、母语、临床、安全及真机验收见[人工清单](RELEASE_PARTICIPATION.md) |
+| 发布工程 | [实际仓库](https://github.com/Alias1027/Multi-language-Headache-Diary--)、源码边界检查、双语说明、独立便携包及Android预览包；新增校验Gradle下载的Android编译CI配置 | 本版提交、远程CI、附件及校验结果以[验收记录](VALIDATION.md)为准；不能沿用旧版绿灯；预发布后人工任务见[人工清单](RELEASE_PARTICIPATION.md) |
 
 公开仓库和下载附件不代表应用服务已部署公网。默认启动仅供电脑本机使用；可选HTTPS模式面向维护者控制的合成数据试点，不是现成的临床平台。
 
 ### 历史发布证据：0.6.1
 
-[v0.6.1预发布版](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.6.1)及其三个附件已发布并核对下载及SHA-256。[当时CI](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/39118500923)对应标签提交 `c1644cd`，Ubuntu／Windows各137项测试及发布、打包检查通过；101项浏览器检查属于当时本机合成验证。这些数字只证明0.6.1。其标签、ZIP和校验文件保持冻结，0.7.0作为独立版本验收和发布。
+[v0.6.1预发布版](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.6.1)及其三个附件已发布并核对下载及SHA-256。[当时CI](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/39118500923)对应标签提交 `c1644cd`，Ubuntu／Windows各137项测试及发布、打包检查通过；101项浏览器检查属于当时本机合成验证。这些数字只证明0.6.1。其标签、ZIP和校验文件保持冻结；当前0.8.2及Android预览包需独立验收。
 
 默认运行不请求外部模型；明确启用并逐次确认后，可选适配器会向配置的外部服务发送相应内容。详情见 [模型接口](MODEL_INTEGRATION.md)。
 
@@ -45,3 +48,10 @@
 ## 历史：0.6.1 发布前优化
 
 逐条反馈历史、方案前版与原因、新摘要随访快照、旧报告兼容、变更后重新生成提示已实现。报告同时明确日记统计日期与随访历史范围；模拟共享保留原日记范围。患者头痛日记、方案与实际用药分离的定位保持不变。对照国内外代表性产品后，本轮优先吸收便于就诊沟通与历史回看的设计；暂不增加天气预测、自动诊疗、完整病历或重型设备集成。详见[产品对照与优先级](PRODUCT_COMPARISON.md)。
+
+
+## 2026-10-23 · Android 0.1.0-preview / Web 0.8.2
+
+Android native shell reuses the eight-language diary and offline journal modules. AES-GCM/Android Keystore encrypted SQLite, password-encrypted portable backups, native recording-app intent and audio picker, explicit account linking and manual sync are implemented. See [Android implementation and remaining checks](ANDROID_OFFLINE.md) and [actual emulator screenshots](ANDROID_SCREENSHOTS.md). This local delivery does not claim remote publication of 0.8.2/Android preview, physical-device acceptance or clinical validation. Physical-device acceptance is planned after prerelease.
+
+模拟器完成首次离线、三日记录、八语言、备份密码与恢复点测试；系统文件导入导出已验证，并在清除测试应用数据后使用原备份密码恢复了3条待同步记录、3条历史操作及1个合成音频。原生SQLite完整性通过，日记与音频标记未以明文出现在加密块中。医生同步契约使用隔离后端核验；真实手机HTTPS与不同录音工具仍待验收。

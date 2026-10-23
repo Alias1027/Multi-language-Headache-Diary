@@ -1,5 +1,5 @@
-const CACHE='headache-shell-0.7.0';
-const ASSETS=['/diary-drafts.mjs','/network.mjs','/offline-queue.mjs','/care-report-ui.mjs','/care-history-i18n.mjs','/care-observation.mjs','/voice-review.mjs','/reminder-ui.mjs','/release.mjs','/locale-registry.mjs','/locales/zh.mjs','/locales/en.mjs','/locales/es.mjs','/locales/fr.mjs','/locales/ru.mjs','/locales/ar.mjs','/locales/hi.mjs','/locales/ur.mjs','/','/index.html','/style.css','/app.mjs','/i18n.mjs','/domain.mjs','/episode-assessment.mjs','/offline.mjs','/workspace-i18n.mjs','/care-ui.mjs','/diary-ui.mjs','/entry-templates.mjs','/report-options.mjs','/voice-ui.mjs','/voice-parser.mjs','/icon.svg','/manifest.webmanifest','/vendor/qrcodegen.js'];
+const CACHE='headache-shell-0.8.2';
+const ASSETS=['/care-access-i18n.mjs','/care-access-ui.mjs','/report-view.mjs','/diary-drafts.mjs','/network.mjs','/offline-queue.mjs','/care-report-ui.mjs','/care-history-i18n.mjs','/care-observation.mjs','/voice-review.mjs','/reminder-ui.mjs','/release.mjs','/locale-registry.mjs','/locales/zh.mjs','/locales/en.mjs','/locales/es.mjs','/locales/fr.mjs','/locales/ru.mjs','/locales/ar.mjs','/locales/hi.mjs','/locales/ur.mjs','/','/index.html','/style.css','/app.mjs','/i18n.mjs','/domain.mjs','/episode-assessment.mjs','/offline.mjs','/workspace-i18n.mjs','/care-ui.mjs','/diary-ui.mjs','/entry-templates.mjs','/report-options.mjs','/voice-ui.mjs','/voice-parser.mjs','/icon.svg','/manifest.webmanifest','/vendor/qrcodegen.js'];
 const NETWORK_TIMEOUT_MS=4000;
 // A failed install preserves the previous working shell. Updates wait for old
 // tabs to close, avoiding mixed module versions. IndexedDB is never touched.
@@ -33,6 +33,6 @@ async function shellResponse(request){
 }
 self.addEventListener('fetch',e=>{
   const url=new URL(e.request.url);
-  if(e.request.method!=='GET'||url.origin!==self.location.origin||url.pathname.startsWith('/api/'))return;
+  if(e.request.method!=='GET'||url.origin!==self.location.origin||url.pathname.startsWith('/api/')||url.pathname==='/clinician.html'||url.pathname==='/clinician.mjs')return;
   e.respondWith(shellResponse(e.request));
 });

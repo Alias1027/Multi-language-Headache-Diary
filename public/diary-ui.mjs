@@ -11,9 +11,9 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const localTime=s=>{if(!s)return '';const d=new Date(s);return Number.isFinite(+d)?new Date(+d-d.getTimezoneOffset()*60000).toISOString().slice(0,16):'';};
 const toISO=s=>s&&Number.isFinite(Date.parse(s))?new Date(s).toISOString():null;
 
-export function createDiaryWorkspace(){
+export function createDiaryWorkspace({storage=localVault,locks=globalThis.navigator?.locks}={}){
   let voiceOpen=false,voiceRecording=false,host,ctx,draft,loadedUser=null,writing=Promise.resolve(),saveTimer,saving=false,status='',legacy=[],storedDrafts=[],releaseEditor=null;
-  const draftStore=createDraftStore({storage:localVault});
+  const draftStore=createDraftStore({storage,locks});
   const T=k=>assessmentText(ctx.lang,k)??diaryText(ctx.lang,k)??ctx.t(k),vault=()=>ctx.state().vault,today=()=>dateAt(Date.now(),vault().timezone);
   const uid=()=>ctx.state().user.id;
   const pointer=()=> 'active-diary-draft-'+uid();
@@ -86,7 +86,10 @@ export function createDiaryWorkspace(){
       const date=ev.target.value;if(!ev.target.checkValidity()||!date){ev.target.value=draft.date;return;}
       capture();if(draft.changed&&!confirm(T('switchDate'))){ev.target.value=draft.date;return;}
       if(!ctx.canVoiceLeave()){ev.target.value=draft.date;return;}
-      clearTimeout(saveTimer);await writing.catch(()=>{});await removeDraft();await selectDraft(fresh(date));status='';render();await persist();return;
+      const fields=host.querySelector('#unified-diary-form > fieldset');fields.disabled=true;
+      try{clearTimeout(saveTimer);await writing.catch(()=>{});await removeDraft();await selectDraft(fresh(date));status='';render();await persist();}
+      catch(err){say(T('offlineSaveFailed'));if(fields.isConnected)fields.disabled=false;}
+      return;
     }
     if(['headache','acute'].includes(ev.target.name)){capture();mark();await persist();if(ctx.canVoiceLeave())render();}
   }
@@ -138,7 +141,7 @@ export function createDiaryWorkspace(){
   }
   return {
     text:diaryText,
-    async mount(element,context){host=element;ctx=context;host.innerHTML=`<p>${esc(T('loading'))}</p>`;const uid=ctx.state().user.id;if(loadedUser!==uid||!draft){loadedUser=uid;await draftStore.migrate(uid);storedDrafts=await draftStore.list(uid);const remembered=sessionStorage.getItem(pointer()),candidate=storedDrafts.find(d=>d.operationId===remembered)||storedDrafts.find(d=>d.changed);await selectDraft(candidate||fresh(today()));}if(!draft.changed){await removeDraft();await selectDraft(fresh(draft.date));}storedDrafts=await draftStore.list(uid);legacy=[];for(const [form,task] of [['daily-form','daily'],['episode-form','episodes'],['med-form','medications'],['preventive-form','medications']])if(await localVault.get('draft-'+form))legacy.push(task);legacy=[...new Set(legacy)];render();},
+    async mount(element,context){host=element;ctx=context;host.innerHTML=`<p>${esc(T('loading'))}</p>`;const uid=ctx.state().user.id;if(loadedUser!==uid||!draft){loadedUser=uid;await draftStore.migrate(uid);storedDrafts=await draftStore.list(uid);const remembered=sessionStorage.getItem(pointer()),candidate=storedDrafts.find(d=>d.operationId===remembered)||storedDrafts.find(d=>d.changed);await selectDraft(candidate||fresh(today()));}if(!draft.changed){await removeDraft();await selectDraft(fresh(draft.date));}storedDrafts=await draftStore.list(uid);legacy=[];for(const [form,task] of [['daily-form','daily'],['episode-form','episodes'],['med-form','medications'],['preventive-form','medications']])if(await storage.get('draft-'+form))legacy.push(task);legacy=[...new Set(legacy)];render();},
     async flush(){if(saving)return false;if(host?.isConnected&&draft?.changed){capture();await persist();}return true;},
     openVoice(){voiceOpen=true;updateVoiceVisibility();},
     reset(){voiceOpen=false;voiceRecording=false;clearTimeout(saveTimer);releaseEditor?.();releaseEditor=null;draft=null;loadedUser=null;status='';storedDrafts=[];},

@@ -1,4 +1,4 @@
-# 使用许可与授权 / Licensing — 0.7.0
+# 使用许可与授权 / Licensing — 0.8.2
 
 权利人 / Licensor: **Junhui Liu M.D.**  
 Email: [junhuiliu1025@gmail.com](mailto:junhuiliu1025@gmail.com)  

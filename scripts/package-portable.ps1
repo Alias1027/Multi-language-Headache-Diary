@@ -31,9 +31,11 @@ foreach ($name in $resourceFiles) { if (!(Test-Path -LiteralPath (Join-Path $res
 $guideRoot=Join-Path $resourcesRoot $guideName
 if (!(Test-Path -LiteralPath $guideRoot -PathType Container)) { throw 'Missing getting-started guide.' }
 $guideFiles=@(Get-ChildItem -LiteralPath $guideRoot -Recurse -Force)
+$guideScripts=@('06-医生工作台/打开医生入口.ps1','06-医生工作台/管理医生账号.ps1')
 foreach ($item in $guideFiles) {
   if ($item.Attributes -band [IO.FileAttributes]::ReparsePoint) { throw 'Guide symlinks or junctions are not allowed.' }
-  if (!$item.PSIsContainer -and $item.Extension -notin @('.html','.css','.cmd')) { throw "Unexpected guide resource: $($item.Name)" }
+  $relative=$item.FullName.Substring($guideRoot.Length+1).Replace('\','/')
+  if (!$item.PSIsContainer -and $item.Extension -notin @('.html','.css','.cmd') -and $relative -notin $guideScripts) { throw "Unexpected guide resource: $($item.Name)" }
 }
 foreach ($path in @($node,$license,$guideRoot)+@($resourceFiles | ForEach-Object { Join-Path $resourcesRoot $_ })) {
   if ((Get-Item -LiteralPath $path -Force).Attributes -band [IO.FileAttributes]::ReparsePoint) { throw 'Input symlinks or junctions are not allowed.' }
@@ -44,6 +46,8 @@ New-Item -ItemType Directory -Path (Join-Path $bundle 'runtime') | Out-Null
 Copy-Item -LiteralPath $node,$license -Destination (Join-Path $bundle 'runtime')
 foreach ($name in $resourceFiles) { Copy-Item -LiteralPath (Join-Path $resourcesRoot $name) -Destination (Join-Path $bundle $name) }
 Copy-Item -LiteralPath $guideRoot -Destination (Join-Path $bundle $guideName) -Recurse
+& $node (Join-Path $PSScriptRoot 'verify-guide-links.mjs') $bundle
+if ($LASTEXITCODE -ne 0) { throw 'Portable guide links or versions are invalid.' }
 $bundleFiles=@(Get-ChildItem -LiteralPath $bundle -Recurse -File -Force | Sort-Object FullName)
 $hashes=$bundleFiles | ForEach-Object { (Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash.ToLower()+'  '+$_.FullName.Substring($bundle.Length+1).Replace('\','/') }
 Set-Content -LiteralPath (Join-Path $bundle 'SHA256SUMS.txt') -Value $hashes -Encoding UTF8

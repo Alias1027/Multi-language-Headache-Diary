@@ -1,4 +1,4 @@
-# 同类产品比较与发布取舍 / Product comparison — 0.7.0
+# 同类产品比较与发布取舍 / Product comparison — 0.8.2
 
 核验日期 / Reviewed: **2026-10-18**。
 

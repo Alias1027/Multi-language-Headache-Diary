@@ -1,4 +1,4 @@
-# 手机浏览器与 HTTPS 部署 / Mobile browser and HTTPS deployment — 0.7.0
+# 手机浏览器与 HTTPS 部署 / Mobile browser and HTTPS deployment — 0.8.2
 
 [中文 README](../README.zh-CN.md) · [English README](../README.md) · [代理配置示例 / Proxy example](../examples/deployment/Caddyfile.example.txt)
 

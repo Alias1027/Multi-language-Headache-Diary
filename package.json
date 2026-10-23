@@ -1,6 +1,6 @@
 {
   "name": "headache-diary-lab",
-  "version": "0.7.0",
+  "version": "0.8.2",
   "private": true,
   "type": "module",
   "license": "SEE LICENSE IN LICENSE",
@@ -15,7 +15,9 @@
     "test:browser": "node scripts/browser-check.mjs",
     "test:patient-browser": "node scripts/patient-browser-check.mjs",
     "test:care-browser": "node scripts/care-browser-check.mjs",
-    "test:offline-browser": "node scripts/offline-browser-check.mjs"
+    "test:offline-browser": "node scripts/offline-browser-check.mjs",
+    "test:clinician-browser": "node scripts/clinician-browser-check.mjs",
+    "test:android-browser": "node scripts/android-browser-check.mjs"
   },
   "author": "Junhui Liu M.D. <junhuiliu1025@gmail.com>"
 }

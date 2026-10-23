@@ -1,4 +1,6 @@
-# Architecture, API and deployment boundary — 0.7.0
+# Architecture, API and deployment boundary — 0.8.2
+
+> 0.8.2：医生入口与授权流程以 [CLINICIAN_ACCESS.md](CLINICIAN_ACCESS.md) 为准。旧版“模拟角色切换”已移除；下文涉及 v0.7.0 的发布/验证记录属于历史证据。当前新增范围需独立验证，未复用旧 CI 结果。
 
 ## Display-only first forms
 
@@ -15,6 +17,9 @@ flowchart LR
   P -->|Optional HTTPS| X[Operator-managed same-host proxy]
   X -->|Loopback HTTP| A
   P <--> O[Encrypted IndexedDB drafts]
+  N[Android bundled patient diary] <--> K[Keystore encrypted local journal]
+  N -->|Explicit account link and manual HTTPS sync| X
+  C[Separate clinician sign-in] -->|Approved account and patient grant| A
   A --> D[Encrypted diary payloads / SQLite]
   D --> R[Versioned summaries]
   R --> Q[Consent checked queue / AES-GCM packet]
@@ -33,7 +38,7 @@ The server is a Node24 ES-module application with no external runtime packages. 
 - Offline access: a previously initialized patient browser can use its cached diary while the server is unreachable or the session has expired. There is no separate offline PIN or identity verification; same-account server login is required to resume authenticated synchronization. Changing browser origin does not migrate local records. Storage persistence requests and queue exports are recovery aids, not a guarantee against device loss or cleared site data.
 - Server: AES-256-GCM with fresh 96-bit IV per encryption, authenticated context identifying account and payload purpose. Clinical payload, email, snapshots and outgoing jobs are encrypted. Some technical metadata (UUIDs, revision numbers, audit event names, timestamps) and password hashes are not encrypted. SQLite is not whole-file SQLCipher.
 - Keys: random local diary and recipient keys in `data/local-keys.json`, never in source. They are separate from database files but colocated on this computer. No KMS, remote HSM, automatic rotation or recovery service. Back up keys with databases under controlled access. Administrator/OS-level compromise is out of scope.
-- Access: every data/API request is tied to the authenticated local patient account. The paired synthetic clinician has separate server-enforced role and assigned-patient checks (see Care workspace below). This is not a production hospital identity service.
+- Access: patient requests are tied to the authenticated patient account. Clinician requests use a separate account/session and require operator approval plus the selected patient's active grant (see Care workspace below). The old paired-role shortcut is denied. Approval is not professional credential verification or a production hospital identity service.
 - Static headers: CSP disallows third-party resources, inline script, frames and objects; no CORS; escaped UI values. JSON bodies capped at256KiB; authenticated voice uploads capped at10MiB, login/register/demo routes locally rate limited. Production abuse controls and load testing remain pending.
 
 ## Sharing
@@ -80,23 +85,22 @@ See [VOICE_INTEGRATION.md](VOICE_INTEGRATION.md) for API and storage details. Th
 
 ## Before an operator-managed deployment
 
-The exact-origin HTTPS proxy checks and Secure cookies are implemented, but the proxy, DNS, certificates, renewal, external reachability and phone acceptance must still be deployed and verified by an operator. The example assumes one trusted same-machine proxy and rejects arbitrary forwarding chains; it is not a CDN/tunnel configuration. Open registration and simulated email verification remain. Account recovery, participant access controls, credential/key management, backup/restore exercises, data retention/withdrawal, security review and load/concurrency assessment remain external work. If real clinician access is later proposed, verified identities and patient authorization need a separate design; full hospital workflows remain outside the patient-diary scope. Do not simply bind the prototype to 0.0.0.0 or expose it through an unreviewed tunnel.
+The exact-origin HTTPS proxy checks and Secure cookies are implemented, but the proxy, DNS, certificates, renewal, external reachability and phone acceptance must still be deployed and verified by an operator. The example assumes one trusted same-machine proxy and rejects arbitrary forwarding chains; it is not a CDN/tunnel configuration. Open registration and simulated email verification remain. Account recovery, participant access controls, credential/key management, backup/restore exercises, data retention/withdrawal, security review and load/concurrency assessment remain external work. Version 0.8.0 adds operator-approved accounts and patient authorization; professional credential verification and full hospital workflows remain outside this scope. Do not simply bind the prototype to 0.0.0.0 or expose it through an unreviewed tunnel.
 
 Technical references: [Node24 SQLite](https://nodejs.org/docs/latest-v24.x/api/sqlite.html), [Node24 crypto](https://nodejs.org/docs/latest-v24.x/api/crypto.html), [FHIR R4 QuestionnaireResponse](https://hl7.org/fhir/R4/questionnaireresponse.html). These explain APIs, not certify this application.
 
 
-## Care workspace
+## Current care workspace (introduced in 0.8.0)
 
-server/care.mjs adds care_records(patient_id, body). The body uses AES-256-GCM with the existing diary key and a patient-specific AAD context ending in ':care'. It contains a monotonically increasing revision, assessment/follow-up/plan/feedback collections, immutable history snapshots and actor-scoped operation IDs. Its updates do not alter diary revision or medication statistics. The mock-hospital sharing packet is unchanged and does not automatically include new care records.
+The separate `clinician.html` entry uses `hd_clinician` sessions and `/api/clinician/*` routes. Patient cookies cannot authenticate clinician routes, and clinician identities are rejected by patient routes. Registration creates a pending account; a filesystem-authorized operator approves or suspends it with `scripts/clinician-account.mjs`. Approval is not professional credential verification. The former `/api/demo/role` route is denied.
 
-- GET /api/care: current assigned patient only; patient responses omit draft assessments/plans/follow-ups and clinician history. Confirmed records are visible to that patient.
-- POST /api/care/save: kind, record, global revision, operationId. Clinicians write assessments/followups/plans; patients append feedback on confirmed plans. Conflicts return 409. Replayed actor operation IDs do not duplicate records.
-- POST /api/demo/role: patient or clinician, synthetic accounts only. Creates/uses a paired doctor profile and replaces the authenticated session cookie. Server-side reciprocal assignment checks select the patient; request-supplied patient IDs never select a target.
-- Clinician sessions can access state, care, report and logout only. They cannot mutate patient diary entries, access voice recordings or grant sharing consent.
-- Existing encrypted users/vaults need no destructive migration. A new empty table is added lazily at app startup. Legacy accounts default to patient role.
-- Care history is capped at 1,000 writes per synthetic account; each collection is capped at 500 records. Original clinician snapshots remain in encrypted backups. Patient exports include only patient-visible care records.
+`care_grants` stores encrypted, expiring patient permissions. A clinician connection code identifies an approved account but grants no access by itself. Every patient-specific clinician request checks account approval and active patient permission. Patient-selected labels are disclosed only to the authorized clinician. Audio, contacts, reminders, transfer jobs and audit exports are excluded by a clinical-vault allowlist.
 
-This local synthetic identity switch intentionally demonstrates both roles on one trusted computer. It does not establish real clinician credentials, production identity management, legal prescription validity, clinical verification or external interoperability. Browser role changes retain the same synthetic patient's diary drafts; logging out clears browser data as before.
+`care_records` retains existing encrypted care versions, feedback and history. Doctor drafts are visible/editable only by their author. Confirmed advice is amended rather than overwritten; actual patient medications are never fabricated. `care_reviews` records the reviewer, grant ID, dated report ID, diary revision and patient feedback/advice fingerprint. Confirmed writes require a current review; revoked/reissued grants and patient changes invalidate earlier review evidence. Confirmed records retain review and summary references. Summary snapshots remain immutable and omit drafts.
+
+All three tables use the existing encryption key with distinct AAD contexts; migration adds tables without rewriting legacy users, diary vaults or history. Old simulated clinician profiles remain retained but inactive until operator approval and a separate password reset. Patient authorization is never migrated implicitly. The online-only clinician app does not use the patient IndexedDB cache; the service worker bypasses clinician entry/module and all API routes.
+
+This is a patient-diary research workflow, not hospital identity infrastructure or electronic prescribing. Public deployment, credential verification, operational recovery, clinical validation and real-device testing remain separate requirements. See [the bilingual setup guide](CLINICIAN_ACCESS.md).
 
 ## Unified diary submission
 
@@ -127,6 +131,13 @@ server/ai-providers.mjs holds provider configuration and credentials outside pub
 `POST /api/report` constructs `careSummary` through `server/care-report.mjs` before persisting the report. The builder selects published scalar fields only and never embeds assessment.report or private drafts. `public/care-report-ui.mjs` renders this immutable appendix; the display-only feedback renderer is shared with the care workspace. Print temporarily opens all nested report details and restores their previous state. The download uses the exact saved report object. Existing manual/scheduled sharing still calls the diary-only report builder, preserving consent scope.
 
 
-## 0.7.0 offline and deployment boundary
+## Browser/PWA offline and deployment boundary (introduced in 0.7.0)
 
 See [OFFLINE_MOBILE.md](OFFLINE_MOBILE.md) and [MOBILE_DEPLOYMENT.md](MOBILE_DEPLOYMENT.md). Static assets are cache-first with a four-second miss timeout that includes the response body; API responses are never stored by the Service Worker. The encrypted patient journal is an explicit application snapshot/queue, not an HTTP cache of API responses. Browser storage is origin-specific and best-effort unless persistence is granted; users can still clear persistent storage. Multi-day diary entries and same-day revisions can queue after initialization; authentication, reports, care feedback and provider services still need the backend. New queue writes require Web Locks to serialize same-origin tabs. A new Service Worker waits for old tabs to close and only removes obsolete app-shell caches. No clinical rules or stored server schema are changed.
+
+
+## 2026-10-23 · Android 0.1.0-preview / Web 0.8.2
+
+Android native shell bundles the eight-language diary and offline journal modules, so first use needs neither an online account nor HTTPS. AES-GCM/Android Keystore encrypted SQLite, password-encrypted portable backups, native recording-app intent and audio picker, explicit account linking and manual sync are implemented. Online linking/sync requires an operator-deployed HTTPS service; offline clinician-advice snapshots are read-only. Imported audio stays on-device unless the user exports its encrypted backup; it is not automatically uploaded by diary synchronization. See [Android implementation and remaining checks](ANDROID_OFFLINE.md) and [actual emulator screenshots](ANDROID_SCREENSHOTS.md). This local delivery does not claim remote publication of 0.8.2/Android preview or clinical validation. Physical-device acceptance is explicitly scheduled after prerelease; native recorder return, cross-device recovery and real HTTPS integration remain unverified.
+
+模拟器完成首次离线、三日记录、八语言、备份密码与恢复点测试；系统文件导入导出已验证，并在清除测试应用数据后使用原备份密码恢复了3条待同步记录、3条历史操作及1个合成音频。原生SQLite完整性通过，日记与音频标记未以明文出现在加密块中。医生同步契约使用隔离后端核验；真实手机HTTPS与不同录音工具仍待验收。

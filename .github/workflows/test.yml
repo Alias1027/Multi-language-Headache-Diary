@@ -10,8 +10,10 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest]
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version: '24'
       - run: npm test
@@ -30,8 +32,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version: '24'
       - name: Install browser test tools only
@@ -40,3 +44,41 @@ jobs:
         run: npx playwright install --with-deps chromium
       - name: Verify multi-day offline diary and weak-network recovery
         run: npm run test:offline-browser
+      - name: Verify Android web UI with a simulated native bridge (not a device test)
+        run: npm run test:android-browser
+
+  android-compile:
+    name: Android compile (CI debug only)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Install declared SDK packages
+        shell: pwsh
+        run: |
+          $tools = Get-Content scripts/android-ci-toolchain.json -Raw | ConvertFrom-Json
+          $sdkManager = Join-Path $env:ANDROID_HOME 'cmdline-tools/latest/bin/sdkmanager'
+          if (!(Test-Path -LiteralPath $sdkManager)) { throw 'Android SDK manager is missing from the hosted runner.' }
+          & $sdkManager "platforms;android-$($tools.compileSdk)" "build-tools;$($tools.buildTools)"
+          if ($LASTEXITCODE -ne 0) { throw 'Android SDK package installation failed.' }
+      - name: Download and verify pinned Gradle distribution
+        shell: pwsh
+        run: |
+          $gradle = & ./scripts/install-android-ci-gradle.ps1 -OutputDirectory (Join-Path $env:RUNNER_TEMP 'headache-ci-tools')
+          "HD_CI_GRADLE=$gradle" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+      - name: Compile Android without release signing credentials
+        shell: pwsh
+        run: ./scripts/build-android-ci.ps1 -GradlePath $env:HD_CI_GRADLE -SdkDirectory $env:ANDROID_HOME -OutputDirectory (Join-Path $env:RUNNER_TEMP 'headache-android-ci')
+      - name: Keep disposable compilation evidence (not a Release asset)
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
+        with:
+          name: android-ci-debug-not-for-distribution-${{ github.sha }}
+          path: ${{ runner.temp }}/headache-android-ci/artifact/*
+          if-no-files-found: error
+          retention-days: 7

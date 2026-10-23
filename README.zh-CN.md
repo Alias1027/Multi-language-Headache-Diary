@@ -1,12 +1,30 @@
-# Headache Diary Lab · 头痛日记
+# Headache Diary Lab · 头痛日记 · 0.8.2
+
+## Android 离线患者版 0.1.0-preview
+
+新增可首次离线启动的 Android 安装包：无需账号即可记录多日头痛，支持八语言、密码加密备份/恢复，联网后明确关联患者账号并主动同步至已部署的 HTTPS 服务。录音调用手机已有录音应用，没有可用应用时可选择已有音频；不捆绑识别模型。现有浏览器和 PWA 版本保留。
+
+[安装、备份、同步与真机验收说明](docs/ANDROID_OFFLINE.md) · [八语言 Android 界面](docs/ANDROID_SCREENSHOTS.md)。当前0.8.2 / Android 0.1.0-preview候选尚未发布GitHub；旧版Release与CI不代表本轮验证。**真机验收安排在实验预发布后进行，当前尚未真机验证。** 见[本版发布说明](docs/RELEASE_NOTES_0.8.2.md)及[预发布后测试任务](docs/RELEASE_PARTICIPATION.md)。
+
+## 0.8.2 登录入口与医生访问授权
+
+登录页明确显示“患者登录”和“医生登录”，使用不同账号和密码；选择入口不会改变已登录账号的角色，也不会自动授予访问权限。合成体验位于患者登录表单下方，作为次要入口。
+
+患者在 **设置 → 医生访问授权** 集中核对医生关联码、姓名、授权期限和范围，并查看或撤销已有授权。**医生建议与随访** 页只保留关联状态及“管理授权”快捷按钮；尚未关联时显示“关联我的医生”，点击会打开设置中的授权分区。医生建议、历史方案和患者反馈仍在该页查看。
+
+八语言同步上述入口和文案，阿拉伯语及乌尔都语保持从右到左布局。医生注册仍须部署者审核；患者授权与医生登录均需连接服务。原账号、记录和授权关系保留。
+
+
+
+> **0.8.2 本机评阅版，尚未发布到 GitHub。** 新增独立医生登录、部署者审核及患者可撤销授权，替代模拟身份切换。现有 v0.7.0 发布附件及 CI 结果仅对应 v0.7.0。账号设置、患者授权与审阅步骤见[医生入口指南](docs/CLINICIAN_ACCESS.md)。本工具不签发电子处方，也不验证医师执业资质。
 
 **面向头痛记录与医患随访的八语言本地实验原型。**
 
-简体中文 · [完整英文说明 / Full English README](README.md) · **0.7.0 实验性预发布版** · Node.js 24 · [源码可见许可](LICENSE)
+简体中文 · [完整英文说明 / Full English README](README.md) · **0.8.2 本机评阅版** · Node.js 24 · [源码可见许可](LICENSE)
 
-**0.7.0 版本：** [官方仓库](https://github.com/Alias1027/Multi-language-Headache-Diary--) · [Release与下载](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.7.0) · [自动检查](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions)。当前版本结果见[验收记录](docs/VALIDATION.md)，历史0.6.1测试不等于本版验收。
+**既往公开的 0.7.0 版本：** [官方仓库](https://github.com/Alias1027/Multi-language-Headache-Diary--) · [Release与下载](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.7.0) · [自动检查](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions)。本轮本机验证与既往发布结果分别见[验收记录](docs/VALIDATION.md)，历史0.6.1测试不等于本版验收。
 
-本项目将每日状态、头痛发作、实际用药及经人工核对的语音辅助输入整合为一个患者页面，生成保留漏填信息与记录覆盖率的随访摘要，并提供医生评估、模拟治疗方案及回访工作区。
+本项目将每日状态、头痛发作、实际用药及经人工核对的语音辅助输入整合为一个患者页面，生成保留漏填信息与记录覆盖率的随访摘要，并提供独立账号与患者授权下的医生审阅、建议与随访工作区。
 
 当前用于合成病例演示与工程验证。译文、模型准确性及临床结局尚未完成独立验证；邮箱和医院接收端为本地模拟，小程序目录为接口准备代码。
 
@@ -17,6 +35,7 @@
 
 | 入口 | 当前可用 | 待部署、待验证 |
 | --- | --- | --- |
+| **Android 离线患者版** | 独立 APK 首次启动无需网络或账号；八语言、多日记录、系统录音入口、加密备份与恢复。 | 本机研究预览，未发布应用商店或 GitHub；真机、换机及 HTTPS 同步仍待验收。 |
 | **Windows一键启动** | 完整便携交付包含运行环境，双击启动并打开浏览器；本机启动/停止流程已验证。 | 此入口属于单独准备的Windows便携包；GitHub纯源码包不含运行环境和根目录启动入口，需先配置Node.js 24。 |
 | **浏览器直接使用** | 电脑本机浏览器可用；手机可选择浏览器方式，无需下载手机APP或先安装PWA。 | **手机方式需先部署服务**：默认启动仍为电脑本机访问；本版新增可选HTTPS反向代理模式与配置示例，需维护者实际部署可访问的网址并完成真机验证。 |
 | **可选小程序入口** | 已提供微信、支付宝、抖音网页容器入口准备代码。 | 待服务部署、平台构建、准入审核、业务域名配置及真机扫码验证；尚无已上线小程序。 |
@@ -24,7 +43,7 @@
 
 使用步骤见[中文指南](docs/USER_GUIDE.zh.md#多入口使用亮点与当前范围)，小程序接入范围见[入口准备说明](miniapps/README.md)。便携交付中的“开始使用”页面提供设备指引。默认本机演示无需另装数据库或语音模型。
 
-## 0.7.0：网络中断时仍可持续记录
+## 沿用自0.7.0：网络中断时仍可持续记录
 
 - **多日离线记录：** 首次在线登录并完成缓存后，可连续记录不同日期及修订当天内容。待同步内容在当前浏览器中加密保存并明确展示，不冒充已入库记录。
 - **可恢复同步：** 固定操作标识、顺序重试、账号核对、会话过期恢复及明确的冲突提示，防止重复提交与静默覆盖；必要时可导出待同步记录人工核对。
@@ -59,7 +78,7 @@
 
 - **逐条查看历史反馈：** 按方案版本、来源和时间回看患者各次反馈，方案调整后仍保留此前内容。
 - **方案与反馈进入医生摘要：** 生成摘要时保存治疗方案、调整记录与患者主观变化的快照；既有报告保留生成时内容。建议和反馈不会自动成为实际服药记录。
-- **围绕患者日记完善：** 医生身份与治疗方案仍为模拟，提醒和医院投递仍是本机演示；本次更新不启用语音模型或真实临床服务。
+- **围绕患者日记完善：** 当前医生账号需部署者审核与患者授权；提醒和医院投递仍为本机演示，不启用语音模型或真实临床服务。0.6.1截图保留原模拟工作流作为历史展示。
 
 详见[患者工作流](docs/PATIENT_WORKFLOW.md)、[代表性同类产品比较与发布取舍](docs/PRODUCT_COMPARISON.md)及[各版本验证记录](docs/VALIDATION.md)。比较使用第一方资料，吸收适用的交互和报告优点，不声称全网首创或临床效果优于竞品。本项目采用源码可见许可，非OSI开源。
 
@@ -75,7 +94,7 @@
 
 ## 0.6.0：以患者日记为中心
 
-产品定位为**患者头痛记录系统**。新增患者转录医生已告知方案、注明建议来源、保留修订版本，以及实际开始日期、主观变化、执行困难和疑似不良反应反馈。患者转录与模拟医生确认明确区分，两者均不生成实际服药记录。
+产品定位为**患者头痛记录系统**。新增患者转录医生已告知方案、注明建议来源、保留修订版本，以及实际开始日期、主观变化、执行困难和疑似不良反应反馈。患者转录与医生账号确认明确区分，两者均不生成实际服药记录。
 
 按患者填写的实际开始日期，回顾前后各28天的日记，同时呈现可观察完整日和缺失情况；不自动判断疗效或因果。语音文字候选支持逐项取舍；涉及建议、计划或既往方案的用药描述保留为原文，待人工区分，未确认的剂量/单位不自动补全。
 
@@ -110,12 +129,18 @@
 | --- | --- |
 | **我的日记** | 查看概览，填写当天状态以及相关发作、用药信息，核对后一次保存；未填写的初始表单不计入记录。 |
 | **语音录入** | 打开浮窗，录音、上传音频或输入中英文文字；核对候选字段及对应原文后再填入。自动转写需配置识别接口。 |
-| **报告与随访** | 选择日期和报告语言，生成摘要；在模拟医生工作台依次体验评估、模拟治疗方案及回访。 |
-| **设置** | 配置自主提醒与模拟测试，管理语言偏好、数据导出及授权／回执演示；默认演示不会向真实医院发送数据。 |
+| **医生建议与随访** | 查看已确认建议、方案版本和逐条反馈；通过关联状态旁的快捷入口前往设置管理授权。 |
+| **就诊摘要** | 选择日期和语言，生成日记及建议反馈的时间快照。 |
+| **医生独立入口** | 独立账号、部署者批准、患者授权后，先审阅再确认建议。 |
+| **设置** | 集中管理医生访问授权，配置自主提醒与模拟测试，管理语言偏好、数据导出及共享／回执演示；默认演示不会向真实医院发送数据。 |
 
 页面顶部的语言选择器用于切换界面。未单独设置报告偏好或本次报告语言时，新报告跟随界面语言；已生成报告和原始自由文本保留各自的语言。
 
-## 获取0.7.0
+## 当前候选包与既往下载
+
+0.8.2源码/Windows便携包与Android 0.1.0-preview APK分别作为候选附件准备，此处不提供尚不存在的本版公开下载地址。请核对包的版本与SHA-256，步骤见[包类型说明](docs/WINDOWS_PORTABLE.md)和[Android指南](docs/ANDROID_OFFLINE.md)。本版远程检查和下载核验需针对最终提交实际完成后再记录。
+
+### 既往已发布的0.7.0
 
 在[v0.7.0 Release](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.7.0)的Assets下载：[Windows x64便携包](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.7.0/headache-diary-windows-x64-0.7.0.zip)、[纯源码包](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.7.0/headache-diary-source-0.7.0.zip)、[SHA256SUMS.txt](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.7.0/SHA256SUMS.txt)。它们不同于GitHub自动生成的Source code压缩包。便携包包含Node.js 24和Start/Stop入口；源码使用者需自行配置Node.js 24。
 
@@ -144,8 +169,8 @@ npm start
 
 1. 打开合成病例的“我的日记”。2026 年 9 月 1–28 日固定示例：**记录 23/28 天、头痛 8 天、发作 7 次、急性用药 5 天，覆盖率 82.1%**。
 2. 切换语言，查看印地语 LTR、乌尔都语 RTL；结构化含义和统计数值保持不变。
-3. 在“报告与随访”选择周期、生成摘要，也可单独选择报告语言。
-4. 进入模拟医生工作台，查看评估、方案和回访，再返回患者视图。
+3. 在“就诊摘要”选择周期、生成摘要，也可单独选择报告语言。
+4. 进入独立医生工作台，查看评估、方案和回访，再返回患者视图。
 5. 在语音浮窗输入中英文文字，核对候选及原文依据后填入表单。自动转写需另行配置适配器。
 
 ## 保留的0.6.1八语言界面示例
@@ -199,13 +224,13 @@ pwsh -File scripts/package.ps1 -Destination ../headache-release
 
 独立临床规则复核、母语审校、患者理解测试、可访问性及安全评审仍待完成。中英文语音与大模型接口目前采用模拟响应验证，未进行真实供应商的准确率基准测试。印地语和乌尔都语界面不代表支持对应语音或 Hinglish。项目不声称诊断准确性、治疗获益或全球人口覆盖率。
 
-真实邮件、医院部署与微信／支付宝／抖音小程序上线需另行实施验收。模拟医生身份不是职业资质认证，模拟方案不是处方。[研究计划](docs/RESEARCH_PLAN.md)列出可测量的后续验证工作。
+真实邮件、医院部署与微信／支付宝／抖音小程序上线需另行实施验收。部署者批准不等于医师资质认证，建议记录不是电子处方。[研究计划](docs/RESEARCH_PLAN.md)列出可测量的后续验证工作。
 
 欢迎通过合成案例贡献临床边界测试、母语审校与可访问性反馈。请准确说明证据，区分已实现功能、未来计划与经过验证的效果。
 
 ## English overview
 
-**Headache Diary Lab** is an eight-language, local-first research prototype for recording headache burden and preparing clinician-readable follow-up summaries. A single patient page combines daily status, headache episodes, medication use and reviewed voice-assisted input. Summaries distinguish headache days, attacks, medication days and missing records. A simulated clinician workspace supports assessment, treatment-plan updates and follow-up.
+**Headache Diary Lab** is an eight-language, local-first research prototype for recording headache burden and preparing clinician-readable follow-up summaries. A single patient page combines daily status, headache episodes, medication use and reviewed voice-assisted input. Summaries distinguish headache days, attacks, medication days and missing records. A separately authenticated, patient-authorized clinician workspace supports review, advice updates and follow-up.
 
 **Get started:** install Node.js 24.x, run `npm test`, `npm run check:release` and `npm start` from the source directory, then open **http://127.0.0.1:8765** and choose **Try synthetic case**. The default demo requires no API key, model download or npm runtime dependencies. Use the language selector to switch among Chinese, English, Spanish, French, Russian, Arabic, Hindi and Urdu; the eight screenshots above show the same synthetic overview.
 
@@ -218,3 +243,6 @@ Read the [full English README](README.md) for features, the patient/clinician wo
 ## 许可与授权
 
 权利人：**Junhui Liu M.D.**。[许可](LICENSE)允许独立个人的非商业学习与实验；**全部机构及商业用途须事先取得书面授权**，包括非营利机构内部评估。可通过 [junhuiliu1025@gmail.com](mailto:junhuiliu1025@gmail.com) 或[官方 GitHub 仓库](https://github.com/Alias1027/Multi-language-Headache-Diary--)联系。本项目为源码可见，并非OSI认可的开源许可；第三方许可和旧版已授予权利不受追溯影响。见[授权政策](docs/LICENSING.md)。
+
+
+**历史0.8.1核验：** 既往本机工程结果保留在[验收记录](docs/VALIDATION.md)，不等同于最终0.8.2验证。本版证据及预发布后待测试事项见[0.8.2发布说明](docs/RELEASE_NOTES_0.8.2.md)。

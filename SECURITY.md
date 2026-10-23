@@ -1,4 +1,4 @@
-# Security boundary — 0.7.0
+# Security boundary — 0.8.2
 
 This experimental release is intended for synthetic-data evaluation on a trusted computer or an operator-controlled HTTPS pilot. It has not undergone an independent security audit and is not a production clinical service. The optional proxy mode is a deployment foundation, not an already hosted or certified service.
 

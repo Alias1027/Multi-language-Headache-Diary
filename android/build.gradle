@@ -1,0 +1,2 @@
+plugins { id 'com.android.application' version '8.13.0' apply false }
+allprojects { if(rootProject.hasProperty('buildRoot')) layout.buildDirectory = file(rootProject.property('buildRoot') + '/' + project.name) }

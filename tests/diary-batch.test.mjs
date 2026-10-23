@@ -59,7 +59,7 @@ test('Diary batch: CSRF, clinician writes, duplicate record ids and oversized ba
  const x=await setup(t);assert.equal((await x.call('/api/diary/batch',x.batch,{'X-CSRF-Token':'wrong'})).status,403);
  assert.equal((await x.save({...x.batch,records:[...x.batch.records,x.batch.records[1]]})).status,400);
  assert.equal((await x.save({...x.batch,records:Array(32).fill(x.batch.records[0])})).status,400);
- await x.call('/api/demo/role',{role:'clinician'});await x.state();assert.equal((await x.save()).status,403);
+ assert.equal((await x.call('/api/demo/role',{role:'clinician'})).status,403);const actor=x.app.store.get(x.initial.user.id);actor.profile.role='clinician';x.app.store.save(actor);assert.equal((await x.save()).status,403);
 });
 
 test('Pain quality: omitted or empty quality cannot create an episode via either endpoint',async t=>{

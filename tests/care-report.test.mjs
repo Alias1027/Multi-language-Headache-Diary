@@ -1,3 +1,4 @@
+import {careClient} from './care-http-helper.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {mkdtempSync,rmSync} from 'node:fs';
@@ -16,20 +17,9 @@ async function setup(t){
   const directory=mkdtempSync(path.join(os.tmpdir(),'headache-care-report-'));
   const app=createApp({directory,port:0,schedule:false}),port=await app.listen(),origin='http://127.0.0.1:'+port;
   t.after(async()=>{await app.close();rmSync(directory,{recursive:true,force:true});});
-  let cookie='',csrf='';
-  async function call(url,body){
-    const response=await fetch(origin+url,{method:body===undefined?'GET':'POST',headers:{Cookie:cookie,Origin:origin,'Content-Type':'application/json','X-CSRF-Token':csrf},body:body===undefined?undefined:JSON.stringify(body)});
-    if(response.headers.get('set-cookie'))cookie=response.headers.get('set-cookie').split(';')[0];
-    return {status:response.status,data:await response.json()};
-  }
-  async function state(){const result=await call('/api/state');assert.equal(result.status,200);csrf=result.data.csrf;return result.data;}
+  const {call,state,role,save:saveResult}=careClient(app,origin);
   await call('/api/demo',{});const initial=await state();
-  async function role(value){assert.equal((await call('/api/demo/role',{role:value})).status,200);return state();}
-  async function save(kind,record){
-    const care=(await call('/api/care')).data;
-    const result=await call('/api/care/save',{kind,record,revision:care.revision,operationId:randomUUID()});
-    assert.equal(result.status,200,JSON.stringify(result.data));return result.data;
-  }
+  async function save(kind,record){const r=await saveResult(kind,record);assert.equal(r.status,200,JSON.stringify(r.data));return r.data;}
   async function report(){const result=await call('/api/report',period);assert.equal(result.status,200);return result.data;}
   return {app,call,state,initial,role,save,report};
 }

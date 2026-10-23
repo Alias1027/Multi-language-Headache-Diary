@@ -19,3 +19,11 @@ asr-venv/
 .venv/
 __pycache__/
 *.pyc
+android/.gradle/
+android/build/
+android/app/build/
+android/local.properties
+*.jks
+*.keystore
+*.apk
+*.aab

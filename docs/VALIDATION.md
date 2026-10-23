@@ -1,10 +1,43 @@
-# Validation record — 0.7.0
+# Validation record — 0.8.2
+
+
+## Current candidate evidence — 2026-10-23
+
+Web/server **0.8.2**, Android **0.1.0-preview**. **200/200 core tests** pass with no skips, failures or cancellations ([core output](test-results.txt)); **141/141 browser checks** pass: 50 general UI, 21 patient/voice, 46 clinician/access/history and 24 offline/weak-network checks. A further **2/2 Android UI fault-injection scenarios** pass in a real Edge browser with an explicitly simulated native bridge: recovery after a vault-read failure, and preservation while a save delays language/navigation changes. These two checks are not Android-device tests.
+
+The rebuilt Android debug APK passed **13 emulator scenarios** on Android 15/API35/WebView124: first launch with radios disabled, three-day form entries, all eight language layouts/directions, real WebCrypto backup/wrong-password handling, native recovery-point rollback and encrypted persistence after reload. The signed release APK installed over the preceding preview using the same signing identity; all saved profile values matched before/after by digest. Signature/manifest checks confirmed version0.1.0-preview, non-debuggable release and only INTERNET permission. This userdebug emulator is not evidence about production-device debugging behavior.
+
+Three defects were reproduced and fixed: older server snapshots on account re-link could replace newer confirmed cache; a startup vault-read error hid backup recovery; and language/navigation could replace a form while its native save was pending. The release pipeline also now includes the explicit doctor launcher scripts, checks relative guide links and validates current release-target markers. See [review record](RELEASE_REVIEW_0.8.2.md).
+
+The Android CI helper successfully downloaded and SHA-256-verified Gradle8.13 and compiled a debug APK locally. Three guard tests reject altered archives, signing credentials and output paths inside source. Official Actions are pinned to inspected commits; static workflow validation passed. **The final commit has not run this workflow on GitHub.** CI debug APKs are labeled compilation evidence, not distribution assets. Only the separately maintainer-signed APK is intended for experimental distribution.
+
+**Physical-device acceptance is scheduled after experimental prerelease.** Current evidence does not establish real phones, successful manufacturer-recorder return, cross-phone restoration, deployed public HTTPS collaboration, low-memory/long-offline behavior, native-language readability or independent security/clinical validation. Browser/PWA and native offline prerequisites remain distinct. No real patients or connected clinical platforms were used.
+
+中文：本轮200项核心、141项网页检查、2项Android界面故障注入及13项模拟器场景通过；正式签名预览包更新安装后保留原档案。新增Android自动编译已完成本机脚本验证和工作流静态检查，尚未取得本轮GitHub远程结果。真机验收按计划在实验预发布后进行，不将模拟器或工程测试写成真机、临床或安全认证。
+
+### Repeat the checks
+
+- Node.js24: `npm test`, `npm run check:release`.
+- With Playwright installed: `npm run test:browser`, `npm run test:patient-browser`, `npm run test:clinician-browser`, `npm run test:offline-browser`, `npm run test:android-browser`.
+- Android compilation: see [Android build instructions](ANDROID_OFFLINE.md), `scripts/android-ci-toolchain.json` and `.github/workflows/test.yml`. Local CI guard tests require PowerShell7 and explicitly skip when it is absent; hosted CI rejects that skip. All guards executed in the reported200-test run.
+- Windows package/launch/first-use checks are supplied in `scripts/package-portable.ps1`, `scripts/test-portable.ps1` and `scripts/portable-first-use.mjs`. Use a freshly extracted disposable package, never existing patient data. Current final-artifact results are recorded in the local delivery log.
+
+## Historical local 0.8.1 evidence — 2026-10-21
+
+184/184 core checks passed (historical output retained in the private delivery log); 141 browser checks passed (50 general, 21 patient/voice, 46 independent clinician/access/history/navigation and 24 offline/weak-network checks). Windows x64, Node.js 24.19.0 and headless Microsoft Edge; temporary synthetic databases only. New checks cover pending account approval, distinct sessions, explicit patient grants, expiry/revocation, cross-patient denial, CSRF, private drafts, stale review rejection, immutable feedback/plan history, and eight-language layouts at 390 and 1200 CSS pixels.
+
+Cold browser restart preserved the encrypted pending diary and completed ordered sync. The separate expired-session test also verified that same-account reauthentication resumes pending uploads and rejects another account. The restart test handles both retained and expired sessions; this run retained its session and recorded 24 offline checks (the earlier 0.8.0 run recorded one additional restart reauthentication step). The patient offline data is never used as a clinician cache. The source release audit also passed. That local 0.8.1 run did not publish a new GitHub release. Existing 0.7.0 evidence and attachments below are historical and unchanged.
+
+Physical phone, cross-device HTTPS deployment, independent clinician/patient usability, accessibility assistive technology and native-language clinical review remain pending. Local account approval does not verify professional credentials or certify clinical compliance.
+
+
+> 0.8.2：医生入口与授权流程以 [CLINICIAN_ACCESS.md](CLINICIAN_ACCESS.md) 为准。旧版“模拟角色切换”已移除；下文涉及 v0.7.0 的发布/验证记录属于历史证据。当前新增范围需独立验证，未复用旧 CI 结果。
 
 Date: 2026-10-18. Local environment: Windows x64, Node.js 24.19.0, headless Chrome. Synthetic data only. Application 0.7.0; statistical rules 0.1.0, glossary 0.2.0 and schema 1 are unchanged.
 
-## Current 0.7.0 results
+## Historical 0.7.0 results (2026-10-18)
 
-**169/169 automated tests passed**, with zero failures, skips or cancellations. Full output: [test-results.txt](test-results.txt). **125 browser checks passed**: 50 general UI, 21 patient/voice, 30 care/history/report and 24 offline/mobile/weak-network checks, with no page JavaScript errors. Existing clinical denominators, revisions, permissions, care history, voice review and publication boundaries remain covered.
+**169/169 automated tests passed**, with zero failures, skips or cancellations. **125 browser checks passed**: 50 general UI, 21 patient/voice, 30 care/history/report and 24 offline/mobile/weak-network checks, with no page JavaScript errors. Existing clinical denominators, revisions, permissions, care history, voice review and publication boundaries remain covered.
 
 The offline browser suite verifies multiple dates and same-day amendments; encrypted recovery after a full browser restart; stable-ID replay after a lost acknowledgment; bounded hanging requests; session expiry and same-account reauthentication; account isolation; conflict retention; concurrent tabs; simulated quota exhaustion; retained unsubmitted drafts; and logout protection across tabs. It checks all 36 service-worker assets and clears the HTTP cache before reopening offline, so ordinary disk cache cannot mask missing offline resources. Eight languages were inspected at 390 CSS pixels, including Arabic/Urdu RTL; French and Urdu draft-recovery controls were also checked.
 
@@ -27,7 +60,7 @@ The local upgrade uses a verified consistent backup of both existing databases a
 - GitHub Actions runs core and release checks on Ubuntu and Windows, plus the offline browser suite on Ubuntu. Consult the [version's Release](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.7.0) and [Actions](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions) for the actual remote commit and result; local success does not imply hosted CI success.
 - True Android/iOS browser and installed-PWA acceptance, low-memory/storage eviction, multi-day real disconnection, background lifecycle, native-language comprehension, accessibility, security, live model/provider accuracy and clinical benefit remain unverified. See [the human checklist](OFFLINE_MOBILE.md) and [deployment boundary](MOBILE_DEPLOYMENT.md).
 
-中文：本轮169项核心测试、125项合成数据浏览器检查通过。浏览器冷启动前清除普通HTTP缓存，确认离线资源和记录可以恢复；修复多标签草稿、后台同步及退出保护问题。真实手机、持续多日实际断网、低内存/存储回收、公网HTTPS部署、母语审校、无障碍和临床效果仍需单独验证。下文0.6.1及更早结果为历史记录，不冒充本轮结果。
+中文：0.7.0历史核验中169项核心测试、125项合成数据浏览器检查通过。浏览器冷启动前清除普通HTTP缓存，确认离线资源和记录可以恢复；修复多标签草稿、后台同步及退出保护问题。真实手机、持续多日实际断网、低内存/存储回收、公网HTTPS部署、母语审校、无障碍和临床效果仍需单独验证。下文0.6.1及更早结果同为历史记录；当前0.8.1结果见本文开头。
 
 ## Historical 0.5.1 packaged-source and browser smoke checks
 
@@ -118,3 +151,19 @@ The Release remains a pre-release. Its title, tag and assets were preserved when
 
 The Windows launcher harness passed 18 checks, including concurrent/repeated startup, Unicode/space paths, occupied-port rejection, PID ownership guards, legacy PID records without a port field, and preservation of SQLite table fingerprints and keys across stop/restart. The bundled Node.js v24.19.0 Windows x64 executable matches its official SHA-256 entry and has a valid OpenJS Foundation signature; this does not sign the project launch scripts.
 
+
+### 0.8.1 navigation evidence
+
+Actual browser paths cover separate public patient/clinician sign-in choices in all eight languages, selected-portal labels, carried language, no public permission forms, the settings shortcut opening the access section, scoped grant creation, compact linked status, revocation and unlinked status. Mobile/desktop checks use 390/1200 CSS pixels; Arabic/Urdu are RTL and Hindi is LTR. Patient diary fields remain unchanged throughout the care workflow. The offline suite checks its cache against the shipped APP_VERSION.
+
+Initial restricted-environment attempts could not open loopback connections or launch Edge; these are not counted as passing runs. The complete suites were rerun successfully with local process/network permissions and disposable synthetic data. No production account credentials or permissions were changed by tests.
+
+
+## 2026-10-23 · Android 0.1.0 / Web 0.8.2
+
+Android native shell reuses the eight-language diary and offline journal modules. AES-GCM/Android Keystore encrypted SQLite, password-encrypted portable backups, native recording-app intent and audio picker, explicit account linking and manual sync are implemented. See [Android implementation and remaining checks](ANDROID_OFFLINE.md) and [actual emulator screenshots](ANDROID_SCREENSHOTS.md). No remote publication or clinical validation is claimed.
+
+模拟器完成首次离线、三日记录、八语言、备份密码与恢复点测试；系统文件导入导出已验证，并在清除测试应用数据后使用原备份密码恢复了3条待同步记录、3条历史操作及1个合成音频。原生SQLite完整性通过，日记与音频标记未以明文出现在加密块中。医生同步契约使用隔离后端核验；真实手机HTTPS与不同录音工具仍待验收。
+
+
+Final local checks for 0.8.2: **194 core tests and 141 browser checks passed**. Android 0.1.0 adds 13 emulator scenarios, final eight-language width checks, system file import/export, and restore after clearing the synthetic app/device key. The signed release APK installs and opens offline. This does not certify physical devices, a production HTTPS deployment, real recording-app integration or clinical benefit.

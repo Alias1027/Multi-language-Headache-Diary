@@ -1,4 +1,4 @@
-# Contributing — 0.7.0
+# Contributing — 0.8.2
 
 Use synthetic data only. Do not submit patient identifiers, clinical exports, original patient audio, passwords, provider credentials or local databases. Describe a reproducible problem before proposing a change.
 

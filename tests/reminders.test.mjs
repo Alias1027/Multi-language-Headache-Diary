@@ -80,7 +80,7 @@ test('Reminder API requires session and CSRF, isolates patients, and denies clin
  assert.equal((await call('/api/reminders',{revision:0,config:cfg},'wrong')).status,403);
  assert.equal((await call('/api/reminders',{revision:0,config:cfg})).status,200);assert.equal((await call('/api/reminders/test',{})).status,200);
  const exported=(await call('/api/export')).data;assert.ok(!JSON.stringify(exported).includes('private@example.invalid'));
- await call('/api/demo/role',{role:'clinician'});csrf=(await call('/api/state')).data.csrf;assert.ok(!JSON.stringify((await call('/api/state')).data).includes('private@example.invalid'));assert.equal((await call('/api/reminders')).status,403);assert.equal((await call('/api/reminders/test',{})).status,403);
+ assert.equal((await call('/api/demo/role',{role:'clinician'})).status,403);const actor=app.store.get((await call('/api/state')).data.user.id);actor.profile.role='clinician';app.store.save(actor);assert.ok(!JSON.stringify((await call('/api/state')).data).includes('private@example.invalid'));assert.equal((await call('/api/reminders')).status,403);assert.equal((await call('/api/reminders/test',{})).status,403);
  await call('/api/demo',{});csrf=(await call('/api/state')).data.csrf;assert.equal((await call('/api/reminders')).data.revision,0);assert.equal((await call('/api/reminders')).data.history.length,0);
 });
 

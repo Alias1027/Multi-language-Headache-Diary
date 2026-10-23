@@ -1,6 +1,23 @@
-# 中文使用说明 — 0.7.0
+# 中文使用说明 — 0.8.2
 
-当前版本0.7.0：[Release](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.7.0) · [自动检查](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions) · [英文指南](USER_GUIDE.en.md)。详见[版本验收](VALIDATION.md)。
+本机当前候选为Web/服务端0.8.2与Android 0.1.0-preview，尚未发布本版GitHub Release。**真机验收安排在实验预发布后，当前尚未真机验证。** 见[本版发布说明](RELEASE_NOTES_0.8.2.md)与[后续测试清单](RELEASE_PARTICIPATION.md)。
+
+## 0.8.2 登录入口与医生访问授权
+
+登录页明确显示“患者登录”和“医生登录”，使用不同账号和密码；选择入口不会改变已登录账号的角色，也不会自动授予访问权限。合成体验位于患者登录表单下方，作为次要入口。
+
+患者在 **设置 → 医生访问授权** 集中核对医生关联码、姓名、授权期限和范围，并查看或撤销已有授权。**医生建议与随访** 页只保留关联状态及“管理授权”快捷按钮；尚未关联时显示“关联我的医生”，点击会打开设置中的授权分区。医生建议、历史方案和患者反馈仍在该页查看。
+
+八语言同步上述入口和文案，阿拉伯语及乌尔都语保持从右到左布局。医生注册仍须部署者审核；患者授权与医生登录均需连接服务。原账号、记录和授权关系保留。
+
+
+## Android 首次离线使用
+
+安装独立 APK 后可无需联网建立档案。使用手机自带录音应用或选择音频，按密码导出/恢复备份。联网账号与医生访问授权独立确认。详见 [Android 离线指南](ANDROID_OFFLINE.md)。
+
+> 0.8.2：医生入口与授权流程以 [CLINICIAN_ACCESS.md](CLINICIAN_ACCESS.md) 为准。旧版“模拟角色切换”已移除；下文涉及 v0.7.0 的发布/验证记录属于历史证据。当前新增范围需独立验证，未复用旧 CI 结果。
+
+既有已发布版本0.7.0（当前本机0.8.2尚未发布）：[Release](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.7.0) · [自动检查](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions) · [英文指南](USER_GUIDE.en.md)。详见[版本验收](VALIDATION.md)。
 
 用于合成病例演示。八语言界面可用；语音转写与字段提取仍限中文、英文，需配置适配器才能自动转写。
 
@@ -16,6 +33,7 @@
 
 | 入口 | 当前可用 | 待部署、待验证 |
 | --- | --- | --- |
+| **Android离线患者版** | 独立APK首次断网启动即可记录；八语言、已有录音工具入口、密码加密备份/恢复。 | 实验预发布候选尚未真机验证；真实录音返回、换机恢复及HTTPS同步安排在预发布后验收。 |
 | **Windows一键启动** | 完整便携交付包含运行环境，双击启动并打开浏览器；本机启动/停止流程已验证。 | 此入口属于单独准备的Windows便携包；GitHub纯源码包不含运行环境和根目录启动入口，需先配置Node.js 24。 |
 | **浏览器直接使用** | 电脑本机浏览器可用；手机可选择浏览器方式，无需下载手机APP或先安装PWA。 | **手机方式需先部署服务**：默认启动仅供电脑本机；本版已提供可选HTTPS反向代理配置，维护者需实际部署，并完成手机真机验证。 |
 | **可选小程序入口** | 已提供微信、支付宝、抖音网页容器入口准备代码。 | 待服务部署、平台构建、准入审核、业务域名配置及真机扫码验证；尚无已上线小程序。 |
@@ -23,9 +41,11 @@
 
 Windows便携交付可从“开始使用/01-Windows电脑/一键启动.cmd”进入。只有GitHub源码时，先按README配置Node.js 24。小程序说明见[入口准备](../miniapps/README.md)。以下启动与关闭步骤适用于本机交付。
 
-## 下载哪一种包？
+## 选择当前包与既往下载
 
-从 [v0.7.0 Release](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.7.0) 下载 [Windows x64 便携包](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.7.0/headache-diary-windows-x64-0.7.0.zip) 或 [纯源码包](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.7.0/headache-diary-source-0.7.0.zip)，并用同页 [SHA256SUMS.txt](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.7.0/SHA256SUMS.txt) 核对 SHA-256。Windows x64便携包带运行环境和一键入口；纯源码需自行安装Node.js 24。两者不含既有账号、数据、音频或密钥。
+当前候选材料是0.8.2源码ZIP、Windows x64便携ZIP及Android 0.1.0-preview APK；按最终交付中的SHA256SUMS.txt核对。新版本尚未发布，不应把下方旧版下载当作Android或0.8.2成果。源码需要Node.js24；便携包自带运行环境；Android包独立安装。详见[包类型与首次使用](WINDOWS_PORTABLE.md)和[Android指南](ANDROID_OFFLINE.md)。
+
+**既往0.7.0下载：** 从 [v0.7.0 Release](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.7.0) 下载 [Windows x64 便携包](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.7.0/headache-diary-windows-x64-0.7.0.zip) 或 [纯源码包](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.7.0/headache-diary-source-0.7.0.zip)，并用同页 [SHA256SUMS.txt](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.7.0/SHA256SUMS.txt) 核对 SHA-256。Windows x64便携包带运行环境和一键入口；纯源码需自行安装Node.js 24。两者不含既有账号、数据、音频或密钥。
 
 便携包先全部解压到新文件夹，再运行 `Start.cmd`；不要在压缩包中直接启动或覆盖原有数据。详细步骤见[双语下载与首次使用](WINDOWS_PORTABLE.md)。感兴趣的用户可阅读[测试邀请](TEST_INVITATION.md)，使用[合成任务与反馈格式](RELEASE_PARTICIPATION.md)；机构及商业用途仍须书面授权。
 
@@ -59,11 +79,11 @@ Windows便携交付可从“开始使用/01-Windows电脑/一键启动.cmd”进
 
 原件加密保存在本机。自动转写需本机或可选云端适配器；外部处理需要逐次确认。整理后逐项查看原文依据，确认日期、侧别、药物、剂量和否定表达，再填入对应分区。填写正式记录仍需统一保存。下载的音频、导出JSON是明文。详情见 [语音说明](VOICE_INTEGRATION.md) 与 [模型接口](MODEL_INTEGRATION.md)。
 
-## 报告与随访
+## 医生建议与随访、就诊摘要
 
 报告语言默认跟随界面，也可独立选择；切换界面不翻译原文、不改写已有报告。生成摘要后查看记录覆盖率、未知天数、发作、实际用药和治疗时间线。
 
-合成病例可进入模拟医生工作台，依次填写医生评估、模拟治疗方案和回访；确认后患者视图可查看与反馈。修订保留版本；这里没有真实处方和医师资质认证。
+“医生建议与随访”与“就诊摘要”分为独立导航。医生在 `/clinician.html` 使用单独邮箱和密码，经部署者批准、患者核对关联码并授权后才能访问。医生先审阅日记、逐条历史反馈及当前摘要，再确认建议与随访；修订保留原版。账号审核不等于医师资质认证，本工具不签发电子处方。完整步骤见[医生入口与授权](CLINICIAN_ACCESS.md)。
 
 ## 连续离线与手机
 
@@ -95,11 +115,11 @@ Windows便携交付可从“开始使用/01-Windows电脑/一键启动.cmd”进
 
 1. 患者在“方案与执行”填写当前方案的执行情况、实际开始日期、主观变化、困难和不良反应。每次提交新增一条，不覆盖上次，也不自动记为实际服药。
 2. 在每张方案卡片下的“反馈历史”点击日期，逐条查看完整内容。最近一次默认展开；历史方案保留原反馈，可按“前一版本”追溯调整及原因。
-3. 模拟医生在同一“方案与执行”查看历史反馈和日记观察；有新反馈时点击“刷新随访”。确认后的方案通过“创建修订版本”调整并填写理由。患者转录始终保留患者来源，不变成医生确认。
-4. 患者或模拟医生点击“生成摘要”，新报告纳入生成时全部已发布方案版本、患者反馈、医生评估和回访快照。上方日期仅筛选日记统计，随访附录不按这些日期筛选，并标明生成时间和数据版本。医生草稿不进入报告。
+3. 已授权医生在同一“方案与执行”查看历史反馈和日记观察；有新反馈时点击“刷新随访”。确认后的方案通过“创建修订版本”调整并填写理由。患者转录始终保留患者来源，不变成医生确认。
+4. 患者或已授权医生点击“生成摘要”，新报告纳入生成时全部已发布方案版本、患者反馈、医生评估和回访快照。上方日期仅筛选日记统计，随访附录不按这些日期筛选，并标明生成时间和数据版本。医生草稿不进入报告。
 5. 点击打印可通过浏览器另存PDF；打印时展开全部报告历史，下载JSON包含同一快照。后续变化不改写旧报告，页面提示重新生成。既往报告缺少随访附录时有明确说明。
 
 当前模拟共享只发送日记摘要，不含新增方案和反馈；打印和下载的医生摘要含随访附录。真实医师认证、机构接入和消息送达仍需后续部署；反馈和回执不表示实时监护。详见[患者工作流](PATIENT_WORKFLOW.md)和[产品对照](PRODUCT_COMPARISON.md)。
 
 
-原0.6.1标签及附件保留；本轮功能以0.7.0另行发布。
+历史0.6.1及0.7.0标签和附件保留；当前0.8.2 / Android 0.1.0-preview使用独立的候选材料与验证记录，尚未发布本版。

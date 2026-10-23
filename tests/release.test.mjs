@@ -11,6 +11,7 @@ import {prepareRelease} from '../scripts/prepare-release.mjs';
 import {verifyManifest} from '../scripts/verify-manifest.mjs';
 import {createApp} from '../server/main.mjs';
 import {APP_VERSION} from '../public/release.mjs';
+import {verifyGuideLinks} from '../scripts/verify-guide-links.mjs';
 const root=fileURLToPath(new URL('..',import.meta.url));
 function temp(t){const dir=mkdtempSync(path.join(os.tmpdir(),'headache-release-'));t.after(()=>rmSync(dir,{recursive:true,force:true}));return dir;}
 function clone(t){const base=temp(t),source=path.join(base,'source');mkdirSync(source);for(const f of sourceFiles(root)){const out=path.join(source,f);mkdirSync(path.dirname(out),{recursive:true});cpSync(path.join(root,f),out);}return {base,source};}
@@ -25,7 +26,7 @@ test('Release package retains dotfiles and exact source hashes; never packages t
 });
 test('Release gate refuses private files and symbolic links before copying',t=>{
  const {base,source}=clone(t),out=path.join(base,'out');
- for(const name of ['.env','local-keys.json','data/diary.sqlite','docs/audio.wav','docs/private.docx']){
+ for(const name of ['.env','local-keys.json','data/diary.sqlite','docs/audio.wav','docs/private.docx','android/private.jks','android/app.apk','android/local.properties']){
   const f=path.join(source,name);mkdirSync(path.dirname(f),{recursive:true});writeFileSync(f,'synthetic');
   assert.throws(()=>prepareRelease(source,out),/forbidden|Unexpected/i);assert.equal(existsSync(out),false);rmSync(f);if(name.startsWith('data/'))rmSync(path.join(source,'data'),{recursive:true});
  }
@@ -49,6 +50,25 @@ test('Source manifest detects altered, extra, missing and unsafe paths',t=>{
  writeFileSync(path.join(dir,'extra.txt'),'extra');assert.throws(()=>verifyManifest(dir),/Extra/);rmSync(path.join(dir,'extra.txt'));
  rmSync(file);assert.throws(()=>verifyManifest(dir),/Missing/);writeFileSync(path.join(dir,'SHA256SUMS.txt'),hash+'  ../outside.txt\n');assert.throws(()=>verifyManifest(dir),/Unsafe/);
 });
+
+test('Release target cannot remain historical beneath a current document header',t=>{
+ const {source}=clone(t),file=path.join(source,'docs/RELEASE_CHECKLIST.md'),text=readFileSync(file,'utf8');
+ assert.equal(auditSource(source).version,APP_VERSION);
+ writeFileSync(file,text.replace('release-target: '+APP_VERSION,'release-target: 0.0.0'));
+ assert.throws(()=>auditSource(source),/Stale release target/);
+});
+
+test('Portable guide audit catches missing separate APKs and stale guide versions',t=>{
+ const root=temp(t);mkdirSync(path.join(root,'project'));mkdirSync(path.join(root,'开始使用'));
+ writeFileSync(path.join(root,'project/package.json'),JSON.stringify({version:APP_VERSION}));
+ writeFileSync(path.join(root,'使用说明.html'),`<title>${APP_VERSION}</title><a href="开始使用/index.html">Start</a>`);
+ const guide=path.join(root,'开始使用/index.html');
+ writeFileSync(guide,`<title>${APP_VERSION}</title><a href="../Android/app.apk">Install</a>`);
+ assert.throws(()=>verifyGuideLinks(root),/Broken/);
+ writeFileSync(guide,`<title>${APP_VERSION}</title><a href="https://github.com/example/releases">Separate download</a>`);
+ assert.equal(verifyGuideLinks(root).links,1);
+ writeFileSync(guide,'<title>0.0.0</title>');assert.throws(()=>verifyGuideLinks(root),/Stale/);
+});
 test('All offline shell resources are served with usable types; health matches the shipped version',async t=>{
  const dir=mkdtempSync(path.join(os.tmpdir(),'headache-release-http-')),app=createApp({directory:dir,port:0,schedule:false}),port=await app.listen();
  t.after(async()=>{await app.close();rmSync(dir,{recursive:true,force:true});});
@@ -66,7 +86,7 @@ function workerHarness({network=async()=>{throw Error('offline');},cached=new Ma
  vm.runInNewContext(readFileSync(path.join(root,'public','sw.js'),'utf8'),{self,caches,fetch:network,URL,Response,AbortController,setTimeout,clearTimeout});return {handlers,puts,deleted};
 }
 test('Offline worker never intercepts APIs, external origins or writes',()=>{
- const {handlers}=workerHarness();for(const [url,method] of [['http://127.0.0.1:9999/api/state','GET'],['https://external.invalid/file','GET'],['http://127.0.0.1:9999/','POST']]){
+ const {handlers}=workerHarness();for(const [url,method] of [['http://127.0.0.1:9999/clinician.html','GET'],['http://127.0.0.1:9999/clinician.mjs','GET'],['http://127.0.0.1:9999/api/state','GET'],['https://external.invalid/file','GET'],['http://127.0.0.1:9999/','POST']]){
   let intercepted=false;handlers.fetch({request:{url,method},respondWith:()=>intercepted=true});assert.equal(intercepted,false);
  }
 });

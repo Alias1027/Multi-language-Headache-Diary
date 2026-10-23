@@ -1,3 +1,5 @@
+import {prepareAccess,doctorByCode,accessView,saveGrant} from './care-access.mjs';
+import {clinicianAPI} from './clinician-api.mjs';
 import {viewReminders,saveReminders,runReminders} from './reminders.mjs';
 import {deploymentFromEnv,requestBoundary,sessionCookie} from './deployment.mjs';
 import {APP_VERSION} from '../public/release.mjs';
@@ -19,7 +21,7 @@ import {buildCareSummary} from './care-report.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 export function createApp({directory=process.env.HD_DATA_DIR||path.join(root,'../data'),port=Number(process.env.PORT||8765),schedule=true,reminderSchedule=schedule,asrProvider=voiceProviderFromEnv(),extractionProvider=extractionProviderFromEnv(),deployment=deploymentFromEnv()}={}) {
   const store=new Store(directory), attempts=new Map();
-  prepareVoice(store);prepareCare(store);
+  prepareVoice(store);prepareCare(store);prepareAccess(store);
   const server=http.createServer(async(req,res)=>{
     const actualPort=server.address()?.port||port;
     function json(status,body){res.writeHead(status,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});res.end(JSON.stringify(body));}
@@ -39,6 +41,7 @@ export function createApp({directory=process.env.HD_DATA_DIR||path.join(root,'..
         const type={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.mjs':'text/javascript; charset=utf-8','.js':'text/javascript; charset=utf-8','.svg':'image/svg+xml','.json':'application/json','.webmanifest':'application/manifest+json'}[path.extname(file)]||'application/octet-stream';
         res.writeHead(200,{'Content-Type':type,'Cache-Control':'no-cache'});return res.end(req.method==='HEAD'?undefined:readFileSync(file));
       }
+      if(route.startsWith('/api/clinician/'))return await clinicianAPI({store,req,res,url,json,deployment,attempts,address:boundary.clientAddress});
       const token=req.headers.cookie?.split(';').map(x=>x.trim()).find(x=>x.startsWith('hd_session='))?.slice(11),session=store.authenticate(token);
       const publicAuth=['/api/register','/api/login','/api/demo'].includes(route)&&req.method==='POST';
       if(!publicAuth&&!session)return json(401,{error:'login_required'});
@@ -58,14 +61,15 @@ export function createApp({directory=process.env.HD_DATA_DIR||path.join(root,'..
         if(route==='/api/register'){
           if(existing)return json(409,{error:'email_exists'});const id=store.createUser(email,password,emptyVault());setSession(id);store.audit(id,'registered');return json(201,{ok:true});
         }
-        if(!existing||!checkPassword(password,existing.password))return json(401,{error:'invalid_credentials'});setSession(existing.id);return json(200,{ok:true});
+        if(!existing||store.get(existing.id)?.profile.role==='clinician'||!checkPassword(password,existing.password))return json(401,{error:'invalid_credentials'});setSession(existing.id);return json(200,{ok:true});
       }
-      const actor=store.get(session.user_id),context=careContext(store,actor);
-      if(route==='/api/demo/role'&&req.method==='POST'){
-        if(!context.patient.vault.synthetic)return json(403,{error:'care_demo_only'});
-        if(!['patient','clinician'].includes(body.role))return json(400,{error:'invalid_care_role'});
-        const clinician=ensureDemoPair(store,context.patient);setSession(body.role==='clinician'?clinician.id:context.patient.id);return json(200,{ok:true});
-      }
+      const actor=store.get(session.user_id);
+      if(actor.profile.role==='clinician')return json(403,{error:'care_access_denied'});
+      const context=careContext(store,actor);
+      if(route==='/api/demo/role')return json(403,{error:'care_access_denied'});
+      if(route==='/api/care/access'&&req.method==='GET')return json(200,accessView(store,actor));
+      if(route==='/api/care/lookup'&&req.method==='POST'){const d=doctorByCode(store,body.code);return json(200,{name:d.profile.displayName,id:d.id});}
+      if(route==='/api/care/access'&&req.method==='POST')return json(200,saveGrant(store,actor,body));
       if(route==='/api/care'&&req.method==='GET')return json(200,viewCare(store,context));
       if(route==='/api/care/save'&&req.method==='POST')return json(200,saveCare(store,context,body));
       if(context.role==='clinician'&&!['/api/state','/api/report','/api/logout'].includes(route))return json(403,{error:'care_access_denied'});

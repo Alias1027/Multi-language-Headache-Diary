@@ -1,3 +1,6 @@
+import {approveClinician,saveGrant} from '../server/care-access.mjs';
+import {careContext,ensureDemoPair,saveCare,loadCare} from '../server/care.mjs';
+import {randomUUID} from 'node:crypto';
 // Optional patient workflow regression; disposable synthetic records only.
 import assert from 'node:assert/strict';
 import {createRequire} from 'node:module';
@@ -23,7 +26,7 @@ try {
   const response=page.waitForResponse(r=>r.url().endsWith('/api/care/save')&&r.request().method()==='POST');
   await page.locator(selector+' button[type=submit]').first().click();const r=await response;assert.equal(r.status(),200,await r.text());const data=await r.json();await page.locator(selector+' button[type=submit]:not([disabled])').first().waitFor({state:'attached'});return data;
  };
- await page.locator('[data-page=report]').click();await page.locator('[data-action=care-tab][data-tab=plans]').click();
+ await page.locator('[data-page=advice]').click();await page.locator('[data-action=care-tab][data-tab=plans]').click();
  await page.locator('.care-editor > summary').click();
  await page.locator('#patient-plan-form [name=medication]').fill('Synthetic advice A');
  await page.locator('#patient-plan-form [name=sourceNote]').fill('Synthetic visit; patient transcription');
@@ -40,15 +43,12 @@ try {
  const revision=await save('#patient-plan-form');assert.equal(revision.care.patientPlans.length,2);
  assert.equal(await page.locator('.feedback-form').count(),1);
  results.push({check:'patient amendment preserves original and only current advice accepts feedback'});
- await page.locator('[data-action=switch-role]').click();await page.locator('#care-form').waitFor();
- assert.equal(await page.locator('[data-action=care-amend][data-kind=patientPlans]').count(),0);
- await page.locator('#care-form [name=medication]').fill('Synthetic clinician plan');
- for(const name of ['dose','route','frequency'])await page.locator(`#care-form [name=${name}]`).fill('Demonstration only');
- await page.locator('#care-form [name=start]').fill('2026-09-15');
- await page.locator('#care-form [name=reason]').fill('Synthetic follow-up');
- await page.locator('#care-form [name=observationFocus]').fill('Function and symptoms');
- await page.locator('#care-form [name=status]').selectOption('confirmed');await save('#care-form');
- await page.locator('[data-action=switch-role]').click();await page.locator('.voice-launcher').waitFor();await page.locator('[data-page=report]').click();await page.locator('#patient-plan-form').waitFor({state:'attached'});
+ // Seed a confirmed synthetic plan; the independent clinician browser suite
+ // separately covers account approval, consent, review and confirmation.
+ const patient=app.store.get(initial.user.id),clinician=approveClinician(app.store,ensureDemoPair(app.store,patient).id);
+ saveGrant(app.store,patient,{code:clinician.profile.careCode,label:'Synthetic',days:30,consent:true});
+ saveCare(app.store,careContext(app.store,clinician,patient.id),{kind:'plans',revision:loadCare(app.store,patient.id).revision,operationId:randomUUID(),record:{status:'confirmed',change:'start',medication:'Synthetic clinician plan',dose:'Demonstration only',route:'Demonstration only',frequency:'Demonstration only',start:'2026-09-15',reason:'Synthetic follow-up',observationFocus:'Function and symptoms'}});
+ await page.locator('[data-action=care-refresh]').click();await page.waitForFunction(()=>document.querySelectorAll('.feedback-form').length===2);
  const forms=page.locator('.feedback-form');assert.equal(await forms.count(),2);
  await forms.first().locator('[name=status]').selectOption('difficulty');
  await forms.first().locator('[name=actualStart]').fill('2026-09-15');

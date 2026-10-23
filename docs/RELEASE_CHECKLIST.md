@@ -1,41 +1,44 @@
-# Release status and verification — 0.7.0
+# Release status and verification — 0.8.2
 
+<!-- release-target: 0.8.2 -->
 
-Updated: 2026-10-18. This checklist targets the **0.7.0 experimental source-available pre-release**: multi-day offline diary recording, bounded weak-network requests and an opt-in HTTPS deployment foundation. Version-specific test, publication and asset evidence belongs in [VALIDATION.md](VALIDATION.md). Historical 0.6.1 evidence below does not certify 0.7.0.
+Updated: 2026-10-23. This checklist targets **web/server 0.8.2 and Android 0.1.0-preview**. The current local candidate has not been published to GitHub or an app store. Previous release links and hosted CI results do not certify this candidate. See [current release notes](RELEASE_NOTES_0.8.2.md), [validation evidence](VALIDATION.md) and [Android scope](ANDROID_OFFLINE.md).
 
-## Reproducible local gate
+**Physical-device acceptance is scheduled after the experimental pre-release, at the maintainer's request.** It is not a prerequisite for that limited release. Mark the package and release notes as **not yet physically device-validated** and invite synthetic-data testing; this does not make it a production or clinically validated release. Automated, packaging and data-preservation gates still apply.
 
-1. Run `npm test` with Node.js 24. Preserve the final result in [test-results.txt](test-results.txt).
-   For UI changes, also run the browser suites with separately installed Playwright/Chromium, including `npm run test:offline-browser` for multi-day offline entries, reconnect and phone-sized layouts; see [VALIDATION.md](VALIDATION.md). Emulated viewports do not establish physical-device performance.
-2. Run `npm run check:release`: source allowlist, secret/private-file checks, document versions, local Markdown links, cache version and offline resources.
-3. Run `scripts/package.ps1` with a new destination. Verify `.github/` and `.env.example` survived the ZIP. Verify all source bytes and the SHA256 manifest, including rejection of extra files.
-4. Start the extracted source with isolated synthetic data. Check health version, demo login, settings, report generation and the user-visible page. Stop the helper afterwards.
-5. For a local portable update, stop the owned service, preserve data and keys, compare before/after decrypted-payload fingerprints, copy only release files, verify checksums, then start and confirm the version.
-6. Inspect the final publish inputs manually. A pattern scanner cannot identify every kind of private content. Commit source only. A separately sanitized Windows x64 ZIP may be uploaded as a Release asset with its runtime and required third-party notices, but must exclude existing accounts, `data/`, keys, recordings, QA, backups and private environment variables. Never upload the active portable parent or machine-specific work logs. See [package selection](WINDOWS_PORTABLE.md).
-7. Validate the exact 0.7.0 commit on both hosted platforms, publish only the matching sanitized source/portable/checksum assets, then download and verify those exact assets. Record the run and release links in [VALIDATION.md](VALIDATION.md). Do not reuse a prior version's green result or replace the frozen 0.6.1 assets.
+## Before publishing the candidate
+
+1. Run npm test with Node.js 24 and save the final output in [test-results.txt](test-results.txt). Run relevant browser suites with isolated synthetic data, including multi-day offline/reconnect and patient/clinician permission tests. Record the exact revision and environment.
+2. Run npm run check:release. Confirm current document versions, local links, source allowlist, private-file checks, cache resources and manifest rules. Historical version evidence must remain explicitly labeled.
+3. Build the Android preview from the final source using the pinned Android toolchain. Verify the APK signature, package/version, non-debuggable release flag, permissions and first offline launch. CI should build without the maintainer's private signing key; a CI test APK is not the signed distribution APK.
+4. Package the final source and a new Windows x64 portable bundle. Verify extracted bytes and manifests. Exercise the extracted portable's first start, synthetic entry, stop and restart with isolated data. Recheck the actual version served.
+5. Preserve current data and keys before updating the local installation. Compare original records, account/permission relationships and keys afterwards. Never reset active stores to make tests pass.
+6. Inspect all public inputs: source ZIP, sanitized Windows portable ZIP, signed Android APK and their SHA-256 values. Exclude existing accounts, data, keys, signing material, recordings, backups, QA and machine-specific logs. A scanner supplements manual inspection; it does not establish that every private value is absent.
+7. Check hosted Ubuntu/Windows tests and Android build for the **exact final commit**. Link actual run results; do not reuse an earlier version's green badge or describe a workflow file as a completed hosted run.
+8. Create a separate experimental pre-release and upload matching assets with the visible device-validation limitation. After publishing, download each asset again, verify its checksum and record the Release/run links. Preserve existing version tags and assets.
+
+## After the experimental pre-release
+
+Use the [bilingual participant checklist](RELEASE_PARTICIPATION.md). Physical-device and independent-user results remain unchecked until performed:
+
+- Install on at least one real Android phone while offline; save consecutive days, restart and retain records.
+- Verify a phone recorder's successful return, cancellation and file-picker fallback; confirm which original audio files are managed by the recorder.
+- Export an encrypted backup and restore it on another phone with a different device key. Also test the wrong password, cancellation and preserved recovery point.
+- Verify actual HTTPS account linking and the authorized clinician review → advice → patient feedback round trip; no public server is supplied by the source package.
+- Check low memory, background suspension, low storage, longer offline use, clock/timezone changes, large fonts, screen readers and all eight languages.
+- Verify mobile browser/PWA installation, restart, cache updates and pending-record recovery separately from the native Android app.
+- Obtain independent native-language, clinical-rule, accessibility and security review before making broader claims.
+
+These deferred tasks must not be silently relabeled as completed. Synthetic/emulator checks are engineering evidence, not clinical effectiveness or production certification.
 
 ## License and public description
 
-The current project-authored release uses the custom [personal noncommercial source-available license](../LICENSE). **Junhui Liu M.D.** requires prior written permission for all institutional and commercial use. Requests: [junhuiliu1025@gmail.com](mailto:junhuiliu1025@gmail.com) or the [official GitHub repository](https://github.com/Alias1027/Multi-language-Headache-Diary--). See [LICENSING.md](LICENSING.md).
+The current project-authored release uses the custom [personal noncommercial source-available license](../LICENSE). **Junhui Liu M.D.** requires prior written permission for all institutional and commercial use. Requests: [junhuiliu1025@gmail.com](mailto:junhuiliu1025@gmail.com) or the [official repository](https://github.com/Alias1027/Multi-language-Headache-Diary--). See [LICENSING.md](LICENSING.md).
 
-Third-party licenses are preserved. Rights already granted in older versions are not retroactively revoked. Authorship, prior distribution and external-contribution rights still need independent review. This custom license has not had independent legal review. GitHub may display a custom license as “Other”; do not add an MIT/open-source badge to bypass that classification.
+Preserve third-party notices. Rights granted by older versions are not retroactively revoked. Authorship, external-contribution rights and the custom license have not had independent legal review. Do not use an MIT or OSI-open-source badge for this source-available release. If importing old Git history, separately inspect its private contents and previous licensing grants.
 
-## Historical verified publication: 0.6.1
+## Historical publication evidence — separate from this candidate
 
-- [x] The [official repository](https://github.com/Alias1027/Multi-language-Headache-Diary--) is public, and [v0.6.1](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.6.1) is published with the pre-release designation.
-- [x] The release-tag commit `c1644cd` passed [GitHub Actions run 39118500923](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/39118500923): 137 tests per platform on Ubuntu and Windows, release checks and source packaging/extraction verification.
-- [x] The source ZIP, Windows x64 portable ZIP and `SHA256SUMS.txt` are available under Release Assets. All three downloads and SHA-256 values have been verified. The automatic GitHub source archives are different from the manually uploaded source ZIP.
-- [x] The public [testing invitation](TEST_INVITATION.md) is included in the Release. This is not evidence that independent participants have been recruited or completed the tasks.
+The [v0.6.1 pre-release](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.6.1) and [v0.7.0 pre-release](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.7.0) are earlier versions. The 0.6.1 release-tag commit c1644cd passed [run 39118500923](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/39118500923), including 137 tests on each hosted platform. Its source/portable/checksum downloads were previously verified. None of these observations establishes a 0.8.2 hosted run, download or physical-device acceptance.
 
-The `v0.6.1` tag, two ZIP assets and checksum file remain unchanged. The linked 137-test CI result belongs only to that release-tag commit. The 0.7.0 feature update requires its own validation, tag, assets and publication evidence; it is not merely a rewrite of the older release notes.
-
-## Remaining human and external checks
-
-The [bilingual owner and participant checklist](RELEASE_PARTICIPATION.md) contains synthetic usability tasks and a 0.7.0 feedback template. Independent user first-use testing, native-language and clinical review, security review and real-device acceptance remain pending. The 0.6.1 release's 101 browser checks were historical local synthetic checks, not a current hosted result.
-
-- Confirm private vulnerability reporting where available; its repository setting has not been verified here. Do not collect patient data or credentials in public issues.
-- If importing an existing Git history, inspect that history for sensitive material and old licensing grants; current-tree checks do not scan all prior commits.
-- Preserve the source-only repository and sanitized assets; never upload the active Windows delivery folder, local records, recordings, keys, backups or QA files.
-- Validate three-day offline use, browser/PWA restart, storage pressure, same-account recovery, mobile fonts/RTL and operating-system suspension on real devices. Deploy and verify the actual domain/certificate/proxy separately; the supplied configuration does not create a hosted mobile service. See [offline use](OFFLINE_MOBILE.md) and [deployment](MOBILE_DEPLOYMENT.md).
-
-Automated success and publication do not establish clinical effectiveness, production readiness or deployment approval. See [VALIDATION.md](VALIDATION.md) for the evidence and its scope.
+Confirm repository private vulnerability reporting where available; a document cannot verify a setting. Do not collect patient data, recordings, passwords or keys in public issues.

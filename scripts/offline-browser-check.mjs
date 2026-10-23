@@ -1,3 +1,4 @@
+import {APP_VERSION} from '../public/release.mjs';
 // Optional real-browser regression using a fresh profile and disposable synthetic database only.
 // This emulates connectivity and viewport conditions; it does not certify a physical phone.
 import assert from 'node:assert/strict';
@@ -41,7 +42,7 @@ async function startBrowser({offline=false}={}){
   await page.goto(origin,{waitUntil:'domcontentloaded'});
 }
 const journal=()=>page.evaluate(async()=>(await import('/offline.mjs')).localVault.get('offline-journal-v2'));
-async function waitJournal(predicate,label){const deadline=Date.now()+20000;while(Date.now()<deadline){const value=await journal();if(predicate(value))return value;await page.waitForTimeout(50);}assert.fail('Timed out waiting for '+label);}
+async function waitJournal(predicate,label){const deadline=Date.now()+20000;while(Date.now()<deadline){const value=await journal();if(predicate(value))return value;await page.waitForTimeout(50);}console.error(JSON.stringify({waiting:label,queue:(await journal())?.pending?.map(p=>({date:p.date,status:p.status,error:p.error})),ui:await page.locator('.statusline').innerText(),toast:await page.locator('#toast').innerText()}));assert.fail('Timed out waiting for '+label);}
 async function waitQueue(count){await waitJournal(j=>j?.pending?.length===count,'queue length '+count);await page.locator('#unified-diary-form button[type=submit]:not([disabled])').waitFor();}
 async function login(address=email,form='#auth-form'){
   const emailInput=page.locator(form+' [name=email]');
@@ -76,6 +77,8 @@ async function entry(date,note,entryPage=page){
 }
 async function sync(){
   await page.locator('[data-action=sync]').first().click();
+  const outcome=await waitJournal(j=>j?.pending?.length===0||j?.pending?.some(p=>p.status==='auth'),'sync or explicit sign-in');
+  if(outcome.pending.length){await page.locator('[data-action=reauth]').first().click();await login(email,'#reauth-form');results.push({check:'cold-restart authentication recovery preserves pending queue and signs in to same account'});}
   await waitQueue(0);
   await page.locator('#unified-diary-form button[type=submit]:not([disabled])').waitFor();
 }
@@ -85,12 +88,12 @@ try{
   await startBrowser();await login();await page.locator('#unified-diary-form').waitFor();
   await page.evaluate(()=>navigator.serviceWorker.ready);
   await page.waitForFunction(()=>!!navigator.serviceWorker.controller);
-  const shellCache=await page.evaluate(async()=>{
-    const name=(await caches.keys()).find(key=>key==='headache-shell-0.7.0');
+  const shellCache=await page.evaluate(async(version)=>{
+    const name=(await caches.keys()).find(key=>key==='headache-shell-'+version);
     const cache=await caches.open(name);
     return {name,paths:(await cache.keys()).map(request=>new URL(request.url).pathname),loadedModules:performance.getEntriesByType('resource').map(resource=>new URL(resource.name).pathname).filter(path=>path.endsWith('.mjs'))};
-  });
-  assert.equal(shellCache.name,'headache-shell-0.7.0');
+  },APP_VERSION);
+  assert.equal(shellCache.name,'headache-shell-'+APP_VERSION);
   for(const asset of new Set(['/diary-drafts.mjs','/offline-queue.mjs','/network.mjs',...shellCache.loadedModules]))assert.ok(shellCache.paths.includes(asset),'loaded module must be in service-worker cache: '+asset);
   results.push({check:'first authenticated setup, service-worker control and all loaded modules cached',cachedAssets:shellCache.paths.length});
 

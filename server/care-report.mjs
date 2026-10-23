@@ -19,8 +19,8 @@ export function buildCareSummary(care,now=new Date().toISOString()) {
   if(!Number.isFinite(timestamp))throw new Error('invalid_care_summary_time');
   const published=(kind,statuses)=>records(care,kind).filter(r=>atOrBefore(r,timestamp)&&statuses.includes(r.status));
   const plans=[
-    ...published('plans',['confirmed']).map(r=>({...pick(r,fields.plans),kind:'plans',provenance:'simulated_clinician'})),
-    ...published('patientPlans',['recorded']).map(r=>({...pick(r,fields.plans),kind:'patientPlans',provenance:'patient_reported'}))
+    ...published('plans',['confirmed']).map(r=>({...pick(r,[...fields.plans,'author','reviewedAt','reviewId','reviewedReportId']),kind:'plans',provenance:r.provenance||'simulated_clinician'})),
+    ...published('patientPlans',['recorded']).map(r=>({...pick(r,[...fields.plans,'author','reviewedAt','reviewId','reviewedReportId']),kind:'patientPlans',provenance:'patient_reported'}))
   ];
   const planIds=new Set(plans.map(r=>r.kind+':'+r.id));
   const feedback=published('feedback',['read','started','not_started','difficulty'])
@@ -30,8 +30,8 @@ export function buildCareSummary(care,now=new Date().toISOString()) {
     schemaVersion:1,scope:'published-history-as-of-generation',capturedAt:new Date(timestamp).toISOString(),
     sourceRevision:Number.isSafeInteger(care?.revision)&&care.revision>=0?care.revision:0,
     plans,feedback,
-    assessments:published('assessments',['confirmed']).map(r=>({...pick(r,fields.assessments),provenance:'simulated_clinician'})),
+    assessments:published('assessments',['confirmed']).map(r=>({...pick(r,[...fields.assessments,'author','reviewedAt','reviewId','reviewedReportId']),provenance:r.provenance||'simulated_clinician'})),
     followups:published('followups',['scheduled','completed','unreachable','postponed','cancelled'])
-      .map(r=>({...pick(r,fields.followups),provenance:'simulated_clinician'}))
+      .map(r=>({...pick(r,[...fields.followups,'author','reviewedAt','reviewId','reviewedReportId']),provenance:r.provenance||'simulated_clinician'}))
   };
 }

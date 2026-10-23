@@ -1,4 +1,4 @@
-# Data dictionary and statistical contract — 0.7.0
+# Data dictionary and statistical contract — 0.8.2
 
 ## Assessment extension introduced in 0.4.2
 
@@ -24,7 +24,7 @@ Schema 1; statistical rule version 0.1.0; glossary version 0.2.0. Intended for r
 | Episode | ISO8601 `start`, nullable `end`; `endStatus=ended/ongoing/unknown`; `intensity=0..10/null`; multi-select location, quality, symptoms and suspected triggers; functional `impact=none/limited/unable/unknown`; time `precision=exact/estimated`; original device timezone; `type=attack/background/exacerbation` |
 | Acute medication | generic/free-text `name`; positive numeric `dose`; explicit `unit=mg/mcg/mL/tablet/spray/other`; class code; ISO `at`; nullable pre-dose pain; optional follow-up actual time, pain-free yes/no/unknown, function recovery yes/no/unknown; rescue flag; recurrence no/24h/48h/unknown; adverse effects text |
 | Preventive | free-text name and regimen; start and optional stop civil date; adjustment/stop reason; adverse effects. End old regimen and create a new entry for an adjustment. Revisions correct errors. |
-| Consent | immutable grant ID; institution `mock-clinic`; active flag; summary/details scope; weekly/monthly frequency; UTC expiry; grant time; research=false |
+| Mock-hospital sharing consent | immutable grant ID; institution `mock-clinic`; active flag; summary/details scope; weekly/monthly frequency; UTC expiry; grant time; research=false. Separate from clinician access permission below. |
 | Report | immutable snapshot ID/version, source revision, language, generated UTC time, rule/glossary versions, current and previous equal-length summaries |
 | Transfer | stable ID, source revision, consent ID and scope, immutable encrypted report/detail snapshot, attempts, state, retry time, receipt |
 
@@ -73,7 +73,7 @@ Clinical care records are separate from the daily/episode/medication/preventive 
 |---|---|---|
 | assessment | report ID/snapshot, summary, draft or confirmed; optional response, function, questions, patient message | Report source revision is preserved. Confirmed entries require a new amendment with previous ID and reason. |
 | followup | due date, method, focus, status; actual completion time/outcome for completed visits | Draft, scheduled, completed, unreachable, postponed, cancelled are distinct. Published entries cannot return to draft. |
-| plan | medication/name, action, effective dates, manual dose/route/frequency, reason and instructions | Confirmed plans require complete manual fields except dose fields for stopping; all are explicitly simulated. Amendments preserve old versions. |
+| plan | medication/name, action, effective dates, manual dose/route/frequency, reason and instructions | Confirmed plans require complete manual fields except dose fields for stopping. Synthetic-patient plans carry `simulated=true`; other clinician-entered advice has distinct provenance. Neither is an electronic prescription or proof of actual use. Amendments preserve old versions. |
 | feedback | confirmed plan ID, read/started/not_started/difficulty, optional note | Patient-authored report; never treated as a medication event, dose, or evidence of adherence. |
 
 Any later diary revision currently marks an assessment as potentially stale, even when outside its observation window. This conservative flag requires review and does not rewrite the assessment. Free text is stored as entered, escaped for display, and never clinically reinterpreted or automatically translated.
@@ -89,9 +89,9 @@ On episode writes, quality must contain at least one valid CODES.quality value. 
 ## 0.6.0 Patient advice and observation
 
 - `patientPlans`: patient-only writes; server-assigned `source=patient_reported`, `status=recorded`, author and timestamps. Name/advice and `sourceNote` are required. Dose/route/frequency/start/end may remain unknown. `observationFocus` and `reviewDate` are optional. Amendments require previous ID and reason; originals remain immutable and competing successors are rejected.
-- Confirmed simulated clinician plans optionally carry `observationFocus` and `reviewDate`. Patient transcription never gains clinician confirmation automatically.
+- Confirmed clinician plans optionally carry `observationFocus` and `reviewDate`; synthetic records remain marked as simulated. Patient transcription never gains clinician confirmation automatically.
 - Feedback references `planKind` (`plans` or `patientPlans`, legacy default `plans`) plus plan ID. Only current, published advice accepts new feedback. `actualStart` is a valid nonfuture date or null; read/not_started cannot carry an actual start. `perceivedChange` is not_assessed/better/same/worse/uncertain. `difficultyReason` is none/forgot/unavailable/side_effects/unclear/other and is populated only for difficulty. `adverseNote` and note retain patient text. Feedback does not modify any diary collection.
-- The latest feedback's actual start anchors equal calendar windows, each 28 days. Existing `summarize` complete-day and enrollment rules determine eligible denominators. Coverage differs when there are missing or not-yet-complete days. Counts are observations, not causal treatment-response estimates. All feedback records are retained in JSON export even though cards display the latest one.
+- The latest feedback's actual start anchors equal calendar windows, each 28 days. Existing `summarize` complete-day and enrollment rules determine eligible denominators. Coverage differs when there are missing or not-yet-complete days. Counts are observations, not causal treatment-response estimates. Cards summarize the latest feedback and provide per-entry history; all feedback records remain in JSON export.
 - Existing encrypted care rows normalize `patientPlans=[]` in memory. No bulk data rewrite or diary rule migration is required.
 
 ## Care report snapshot (0.6.1)
@@ -99,3 +99,17 @@ On episode writes, quality must contain at least one valid CODES.quality value. 
 Manually generated reports add `careSummary` with `schemaVersion: 1`, `scope: published-history-as-of-generation`, `capturedAt`, and `sourceRevision` for the separate care collection. Scalar whitelisted fields cover published `plans` (including patientPlans with explicit kind/provenance), immutable predecessors/reasons, all linked `feedback`, confirmed `assessments`, and non-draft `followups`. Internal actor identifiers, operation/history objects, drafts and nested assessment reports are excluded. Plan IDs and kinds bind feedback to one version; free text remains in its original language.
 
 The appendix covers all published history available at generation; `summary.from/to` only filters diary statistics. Missing `careSummary` in an old report is displayed as unavailable, not zero feedback. Reports are immutable after creation. This is additive and does not change diary schema 1, rule 0.1.0 or glossary 0.2.0. Existing simulated sharing does not inherit this appendix without a future explicit consent/schema extension. Repeated reports retain their own copies; storage deduplication is a future optimization, never an automatic deletion of historical evidence.
+
+## Current clinician access and review (introduced in 0.8.0)
+
+Clinician accounts use an independent role, password and session. Operator approval and an active, expiring patient grant are both required for patient-specific requests. The clinician connection code identifies an account; it is not itself an access token or a medical license. Revocation or reissuing a grant does not reuse a previous review.
+
+Separate encrypted `care_grants` and `care_reviews` records bind the permitted patient/clinician, expiry, grant identity, reviewer, dated report, diary revision and patient advice/feedback state. Confirmation requires a current review; patient-side changes or grant changes make earlier review evidence stale. Saved clinician records retain `reviewedAt`, `reviewId` and `reviewedReportId`. Only the author can edit/view their private drafts; confirmed advice is amended without overwriting its predecessor.
+
+New clinician records use `provenance=simulated_clinician` for synthetic patients and `clinician_entered` otherwise; patient transcription and feedback remain `patient_reported`. Legacy records retain their original simulation provenance. These source labels identify who entered information, not independently verified clinician credentials or clinical accuracy. See [clinician access](CLINICIAN_ACCESS.md) for the current workflow.
+
+## Android 0.1.0-preview storage boundary
+
+The Android patient journal reuses the diary definitions and statistical rules above. First-offline records have a local profile identity and queued operations. Account association and upload require explicit user confirmation followed by manual HTTPS synchronization; conflicts remain pending rather than being silently overwritten.
+
+Local snapshots and imported audio are encrypted with an Android Keystore-backed key. Password-encrypted portable backups include the local diary, drafts, history, pending changes, imported audio and cached advice, but exclude login/session credentials. Restoration validates the backup and preserves a local recovery point. Audio is not automatically uploaded with diary synchronization. Cached clinician advice is read-only offline; new feedback requires the connected service. Physical-device and cross-device acceptance remain post-prerelease tasks, not evidence supplied by these field definitions.

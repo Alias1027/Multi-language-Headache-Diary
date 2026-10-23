@@ -1,6 +1,6 @@
 # Patient reminders / 患者提醒
 
-Version: **0.7.0 experimental pre-release**
+Version: **0.8.2 experimental pre-release**
 
 ## Feature highlight / 亮点功能
 

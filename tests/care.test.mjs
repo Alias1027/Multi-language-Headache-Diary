@@ -1,3 +1,4 @@
+import {careClient} from './care-http-helper.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {mkdtempSync,rmSync} from 'node:fs';
@@ -9,13 +10,9 @@ import {seal} from '../server/storage.mjs';
 async function setup(t){
  const directory=mkdtempSync(path.join(os.tmpdir(),'headache-care-')),app=createApp({directory,port:0,schedule:false}),port=await app.listen(),origin='http://127.0.0.1:'+port;
  t.after(async()=>{await app.close();rmSync(directory,{recursive:true,force:true});});
- let cookie='',csrf='';
- async function call(url,body,headers={}){const r=await fetch(origin+url,{method:body===undefined?'GET':'POST',headers:{Cookie:cookie,Origin:origin,'Content-Type':'application/json','X-CSRF-Token':csrf,...headers},body:body===undefined?undefined:JSON.stringify(body)});if(r.headers.get('set-cookie'))cookie=r.headers.get('set-cookie').split(';')[0];return {status:r.status,data:await r.json()};}
- async function state(){const r=await call('/api/state');csrf=r.data.csrf;return r.data;}
+ const {call,state,role,save}=careClient(app,origin);
  await call('/api/demo',{});const initial=await state();
  const report=(await call('/api/report',{from:'2026-09-01',to:'2026-09-28',language:'zh'})).data;
- async function role(value){const r=await call('/api/demo/role',{role:value});assert.equal(r.status,200);return state();}
- async function save(kind,record,options={}){const c=(await call('/api/care')).data;return call('/api/care/save',{kind,record,revision:c.revision,operationId:randomUUID(),...options});}
  const assessment={reportId:report.id,status:'confirmed',summary:'Synthetic clinician assessment'};
  const plan={status:'confirmed',change:'start',medication:'Synthetic treatment A',dose:'Demonstration only',route:'Demonstration route',frequency:'Demonstration frequency',start:'2026-10-11',reason:'Synthetic review'};
  return {app,call,state,role,save,initial,report,assessment,plan};
@@ -29,8 +26,8 @@ test('Care: clinician can review only assigned patient and cannot modify diary, 
  const x=await setup(t),doctor=await x.role('clinician');assert.equal(doctor.user.patientId,x.initial.user.id);assert.notEqual(doctor.user.id,x.initial.user.id);
  for(const url of ['/api/records','/api/settings','/api/consent','/api/voice/note'])assert.equal((await x.call(url,{})).status,403);
  assert.equal((await x.call('/api/voice/notes')).status,403);
- const res=await x.call('/api/care?patientId=someone-else');assert.equal(res.data.patientId,x.initial.user.id);
- const actor=x.app.store.get(doctor.user.id);actor.profile.patientId='wrong-patient';x.app.store.save(actor);assert.equal((await x.call('/api/care')).status,403);
+ const res=await x.call('/api/care?patientId=someone-else');assert.equal(res.status,403);
+ x.app.store.db.prepare('DELETE FROM care_grants WHERE patient_id=?').run(x.initial.user.id);assert.equal((await x.call('/api/care')).status,403);
 });
 test('Care: drafts remain private; confirmation binds immutable report and diary edits mark it stale',async t=>{
  const x=await setup(t);await x.role('clinician');const created=await x.save('assessments',{...x.assessment,status:'draft'});assert.equal(created.status,200);

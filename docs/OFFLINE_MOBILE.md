@@ -1,4 +1,4 @@
-# Offline diary, mobile and weak networks / 离线、手机与弱网 — 0.7.0
+# Offline diary, mobile and weak networks / 离线、手机与弱网 — 0.8.2
 
 ## 中文
 
