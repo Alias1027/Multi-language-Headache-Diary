@@ -1,6 +1,6 @@
 # English user guide — 0.8.2
 
-The current local candidate is web/server 0.8.2 with Android 0.1.0-preview; this version has not been published to GitHub. **Physical-device acceptance follows the experimental pre-release; the candidate is not yet physically device-validated.** See [current release notes](RELEASE_NOTES_0.8.2.md) and [post-pre-release tasks](RELEASE_PARTICIPATION.md).
+The [0.8.2 research pre-release](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.8.2) includes web/server 0.8.2 and Android 0.1.0-preview; [hosted CI](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/40021043776) passed for its tagged commit. **Physical-device acceptance follows the experimental pre-release; the candidate is not yet physically device-validated.** See [current release notes](RELEASE_NOTES_0.8.2.md) and [post-pre-release tasks](RELEASE_PARTICIPATION.md).
 
 ## 0.8.2 Sign-in portals and clinician access
 
@@ -15,11 +15,11 @@ Both portals and patient navigation are available in all eight languages, with r
 
 Install the standalone APK and create a local profile without connectivity. Use an existing phone recorder or import audio, and export/restore password-encrypted backups. Online account linking and clinician grants require separate confirmation. See the [Android guide](ANDROID_OFFLINE.md).
 
-**0.8.2 local review build, not yet published.** The download links elsewhere refer to unchanged 0.7.0 assets. Follow the new [bilingual clinician account and authorization guide](CLINICIAN_ACCESS.md).
+**0.8.2 research pre-release is published.** Download the current source, Windows and Android assets from the [0.8.2 Release](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.8.2); historical 0.7.0 files remain separate. Follow the new [bilingual clinician account and authorization guide](CLINICIAN_ACCESS.md).
 
 [中文指南](USER_GUIDE.zh.md) · [README](../README.md) · [offline/mobile details](OFFLINE_MOBILE.md)
 
-1. For this candidate, select the separately prepared Windows x64 portable 0.8.2 ZIP; the older public Release is 0.7.0 and does not include this update. Verify the candidate's SHA-256 and extract all files. Double-click Start.cmd; source users install Node.js24 and run npm start. Stop.cmd stops the local service. Use the same extraction folder next time to retain its data.
+1. From the [0.8.2 Release](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.8.2), select the Windows x64 portable ZIP and SHA256SUMS.txt. Verify the candidate's SHA-256 and extract all files. Double-click Start.cmd; source users install Node.js24 and run npm start. Stop.cmd stops the local service. Use the same extraction folder next time to retain its data.
 2. Choose a synthetic case for a short demonstration, or register an experimental account for repeatable sign-in. Demo accounts have no recoverable password. Do not put real personal health information into this research prototype.
 3. In My diary, choose the day, state whether headache/acute medication occurred, and complete the relevant pain and medication details. Unknown, no symptoms and missing answers are distinct. Untouched starter forms are excluded. Save after review.
 4. Offline after initialization, continue other dates or amend the same day. The pending list distinguishes browser-only records from server-saved data. Keep the same browser and URL, export a backup, and sync when connected. If the session expires, sign in to the same account. Never clear a conflict queue before exporting and reviewing it.

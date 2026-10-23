@@ -4,7 +4,7 @@
 
 A bundled Android app now starts offline without an account, supports consecutive-day entries in all eight languages, password-encrypted backups/restoration, and explicit account linking/manual synchronization to a deployed HTTPS service. Recording delegates to an installed phone recorder, with an existing-audio picker fallback. No speech model is bundled. Browser and PWA versions are retained.
 
-[Installation, backup, sync and real-device checklist](docs/ANDROID_OFFLINE.md) · [Eight-language Android screenshots](docs/ANDROID_SCREENSHOTS.md). This 0.8.2 / Android 0.1.0-preview candidate has not been published to GitHub; previous Releases and CI results do not validate it. **Physical-device acceptance is scheduled after the experimental pre-release; the candidate is not yet physically device-validated.** See [current release notes](docs/RELEASE_NOTES_0.8.2.md) and [post-pre-release testing tasks](docs/RELEASE_PARTICIPATION.md).
+[Installation, backup, sync and real-device checklist](docs/ANDROID_OFFLINE.md) · [Eight-language Android screenshots](docs/ANDROID_SCREENSHOTS.md). The [0.8.2 research pre-release](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.8.2) now includes the Android 0.1.0-preview APK, source ZIP, Windows portable ZIP and checksums. [Hosted CI](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/40021043776) passed for the tagged commit; older CI results apply only to their own versions. **Physical-device acceptance is scheduled after the experimental pre-release; the candidate is not yet physically device-validated.** See [current release notes](docs/RELEASE_NOTES_0.8.2.md) and [post-pre-release testing tasks](docs/RELEASE_PARTICIPATION.md).
 
 ## 0.8.2 Sign-in portals and clinician access
 
@@ -16,13 +16,13 @@ Both portals and patient navigation are available in all eight languages, with r
 
 
 
-> **0.8.2 local review build — not yet published to GitHub.** Independent clinician sign-in, operator approval and revocable patient authorization replace simulated role switching. Existing v0.7.0 release assets and CI results describe v0.7.0 only. See [Clinician access guide](docs/CLINICIAN_ACCESS.md) for setup, patient permission and the review workflow. No electronic prescriptions or professional credential verification are provided.
+> **0.8.2 research pre-release.** Independent clinician sign-in, operator approval and revocable patient authorization replace simulated role switching. Existing v0.7.0 release assets and CI results describe v0.7.0 only. See [Clinician access guide](docs/CLINICIAN_ACCESS.md) for setup, patient permission and the review workflow. No electronic prescriptions or professional credential verification are provided.
 
 **An eight-language, local-first research prototype for headache recording and clinician-readable follow-up.**
 
-[简体中文 / Chinese](README.zh-CN.md) · **English documentation** · **0.8.2 local review build** · Node.js 24 · [Source-available license](LICENSE)
+[简体中文 / Chinese](README.zh-CN.md) · **English documentation** · **0.8.2 research pre-release** · Node.js 24 · [Source-available license](LICENSE)
 
-**Published 0.7.0 release (previous version):** [repository](https://github.com/Alias1027/Multi-language-Headache-Diary--) · [Release and downloads](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.7.0) · [automated checks](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions). See [version-specific validation](docs/VALIDATION.md); historical 0.6.1 results do not certify 0.7.0.
+**Published 0.8.2 research pre-release:** [repository](https://github.com/Alias1027/Multi-language-Headache-Diary--) · [four download assets](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.8.2) · [passing CI for the tagged commit](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/40021043776). Historical 0.7.0 and 0.6.1 remain available as separate versions; see [validation](docs/VALIDATION.md).
 
 Headache Diary Lab connects daily status, headache episodes, medication use and reviewed voice-assisted input in one patient page. It produces reproducible summaries that show missing days and record coverage, alongside a separately authenticated and patient-authorized clinician workspace for assessments, advice and follow-up.
 
@@ -35,7 +35,7 @@ This release is for synthetic-data demonstrations and engineering evaluation. Tr
 
 | Entry point | Available now | Deployment or validation still needed |
 | --- | --- | --- |
-| **Android offline patient app** | Separate APK starts without network/account, with eight languages, multi-day recording, native recorder access and encrypted backup/restore. | Local research preview; not on GitHub or an app store. Physical-device, cross-device restore and HTTPS sync acceptance remain pending. |
+| **Android offline patient app** | Separate APK starts without network/account, with eight languages, multi-day recording, native recorder access and encrypted backup/restore. | GitHub research pre-release APK; not published through an app store. Physical-device, cross-device restore and HTTPS sync acceptance remain pending. |
 | **One-click Windows launch** | The full portable delivery includes its runtime and opens the browser on startup; local start/stop workflows have been verified. | This applies to the separately prepared Windows bundle. The GitHub source ZIP excludes the runtime and root launchers; source users need Node.js 24. |
 | **Direct browser use** | Available on the host computer. Mobile users can choose browser access without a native app or PWA installation. | **Mobile access requires service deployment first.** Default startup remains local. An opt-in HTTPS reverse-proxy mode and configuration example are now included; an operator must deploy it and validate real devices. |
 | **Optional mini-program entry points** | Web-container integration scaffolds for WeChat, Alipay and Douyin are included. | Service deployment, platform builds, eligibility/approval, business-domain setup and real-device QR testing are pending. No mini-program is live. |

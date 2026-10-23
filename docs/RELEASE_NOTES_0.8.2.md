@@ -1,6 +1,6 @@
 # Headache Diary Lab 0.8.2 / Android 0.1.0-preview — Experimental pre-release candidate
 
-Prepared / 准备日期：2026-10-23. Local candidate only; this version's GitHub publication and hosted CI are not yet claimed. / 当前为本机候选，不声称本版已发布GitHub或通过远程CI。
+Prepared / 准备日期：2026-10-23. [Research pre-release published](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.8.2); [hosted CI passed](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/40021043776) for the tagged commit. / [实验预发布版已发布](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.8.2)，对应标签提交的[远程自动测试通过](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/40021043776)。
 
 ## 中文
 

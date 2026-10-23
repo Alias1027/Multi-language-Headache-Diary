@@ -2,7 +2,7 @@
 
 <!-- release-target: 0.8.2 -->
 
-Updated: 2026-10-23. This checklist targets **web/server 0.8.2 and Android 0.1.0-preview**. The current local candidate has not been published to GitHub or an app store. Previous release links and hosted CI results do not certify this candidate. See [current release notes](RELEASE_NOTES_0.8.2.md), [validation evidence](VALIDATION.md) and [Android scope](ANDROID_OFFLINE.md).
+Updated: 2026-10-23. This checklist targets **web/server 0.8.2 and Android 0.1.0-preview**. The [0.8.2 research pre-release](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.8.2) is public with four checked assets; [its hosted CI](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/40021043776) passed. Android is not distributed through an app store. Historical CI remains version-specific. See [current release notes](RELEASE_NOTES_0.8.2.md), [validation evidence](VALIDATION.md) and [Android scope](ANDROID_OFFLINE.md).
 
 **Physical-device acceptance is scheduled after the experimental pre-release, at the maintainer's request.** It is not a prerequisite for that limited release. Mark the package and release notes as **not yet physically device-validated** and invite synthetic-data testing; this does not make it a production or clinically validated release. Automated, packaging and data-preservation gates still apply.
 

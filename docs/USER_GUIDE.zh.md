@@ -1,6 +1,6 @@
 # 中文使用说明 — 0.8.2
 
-本机当前候选为Web/服务端0.8.2与Android 0.1.0-preview，尚未发布本版GitHub Release。**真机验收安排在实验预发布后，当前尚未真机验证。** 见[本版发布说明](RELEASE_NOTES_0.8.2.md)与[后续测试清单](RELEASE_PARTICIPATION.md)。
+Web/服务端0.8.2与Android 0.1.0-preview已发布为[实验预发布版](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.8.2)；[本版远程自动测试](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/40021043776)已通过。**真机验收安排在实验预发布后，当前尚未真机验证。** 见[本版发布说明](RELEASE_NOTES_0.8.2.md)与[后续测试清单](RELEASE_PARTICIPATION.md)。
 
 ## 0.8.2 登录入口与医生访问授权
 
@@ -17,7 +17,7 @@
 
 > 0.8.2：医生入口与授权流程以 [CLINICIAN_ACCESS.md](CLINICIAN_ACCESS.md) 为准。旧版“模拟角色切换”已移除；下文涉及 v0.7.0 的发布/验证记录属于历史证据。当前新增范围需独立验证，未复用旧 CI 结果。
 
-既有已发布版本0.7.0（当前本机0.8.2尚未发布）：[Release](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.7.0) · [自动检查](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions) · [英文指南](USER_GUIDE.en.md)。详见[版本验收](VALIDATION.md)。
+当前[0.8.2 Release与下载](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.8.2) · [本版自动检查](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/40021043776) · [英文指南](USER_GUIDE.en.md)。历史0.7.0附件保持独立；详见[版本验收](VALIDATION.md)。
 
 用于合成病例演示。八语言界面可用；语音转写与字段提取仍限中文、英文，需配置适配器才能自动转写。
 
@@ -43,7 +43,7 @@ Windows便携交付可从“开始使用/01-Windows电脑/一键启动.cmd”进
 
 ## 选择当前包与既往下载
 
-当前候选材料是0.8.2源码ZIP、Windows x64便携ZIP及Android 0.1.0-preview APK；按最终交付中的SHA256SUMS.txt核对。新版本尚未发布，不应把下方旧版下载当作Android或0.8.2成果。源码需要Node.js24；便携包自带运行环境；Android包独立安装。详见[包类型与首次使用](WINDOWS_PORTABLE.md)和[Android指南](ANDROID_OFFLINE.md)。
+[0.8.2预发布附件](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.8.2)包含源码ZIP、Windows x64便携ZIP、Android 0.1.0-preview APK和SHA256SUMS.txt；下载后按校验文件核对。源码需要Node.js24；便携包自带运行环境；Android包独立安装。详见[包类型与首次使用](WINDOWS_PORTABLE.md)和[Android指南](ANDROID_OFFLINE.md)。
 
 **既往0.7.0下载：** 从 [v0.7.0 Release](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.7.0) 下载 [Windows x64 便携包](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.7.0/headache-diary-windows-x64-0.7.0.zip) 或 [纯源码包](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.7.0/headache-diary-source-0.7.0.zip)，并用同页 [SHA256SUMS.txt](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.7.0/SHA256SUMS.txt) 核对 SHA-256。Windows x64便携包带运行环境和一键入口；纯源码需自行安装Node.js 24。两者不含既有账号、数据、音频或密钥。
 
@@ -122,4 +122,4 @@ Windows便携交付可从“开始使用/01-Windows电脑/一键启动.cmd”进
 当前模拟共享只发送日记摘要，不含新增方案和反馈；打印和下载的医生摘要含随访附录。真实医师认证、机构接入和消息送达仍需后续部署；反馈和回执不表示实时监护。详见[患者工作流](PATIENT_WORKFLOW.md)和[产品对照](PRODUCT_COMPARISON.md)。
 
 
-历史0.6.1及0.7.0标签和附件保留；当前0.8.2 / Android 0.1.0-preview使用独立的候选材料与验证记录，尚未发布本版。
+历史0.6.1及0.7.0标签和附件保留；当前0.8.2 / Android 0.1.0-preview使用[独立发布附件](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.8.2)与[对应远程CI](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/40021043776)。

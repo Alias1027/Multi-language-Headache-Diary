@@ -4,7 +4,7 @@
 
 新增可首次离线启动的 Android 安装包：无需账号即可记录多日头痛，支持八语言、密码加密备份/恢复，联网后明确关联患者账号并主动同步至已部署的 HTTPS 服务。录音调用手机已有录音应用，没有可用应用时可选择已有音频；不捆绑识别模型。现有浏览器和 PWA 版本保留。
 
-[安装、备份、同步与真机验收说明](docs/ANDROID_OFFLINE.md) · [八语言 Android 界面](docs/ANDROID_SCREENSHOTS.md)。当前0.8.2 / Android 0.1.0-preview候选尚未发布GitHub；旧版Release与CI不代表本轮验证。**真机验收安排在实验预发布后进行，当前尚未真机验证。** 见[本版发布说明](docs/RELEASE_NOTES_0.8.2.md)及[预发布后测试任务](docs/RELEASE_PARTICIPATION.md)。
+[安装、备份、同步与真机验收说明](docs/ANDROID_OFFLINE.md) · [八语言 Android 界面](docs/ANDROID_SCREENSHOTS.md)。现已发布[0.8.2实验预发布版](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.8.2)，包含Android 0.1.0-preview APK、源码包、Windows便携包和校验文件；[对应提交的远程自动测试](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/40021043776)已通过。旧版结果仅适用于各自版本。**真机验收安排在实验预发布后进行，当前尚未真机验证。** 见[本版发布说明](docs/RELEASE_NOTES_0.8.2.md)及[预发布后测试任务](docs/RELEASE_PARTICIPATION.md)。
 
 ## 0.8.2 登录入口与医生访问授权
 
@@ -16,13 +16,13 @@
 
 
 
-> **0.8.2 本机评阅版，尚未发布到 GitHub。** 新增独立医生登录、部署者审核及患者可撤销授权，替代模拟身份切换。现有 v0.7.0 发布附件及 CI 结果仅对应 v0.7.0。账号设置、患者授权与审阅步骤见[医生入口指南](docs/CLINICIAN_ACCESS.md)。本工具不签发电子处方，也不验证医师执业资质。
+> **0.8.2 实验预发布版。** 新增独立医生登录、部署者审核及患者可撤销授权，替代模拟身份切换。现有 v0.7.0 发布附件及 CI 结果仅对应 v0.7.0。账号设置、患者授权与审阅步骤见[医生入口指南](docs/CLINICIAN_ACCESS.md)。本工具不签发电子处方，也不验证医师执业资质。
 
 **面向头痛记录与医患随访的八语言本地实验原型。**
 
-简体中文 · [完整英文说明 / Full English README](README.md) · **0.8.2 本机评阅版** · Node.js 24 · [源码可见许可](LICENSE)
+简体中文 · [完整英文说明 / Full English README](README.md) · **0.8.2 实验预发布版** · Node.js 24 · [源码可见许可](LICENSE)
 
-**既往公开的 0.7.0 版本：** [官方仓库](https://github.com/Alias1027/Multi-language-Headache-Diary--) · [Release与下载](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.7.0) · [自动检查](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions)。本轮本机验证与既往发布结果分别见[验收记录](docs/VALIDATION.md)，历史0.6.1测试不等于本版验收。
+**当前公开的0.8.2实验预发布版：** [官方仓库](https://github.com/Alias1027/Multi-language-Headache-Diary--) · [四份发布附件](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.8.2) · [该提交自动检查](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/40021043776)。0.7.0和0.6.1作为独立历史版本保留；详见[验收记录](docs/VALIDATION.md)。
 
 本项目将每日状态、头痛发作、实际用药及经人工核对的语音辅助输入整合为一个患者页面，生成保留漏填信息与记录覆盖率的随访摘要，并提供独立账号与患者授权下的医生审阅、建议与随访工作区。
 
@@ -35,7 +35,7 @@
 
 | 入口 | 当前可用 | 待部署、待验证 |
 | --- | --- | --- |
-| **Android 离线患者版** | 独立 APK 首次启动无需网络或账号；八语言、多日记录、系统录音入口、加密备份与恢复。 | 本机研究预览，未发布应用商店或 GitHub；真机、换机及 HTTPS 同步仍待验收。 |
+| **Android 离线患者版** | 独立 APK 首次启动无需网络或账号；八语言、多日记录、系统录音入口、加密备份与恢复。 | GitHub提供研究预发布APK，尚未进入应用商店；真机、换机及 HTTPS 同步仍待验收。 |
 | **Windows一键启动** | 完整便携交付包含运行环境，双击启动并打开浏览器；本机启动/停止流程已验证。 | 此入口属于单独准备的Windows便携包；GitHub纯源码包不含运行环境和根目录启动入口，需先配置Node.js 24。 |
 | **浏览器直接使用** | 电脑本机浏览器可用；手机可选择浏览器方式，无需下载手机APP或先安装PWA。 | **手机方式需先部署服务**：默认启动仍为电脑本机访问；本版新增可选HTTPS反向代理模式与配置示例，需维护者实际部署可访问的网址并完成真机验证。 |
 | **可选小程序入口** | 已提供微信、支付宝、抖音网页容器入口准备代码。 | 待服务部署、平台构建、准入审核、业务域名配置及真机扫码验证；尚无已上线小程序。 |
