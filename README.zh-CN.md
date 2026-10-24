@@ -136,9 +136,9 @@
 
 页面顶部的语言选择器用于切换界面。未单独设置报告偏好或本次报告语言时，新报告跟随界面语言；已生成报告和原始自由文本保留各自的语言。
 
-## 当前候选包与既往下载
+## 当前0.8.2下载与既往版本
 
-0.8.2源码/Windows便携包与Android 0.1.0-preview APK分别作为候选附件准备，此处不提供尚不存在的本版公开下载地址。请核对包的版本与SHA-256，步骤见[包类型说明](docs/WINDOWS_PORTABLE.md)和[Android指南](docs/ANDROID_OFFLINE.md)。本版远程检查和下载核验需针对最终提交实际完成后再记录。
+请从已发布的[0.8.2实验预发布版](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.8.2)下载[源码ZIP](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.8.2/headache-diary-source-0.8.2.zip)、[Windows x64便携ZIP](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.8.2/headache-diary-windows-x64-0.8.2.zip)、[Android 0.1.0-preview APK](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.8.2/headache-diary-android-0.1.0-preview.apk)及[SHA256SUMS.txt](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.8.2/SHA256SUMS.txt)。逐一核对下载文件的SHA-256；使用步骤见[Windows包说明](docs/WINDOWS_PORTABLE.md)和[Android指南](docs/ANDROID_OFFLINE.md)。[标签提交的远程检查](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/40021043776)已通过。当前在线文档可能晚于冻结的发布包。
 
 ### 既往已发布的0.7.0
 

@@ -1,10 +1,10 @@
 # Windows portable use and upgrade / Windows便携包与升级 — 0.8.2
 
-[Historical v0.7.0 Release](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.7.0) · [Historical checksums](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.7.0/SHA256SUMS.txt) · [验证 / validation](VALIDATION.md)
+[Current v0.8.2 Release](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.8.2) · [Current checksums](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.8.2/SHA256SUMS.txt) · [验证 / validation](VALIDATION.md)
 
-当前 0.8.2 便携包为本机预发布候选，尚未发布；上方历史下载不包含本次更新。Android APK 单独提供，不在 Windows ZIP 内。真机验收安排在实验预发布之后。
+当前0.8.2 Windows便携包已作为[GitHub实验预发布附件](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.8.2)发布；Android APK另行提供，不在Windows ZIP内。下载后按同页SHA256SUMS.txt核验。真机验收安排在实验预发布之后。
 
-The 0.8.2 portable package is a local prerelease candidate, not yet published. Historical downloads above exclude this update. Android is supplied as a separate APK. Physical-device acceptance follows prerelease.
+The 0.8.2 Windows portable package is available from the [GitHub research pre-release](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.8.2); the Android APK is a separate asset, not part of the Windows ZIP. Verify the downloaded package against SHA256SUMS.txt. Physical-device acceptance follows the experimental pre-release.
 
 ## 中文
 

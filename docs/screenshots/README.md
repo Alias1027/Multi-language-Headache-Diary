@@ -1,8 +1,10 @@
-# Interface screenshot record / 界面截图说明 — 0.7.0
+# Interface screenshot provenance / 界面截图来源 — 0.8.2 documentation
+
+Current 0.8.2 Android emulator screenshots are in [the eight-language Android gallery](../ANDROID_SCREENSHOTS.md). The images below retain their original 0.7.0/0.6.1 provenance. / 当前0.8.2 Android模拟器截图见[八语言Android图库](../ANDROID_SCREENSHOTS.md)；以下图片保留0.7.0/0.6.1原始版本标注。
 
 Actual application screenshots with isolated synthetic data; no image retouching or invented UI. The eight offline screenshots below were captured on 2026-10-18 in 0.7.0. The twelve `*-061.jpg` images are retained examples from 0.6.1, not new 0.7.0 captures. / 图片均来自真实运行的应用与隔离合成病例，未修饰或虚构界面。下列八张离线截图于2026-10-18在0.7.0中采集；十二张`*-061.jpg`是保留的0.6.1示例，不是0.7.0新截图。
 
-## Current offline queue / 当前版离线记录队列 — 0.7.0
+## Retained 0.7.0 offline queue / 保留的0.7.0离线记录队列
 
 Three dates were saved while offline, followed by a correction to the first date, leaving four ordered pending operations. The same encrypted queue was restored after clearing the browser HTTP cache, closing the browser, and reopening it offline from the service-worker cache. / 断网时保存三个日期，并修订首日，形成四条按顺序待上传的操作；清除浏览器HTTP缓存、关闭浏览器后，仍可通过服务工作线程缓存离线重开，并恢复同一加密队列。
 

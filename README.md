@@ -136,9 +136,9 @@ An actual start date enables a 28-day-before/28-day-after diary view with comple
 
 Use the language selector at the top of the page to change the interface. New reports follow that language unless a separate report preference or per-report choice is set. Existing reports and original free-text notes retain their own language.
 
-## Current candidate packages and earlier downloads
+## Current 0.8.2 downloads and earlier releases
 
-The 0.8.2 source/Windows portable and Android 0.1.0-preview APK are prepared as separate candidate assets; no new public download URL is claimed here. Select the matching version and verify its SHA-256 using the [package guide](docs/WINDOWS_PORTABLE.md) and [Android guide](docs/ANDROID_OFFLINE.md). Current hosted checks and download verification must be recorded for the final commit after they run.
+Download the published [0.8.2 research pre-release](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.8.2) assets: [source ZIP](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.8.2/headache-diary-source-0.8.2.zip), [Windows x64 portable ZIP](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.8.2/headache-diary-windows-x64-0.8.2.zip), [Android 0.1.0-preview APK](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.8.2/headache-diary-android-0.1.0-preview.apk), and [SHA256SUMS.txt](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/download/v0.8.2/SHA256SUMS.txt). Verify each downloaded file against the checksum file; see the [Windows package guide](docs/WINDOWS_PORTABLE.md) and [Android guide](docs/ANDROID_OFFLINE.md). [Hosted checks for the tagged commit](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/40021043776) passed. The current documentation may be newer than the frozen release archives.
 
 ### Earlier published 0.7.0
 

@@ -6,7 +6,7 @@
 
 ## 中文：当前状态与发布顺序
 
-当前是本机准备的实验预发布候选，尚未发布本版 GitHub Release 或应用商店。旧版0.6.1/0.7.0的发布与CI属于历史证据，不能替代本版检查。当前范围见[发布说明](RELEASE_NOTES_0.8.2.md)，发布技术门槛见[发布检查单](RELEASE_CHECKLIST.md)。
+[0.8.2实验预发布版](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.8.2)已在GitHub发布，尚未上架应用商店；旧版0.6.1/0.7.0的发布与CI属于历史证据，不能替代[本版CI](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/40021043776)。当前范围见[发布说明](RELEASE_NOTES_0.8.2.md)，发布技术门槛见[发布检查单](RELEASE_CHECKLIST.md)。
 
 **按维护者安排，真机验收在实验预发布后进行，不作为本次实验预发布的前置条件。** 对外须保留“尚未真机验证”，先用合成病例收集反馈；不把模拟器通过写成正式临床使用、安全认证或全机型兼容。真机、母语和专业复核完成前，相关事项继续标为待验证。
 
@@ -67,7 +67,7 @@
 
 ## English: current status and release order
 
-This is a locally prepared experimental pre-release candidate; this version has not been published to GitHub or an app store. Published 0.6.1/0.7.0 results are historical and do not certify this candidate. See [release notes](RELEASE_NOTES_0.8.2.md) and the [technical release gate](RELEASE_CHECKLIST.md).
+The [0.8.2 research pre-release](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.8.2) is published on GitHub, not in an app store. Published 0.6.1/0.7.0 results are historical and do not replace [version-specific hosted CI](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/40021043776). See [release notes](RELEASE_NOTES_0.8.2.md) and the [technical release gate](RELEASE_CHECKLIST.md).
 
 **Physical-device acceptance is scheduled after the experimental pre-release, at the maintainer's request, rather than being a prerequisite for it.** Keep “not yet physically device-validated” visible. Invite synthetic-data evaluation; emulator success does not establish clinical readiness, security certification or support for every device.
 

@@ -1,6 +1,6 @@
 # Android offline patient diary / Android 离线患者日记
 
-Web/server 0.8.2 · Android 0.1.0-preview · 2026-10-23 · local experimental pre-release candidate, not published to GitHub or an app store.
+Web/server 0.8.2 · Android 0.1.0-preview · 2026-10-23 · [GitHub research pre-release published](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.8.2); no app-store release. / [GitHub实验预发布版已发布](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.8.2)；尚未上架应用商店。
 
 **真机验收安排在实验预发布后进行；当前尚未真机验证。** 预发布用于合成病例工程/可用性体验，不表示临床部署完成。 / **Physical-device acceptance is scheduled after the experimental pre-release; the candidate is not yet physically device-validated.** The pre-release is for synthetic engineering/usability evaluation, not a claim of clinical deployment. See [post-pre-release tasks / 后续任务](RELEASE_PARTICIPATION.md).
 

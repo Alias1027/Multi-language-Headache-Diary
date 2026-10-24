@@ -6,7 +6,7 @@ Updated: 2026-10-23. This checklist targets **web/server 0.8.2 and Android 0.1.0
 
 **Physical-device acceptance is scheduled after the experimental pre-release, at the maintainer's request.** It is not a prerequisite for that limited release. Mark the package and release notes as **not yet physically device-validated** and invite synthetic-data testing; this does not make it a production or clinically validated release. Automated, packaging and data-preservation gates still apply.
 
-## Before publishing the candidate
+## Publication verification steps for 0.8.2 (repeat for future versions)
 
 1. Run npm test with Node.js 24 and save the final output in [test-results.txt](test-results.txt). Run relevant browser suites with isolated synthetic data, including multi-day offline/reconnect and patient/clinician permission tests. Record the exact revision and environment.
 2. Run npm run check:release. Confirm current document versions, local links, source allowlist, private-file checks, cache resources and manifest rules. Historical version evidence must remain explicitly labeled.
@@ -37,8 +37,8 @@ The current project-authored release uses the custom [personal noncommercial sou
 
 Preserve third-party notices. Rights granted by older versions are not retroactively revoked. Authorship, external-contribution rights and the custom license have not had independent legal review. Do not use an MIT or OSI-open-source badge for this source-available release. If importing old Git history, separately inspect its private contents and previous licensing grants.
 
-## Historical publication evidence — separate from this candidate
+## Historical publication evidence — earlier versions
 
-The [v0.6.1 pre-release](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.6.1) and [v0.7.0 pre-release](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.7.0) are earlier versions. The 0.6.1 release-tag commit c1644cd passed [run 39118500923](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/39118500923), including 137 tests on each hosted platform. Its source/portable/checksum downloads were previously verified. None of these observations establishes a 0.8.2 hosted run, download or physical-device acceptance.
+The [v0.6.1 pre-release](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.6.1) and [v0.7.0 pre-release](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.7.0) are earlier versions. The 0.6.1 release-tag commit c1644cd passed [run 39118500923](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/39118500923), including 137 tests on each hosted platform. Its source/portable/checksum downloads were previously verified. These historical results do not substitute for the [0.8.2 tagged-commit run](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/40021043776), its four release assets or physical-device acceptance.
 
 Confirm repository private vulnerability reporting where available; a document cannot verify a setting. Do not collect patient data, recordings, passwords or keys in public issues.

@@ -1,4 +1,4 @@
-# Headache Diary Lab 0.8.2 / Android 0.1.0-preview — Experimental pre-release candidate
+# Headache Diary Lab 0.8.2 / Android 0.1.0-preview — Experimental research pre-release / 实验预发布版
 
 Prepared / 准备日期：2026-10-23. [Research pre-release published](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.8.2); [hosted CI passed](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/40021043776) for the tagged commit. / [实验预发布版已发布](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.8.2)，对应标签提交的[远程自动测试通过](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/40021043776)。
 
@@ -8,7 +8,7 @@ Prepared / 准备日期：2026-10-23. [Research pre-release published](https://g
 
 Android界面支持中文、英文、西班牙文、法文、俄文、阿拉伯文、印地文和乌尔都文。录音优先调用已有手机录音应用，无可用应用时选择已有音频；不捆绑模型、不自动转写或上传。导入音频加密保存，外部录音原件仍由录音应用管理。
 
-本轮发布材料按不同入口分别准备：源码0.8.2 ZIP、Windows x64便携0.8.2 ZIP、Android 0.1.0-preview APK和SHA-256校验文件。便携包带运行环境；源码使用者需Node.js24。Android本机日记不需要HTTPS或首次联网；只有联网医患协作需要已部署HTTPS服务。没有默认公共服务。
+本轮发布附件按不同入口分别提供：源码0.8.2 ZIP、Windows x64便携0.8.2 ZIP、Android 0.1.0-preview APK和SHA-256校验文件，见[GitHub v0.8.2](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.8.2)。便携包带运行环境；源码使用者需Node.js24。Android本机日记不需要HTTPS或首次联网；只有联网医患协作需要已部署HTTPS服务。没有默认公共服务。
 
 **真机验收安排在实验预发布之后；当前尚未真机验证。** 自动与模拟器检查仅证明所测工程场景。待验证包括实际手机录音返回、两部手机之间的备份恢复、真实HTTPS同步、低内存/长时间离线、八语言母语及独立临床/安全复核。详见[测试清单](RELEASE_PARTICIPATION.md)。提醒仍为模拟；Android尚未移植全部网页报告导出、共享与语音候选工作流。
 
@@ -16,15 +16,15 @@ Android界面支持中文、英文、西班牙文、法文、俄文、阿拉伯�
 
 ## English
 
-This candidate keeps the patient headache diary at its core, retaining browser/PWA and Windows entry points while adding first-launch offline Android use. Patients can record consecutive days, amend history and export/restore password-encrypted backups. When connected, they explicitly review/link their patient account and manually synchronize to an operator-deployed HTTPS service. Clinicians use distinct, operator-approved accounts with patient permission. Advice, historical feedback and visit summaries remain linked; advice does not become an actual dose record or an electronic prescription.
+This pre-release keeps the patient headache diary at its core, retaining browser/PWA and Windows entry points while adding first-launch offline Android use. Patients can record consecutive days, amend history and export/restore password-encrypted backups. When connected, they explicitly review/link their patient account and manually synchronize to an operator-deployed HTTPS service. Clinicians use distinct, operator-approved accounts with patient permission. Advice, historical feedback and visit summaries remain linked; advice does not become an actual dose record or an electronic prescription.
 
 Android supports Chinese, English, Spanish, French, Russian, Arabic, Hindi and Urdu. Recording delegates to an installed recorder, with existing-audio selection as fallback. No speech model is bundled; audio is neither transcribed nor uploaded automatically. Imported copies are encrypted locally; the recorder continues to manage its original files.
 
-Release inputs are separate: source 0.8.2 ZIP, Windows x64 portable 0.8.2 ZIP, Android 0.1.0-preview APK and SHA-256 checksums. The portable bundle includes the runtime; source users need Node.js24. The native Android diary needs neither HTTPS nor first-use connectivity for local recording. Connected clinician collaboration needs a deployed HTTPS service; none is preconfigured.
+[GitHub v0.8.2](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.8.2) provides separate assets: source 0.8.2 ZIP, Windows x64 portable 0.8.2 ZIP, Android 0.1.0-preview APK and SHA-256 checksums. The portable bundle includes the runtime; source users need Node.js24. The native Android diary needs neither HTTPS nor first-use connectivity for local recording. Connected clinician collaboration needs a deployed HTTPS service; none is preconfigured.
 
 **Physical-device acceptance follows the experimental pre-release; the candidate is not yet physically device-validated.** Automated/emulator checks cover engineering scenarios only. Actual recorder returns, cross-phone restoration, real HTTPS synchronization, low-memory/long-offline use, native-language readability and independent clinical/security review remain pending. See the [participant checklist](RELEASE_PARTICIPATION.md). Reminders remain simulated; not every web report-export, sharing or reviewed voice workflow is ported to Android.
 
-Before upgrading, preserve data/keys and export pending browser entries or an Android encrypted backup. Do not overwrite existing data with a clean package. Historical 0.6.1/0.7.0 tags, assets and CI results remain separate from this candidate.
+Before upgrading, preserve data/keys and export pending browser entries or an Android encrypted backup. Do not overwrite existing data with a clean package. Historical 0.6.1/0.7.0 tags, assets and CI results remain separate from this 0.8.2 pre-release.
 
 ## Evidence and participation / 证据与参与
 

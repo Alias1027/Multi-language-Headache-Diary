@@ -2,7 +2,7 @@
 
 ## 中文
 
-本版为本机评阅成果，尚未发布至 GitHub。患者端仍用于头痛日记；医生入口只用于审阅、建议和随访记录，不是完整病历或电子处方平台。账号批准不等于医师执业资质认证；部署者负责线下核对身份及使用资格。
+本功能已随[0.8.2实验预发布版](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.8.2)公开；真机与实际部署尚待验证。患者端仍用于头痛日记；医生入口只用于审阅、建议和随访记录，不是完整病历或电子处方平台。账号批准不等于医师执业资质认证；部署者负责线下核对身份及使用资格。
 
 ### 1. 医生使用独立账号
 
@@ -37,11 +37,11 @@
 
 患者连续离线日记保留；本版医生入口、授权和反馈提交需要连接服务。只有离线记录成功同步后医生才能看到它们。医生浏览内容仅保留在当前页面内存，不写入患者离线缓存；医生入口不提供离线登录。手机浏览器可以打开已部署的 HTTPS 地址，独立真实手机、弱网、跨设备、医患可用性及八种语言母语审核仍需真人验证。
 
-部署到公网前还需运营者完成 HTTPS、身份审核、账号找回流程、备份恢复、访问日志与隐私评估。本版不宣称临床有效性或法规合规认证。已有 v0.7.0 发布包保持不变；0.8.1 的远程 CI 和发布尚未执行。
+部署到公网前还需运营者完成 HTTPS、身份审核、账号找回流程、备份恢复、访问日志与隐私评估。本版不宣称临床有效性或法规合规认证。历史v0.7.0附件保持不变；[0.8.2标签提交的远程CI](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/40021043776)已通过，不能替代真实医师身份核验或临床测试。
 
 ## English
 
-This is a local review build, not a GitHub release. The patient headache diary remains the core product. The clinician workspace records reviews, advice and follow-up; it is not a full medical record or electronic prescribing system. Operator approval does not verify professional credentials; the operator must check identity and eligibility separately.
+This workflow is included in the [0.8.2 research pre-release](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.8.2); physical-device and deployed-service use remain unverified. The patient headache diary remains the core product. The clinician workspace records reviews, advice and follow-up; it is not a full medical record or electronic prescribing system. Operator approval does not verify professional credentials; the operator must check identity and eligibility separately.
 
 ### Separate accounts and operator approval
 
@@ -69,7 +69,7 @@ Confirmed records retain clinician authorship, time, review ID and reviewed-summ
 
 Consecutive offline patient diaries remain supported. Clinician sign-in, permission and care submissions require a service connection; clinicians see offline diary changes only after successful synchronization. Clinician patient data stays in page memory and is not stored in the patient's offline cache. An HTTPS deployment is needed for remote/mobile use. Independent physical-device, cross-device, weak-network, usability and native-speaker checks remain pending.
 
-Public deployment still requires operational identity verification, HTTPS, account recovery, backup/restore, access-log and privacy review. No clinical effectiveness or regulatory certification is claimed. Existing v0.7.0 assets are unchanged; remote CI and publication of 0.8.1 have not been performed.
+Public deployment still requires operational identity verification, HTTPS, account recovery, backup/restore, access-log and privacy review. No clinical effectiveness or regulatory certification is claimed. Historical v0.7.0 assets remain unchanged; [hosted CI for the 0.8.2 tagged commit](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/40021043776) passed but does not verify clinician credentials or clinical use.
 
 ## 从旧版升级 / Updating an existing installation
 

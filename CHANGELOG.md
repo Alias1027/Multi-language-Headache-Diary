@@ -1,6 +1,8 @@
 # Changelog
 
-## 0.8.2 — 2026-10-23 (local)
+## 0.8.2 — 2026-10-23 (research pre-release; original local engineering evidence retained below)
+
+- [GitHub v0.8.2 research pre-release](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.8.2) published with source ZIP, Windows portable ZIP, Android preview APK and checksums; [tagged-commit hosted CI](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/40021043776) passed. Physical-device acceptance remains pending.
 
 - Add Android 0.1.0-preview: first-launch offline diary, eight languages, Android Keystore encrypted storage, password-encrypted backup/restore, native recorder intent and system-file fallback, account linking and patient-authorized clinician synchronization.
 - Reuse the diary form with injected storage; disable entry controls during asynchronous date changes to prevent lost rapid input.

@@ -3,7 +3,7 @@
 > 0.8.2：医生入口与授权流程以 [CLINICIAN_ACCESS.md](CLINICIAN_ACCESS.md) 为准。旧版“模拟角色切换”已移除；下文涉及 v0.7.0 的发布/验证记录属于历史证据。当前新增范围需独立验证，未复用旧 CI 结果。
 
 
-更新：2026-10-23。当前交付：**Web/服务端 0.8.2，Android 0.1.0-preview**，均保持患者头痛日记定位。浏览器/PWA保留初始化后的多日离线和弱网恢复；Android支持首次离线使用、加密备份和手动联网同步。医生使用独立账号，须部署者批准及患者授权后审阅。具体自动检查结果与对应提交见[验收记录](VALIDATION.md)；历史测试数字和远程CI不代替本版验收。临床统计规则 0.1.0，术语版本 0.2.0，日记数据模式 1 保持不变。真机验收按本轮决定安排在预发布后，未完成前不得标称已通过真机验证。
+更新：2026-10-24。当前[GitHub实验预发布版](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.8.2)交付：**Web/服务端 0.8.2，Android 0.1.0-preview**，均保持患者头痛日记定位。浏览器/PWA保留初始化后的多日离线和弱网恢复；Android支持首次离线使用、加密备份和手动联网同步。医生使用独立账号，须部署者批准及患者授权后审阅。[标签提交的远程CI](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/40021043776)已通过，具体自动检查范围见[验收记录](VALIDATION.md)；历史测试数字不代替本版验收。临床统计规则 0.1.0，术语版本 0.2.0，日记数据模式 1 保持不变。真机验收按本轮决定安排在预发布后，未完成前不得标称已通过真机验证。
 
 | 功能 | 当前成果 | 尚未完成 |
 | --- | --- | --- |
@@ -21,7 +21,7 @@
 | 浏览器直接使用 | 电脑本机可用；新增限定网址的HTTPS反向代理模式和示例，手机可选浏览器方式 | 维护者仍需部署真实域名、证书与访问控制，并完成手机真机验证 |
 | 可选PWA入口 | Manifest、缓存优先页面、加密草稿和多日待同步队列 | 跨设备安装／更新待验证；报告、登录、方案反馈等仍需后台服务；不提供真实推送 |
 | 三平台小程序 | 微信/支付宝/抖音网页入口准备代码 | 平台构建、准入审核、业务域名和真机扫码 |
-| 发布工程 | [实际仓库](https://github.com/Alias1027/Multi-language-Headache-Diary--)、源码边界检查、双语说明、独立便携包及Android预览包；新增校验Gradle下载的Android编译CI配置 | 本版提交、远程CI、附件及校验结果以[验收记录](VALIDATION.md)为准；不能沿用旧版绿灯；预发布后人工任务见[人工清单](RELEASE_PARTICIPATION.md) |
+| 发布工程 | [0.8.2实验预发布版](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.8.2)含源码、Windows便携包、Android预览APK及校验文件；[标签提交CI](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/40021043776)完成Ubuntu、Windows、Android编译及离线浏览器检查 | 真机、独立用户、真实部署及临床/安全复核仍待完成；后续任务见[人工清单](RELEASE_PARTICIPATION.md) |
 
 公开仓库和下载附件不代表应用服务已部署公网。默认启动仅供电脑本机使用；可选HTTPS模式面向维护者控制的合成数据试点，不是现成的临床平台。
 

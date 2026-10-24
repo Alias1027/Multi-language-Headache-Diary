@@ -1,7 +1,7 @@
 # Validation record — 0.8.2
 
 
-## Current candidate evidence — 2026-10-23
+## Current 0.8.2 release evidence — 2026-10-23
 
 Web/server **0.8.2**, Android **0.1.0-preview**. **200/200 core tests** pass with no skips, failures or cancellations ([core output](test-results.txt)); **141/141 browser checks** pass: 50 general UI, 21 patient/voice, 46 clinician/access/history and 24 offline/weak-network checks. A further **2/2 Android UI fault-injection scenarios** pass in a real Edge browser with an explicitly simulated native bridge: recovery after a vault-read failure, and preservation while a save delays language/navigation changes. These two checks are not Android-device tests.
 
@@ -9,11 +9,11 @@ The rebuilt Android debug APK passed **13 emulator scenarios** on Android 15/API
 
 Three defects were reproduced and fixed: older server snapshots on account re-link could replace newer confirmed cache; a startup vault-read error hid backup recovery; and language/navigation could replace a form while its native save was pending. The release pipeline also now includes the explicit doctor launcher scripts, checks relative guide links and validates current release-target markers. See [review record](RELEASE_REVIEW_0.8.2.md).
 
-The Android CI helper successfully downloaded and SHA-256-verified Gradle8.13 and compiled a debug APK locally. Three guard tests reject altered archives, signing credentials and output paths inside source. Official Actions are pinned to inspected commits; static workflow validation passed. **The final commit has not run this workflow on GitHub.** CI debug APKs are labeled compilation evidence, not distribution assets. Only the separately maintainer-signed APK is intended for experimental distribution.
+The Android CI helper downloaded and SHA-256-verified Gradle8.13 and compiled a debug APK locally. Three guard tests reject altered archives, signing credentials and output paths inside source. Official Actions are pinned to inspected commits; static workflow validation passed. The [0.8.2 tagged-commit run](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/40021043776) completed successfully on Ubuntu and Windows, including Android CI debug compilation and the offline-browser job. CI debug APKs are compilation evidence, not distribution assets. Only the separately maintainer-signed APK is intended for experimental distribution.
 
 **Physical-device acceptance is scheduled after experimental prerelease.** Current evidence does not establish real phones, successful manufacturer-recorder return, cross-phone restoration, deployed public HTTPS collaboration, low-memory/long-offline behavior, native-language readability or independent security/clinical validation. Browser/PWA and native offline prerequisites remain distinct. No real patients or connected clinical platforms were used.
 
-中文：本轮200项核心、141项网页检查、2项Android界面故障注入及13项模拟器场景通过；正式签名预览包更新安装后保留原档案。新增Android自动编译已完成本机脚本验证和工作流静态检查，尚未取得本轮GitHub远程结果。真机验收按计划在实验预发布后进行，不将模拟器或工程测试写成真机、临床或安全认证。
+中文：本轮200项核心、141项网页检查、2项Android界面故障注入及13项模拟器场景通过；正式签名预览包更新安装后保留原档案。[0.8.2 GitHub实验预发布版](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.8.2)已发布，含源码、Windows便携包、Android预览APK和校验文件；[标签提交的Ubuntu、Windows、Android编译及离线浏览器CI](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions/runs/40021043776)已通过。真机验收按计划在实验预发布后进行，不将模拟器或工程测试写成真机、临床或安全认证。
 
 ### Repeat the checks
 
@@ -60,7 +60,7 @@ The local upgrade uses a verified consistent backup of both existing databases a
 - GitHub Actions runs core and release checks on Ubuntu and Windows, plus the offline browser suite on Ubuntu. Consult the [version's Release](https://github.com/Alias1027/Multi-language-Headache-Diary--/releases/tag/v0.7.0) and [Actions](https://github.com/Alias1027/Multi-language-Headache-Diary--/actions) for the actual remote commit and result; local success does not imply hosted CI success.
 - True Android/iOS browser and installed-PWA acceptance, low-memory/storage eviction, multi-day real disconnection, background lifecycle, native-language comprehension, accessibility, security, live model/provider accuracy and clinical benefit remain unverified. See [the human checklist](OFFLINE_MOBILE.md) and [deployment boundary](MOBILE_DEPLOYMENT.md).
 
-中文：0.7.0历史核验中169项核心测试、125项合成数据浏览器检查通过。浏览器冷启动前清除普通HTTP缓存，确认离线资源和记录可以恢复；修复多标签草稿、后台同步及退出保护问题。真实手机、持续多日实际断网、低内存/存储回收、公网HTTPS部署、母语审校、无障碍和临床效果仍需单独验证。下文0.6.1及更早结果同为历史记录；当前0.8.1结果见本文开头。
+中文：0.7.0历史核验中169项核心测试、125项合成数据浏览器检查通过。浏览器冷启动前清除普通HTTP缓存，确认离线资源和记录可以恢复；修复多标签草稿、后台同步及退出保护问题。真实手机、持续多日实际断网、低内存/存储回收、公网HTTPS部署、母语审校、无障碍和临床效果仍需单独验证。下文0.6.1及更早结果同为历史记录；当前0.8.2结果见本文开头。
 
 ## Historical 0.5.1 packaged-source and browser smoke checks
 

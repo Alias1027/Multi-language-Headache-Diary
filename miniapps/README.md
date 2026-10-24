@@ -1,6 +1,8 @@
-# 微信 / 支付宝 / 抖音入口准备 — 0.7.0
+# 微信 / 支付宝 / 抖音入口准备 — 0.8.2
 
-**状态：网页容器入口scaffold，未进行平台构建、平台审核或手机扫码验收。** 这些目录不是已上线的小程序。当前已验证的核心入口是Windows本机浏览器；PWA具备基础，但跨设备安装待验收。
+入口脚手架始于0.7.0；本文件按当前0.8.2交付状态更新，不代表小程序已经上线。 / The scaffolds originated in 0.7.0; this guide reflects 0.8.2 delivery status, not a launched mini-program.
+
+**状态：网页容器入口scaffold，未进行平台构建、平台审核或手机扫码验收。** 这些目录不是已上线的小程序。当前0.8.2提供Windows本机浏览器入口和单独的Android 0.1.0-preview离线安装包；手机浏览器需要维护者部署可访问的HTTPS服务，PWA跨设备安装仍待验收。
 
 每个平台有独立app配置、首页模板和 `config.js`。默认网址为空，启动时只显示未配置提示；不会连接外部网址。配置项不得包含任何患者资料、身份令牌或解密密钥。二维码/scene参数不能选择任意网址，入口固定读取开发者配置，避免开放重定向。
 
@@ -8,7 +10,7 @@
 
 本项目将Windows一键启动、浏览器直接使用与可选小程序、PWA入口作为低门槛使用设计。**本目录对应“可选小程序入口，待接入/待平台验证”**，不是已经部署的产品。手机浏览器可作为使用方式，但当前本机包仅接受回环访问，仍需维护者部署可访问服务。完整便携包与GitHub源码包的区别见[中文README](../README.zh-CN.md)。
 
-These optional WeChat, Alipay and Douyin entry points are integration scaffolds only. No live mini-program, approved platform build or verified QR entry is supplied. Use the browser on the host computer today; mobile access requires a reachable deployed service. PWA installation remains separately unverified.
+These optional WeChat, Alipay and Douyin entry points are integration scaffolds only. No live mini-program, approved platform build or verified QR entry is supplied. The current 0.8.2 release includes host-computer browser access and a separate first-launch offline Android 0.1.0-preview APK; mobile browser access needs a reachable HTTPS service. PWA installation remains separately unverified.
 
 ## 后续接入顺序
 
