@@ -1,5 +1,11 @@
 # Headache Diary Lab · 0.8.2
 
+## At a glance / 太长不看
+
+**English:** Headache Diary Lab is an eight-language, patient-centered headache diary research prototype for daily status, attacks, actual medication use and treatment feedback, with traceable visit summaries. It offers a Windows portable package, browser/PWA access and an Android preview that works offline from first launch. Clinicians can review and follow up through separate, patient-authorized accounts. It is not a full medical record or e-prescribing system. The source is available for personal noncommercial learning and experimentation; institutional or commercial use requires prior written permission.
+
+**中文：** Headache Diary Lab 是支持八种语言的患者端头痛日记实验原型，用于记录每日状态、头痛发作、实际用药和疗效反馈，并生成可追溯的就诊摘要。当前提供 Windows 便携包、浏览器/PWA，以及首次使用无需联网的 Android 预览版；医生可在患者授权后通过独立账号审阅并随访。本产品不是完整病历或电子处方系统。源码可见，个人非商业学习与实验可用；机构及商业使用须事先取得书面授权。
+
 ## Android offline patient preview 0.1.0-preview
 
 A bundled Android app now starts offline without an account, supports consecutive-day entries in all eight languages, password-encrypted backups/restoration, and explicit account linking/manual synchronization to a deployed HTTPS service. Recording delegates to an installed phone recorder, with an existing-audio picker fallback. No speech model is bundled. Browser and PWA versions are retained.
